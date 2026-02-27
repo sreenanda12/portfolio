@@ -1,0 +1,455 @@
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* AMBIENT BACKGROUND TEXT */
+.ambient-bg-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2vh;
+    overflow: hidden;
+    opacity: 0.03;
+    /* Extremely subtle */
+    pointer-events: none;
+    /* Make sure it doesn't block clicks */
+}
+
+/* For dark mode consistency */
+[data-theme="dark"] .ambient-bg-text {
+    opacity: 0.02;
+}
+
+.ambient-row {
+    white-space: nowrap;
+    font-size: clamp(8rem, 15vw, 15rem);
+    font-weight: 900;
+    color: var(--text-primary);
+    line-height: 1;
+    text-transform: uppercase;
+    font-family: var(--font-primary);
+}
+
+.animate-scroll-left {
+    animation: scrollLeft 40s linear infinite;
+}
+
+.animate-scroll-right {
+    animation: scrollRight 40s linear infinite;
+}
+
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes scrollRight {
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.hero-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    width: 100%;
+    z-index: 10;
+    /* Keep above ambient text */
+    position: relative;
+}
+
+.hero-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+    z-index: 10;
+}
+
+.hero-image-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+    z-index: 5;
+    animation: slideUpHeroImg 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+    transform: translateY(150px);
+}
+
+@keyframes slideUpHeroImg {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-profile-img {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
+    z-index: 2;
+    position: relative;
+    transition: transform 0.4s ease-out;
+}
+
+.hero-profile-img:hover {
+    transform: scale(1.02);
+}
+
+[data-theme="dark"] .hero-image-wrapper::before {
+    display: none;
+}
+
+[data-theme="dark"] .hero-profile-img {
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4));
+}
+
+.hero-title {
+    font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+    /* Adjusted Size */
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+    perspective: 1000px;
+    /* For 3D floating effect */
+}
+
+.typing-text-manual {
+    display: inline-block;
+    background: linear-gradient(to right, var(--text-primary), var(--accent-indigo), var(--accent-emerald), var(--accent-pink), var(--text-primary));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+
+    /* Layered drop shadows for 3D extrusion while keeping transparent text */
+    filter: drop-shadow(3px 3px 0px rgba(99, 102, 241, 0.6)) drop-shadow(6px 6px 0px rgba(16, 185, 129, 0.3)) drop-shadow(10px 15px 20px rgba(0, 0, 0, 0.5));
+
+    /* Animations */
+    animation: title3DFloat 6s ease-in-out infinite, titleGlowFlow 4s linear infinite;
+    transform-style: preserve-3d;
+}
+
+@keyframes titleGlowFlow {
+    0% {
+        background-position: 0% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+@keyframes title3DFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotateX(0deg) rotateY(0deg) scale(1);
+    }
+
+    50% {
+        transform: translateY(-15px) rotateX(8deg) rotateY(-5deg) scale(1.02);
+    }
+}
+
+.cursor {
+    display: inline-block;
+    color: var(--accent-indigo);
+    animation: blink-caret 0.75s step-end infinite;
+    margin-left: 2px;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.hero-subtitle.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-subtitle .separator {
+    color: var(--accent-pink);
+    margin: 0 0.5rem;
+}
+
+.hero-description {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.hero-description.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-corner-theme-toggle {
+    position: absolute;
+    top: 60px;
+    right: 2rem;
+    z-index: 100;
+}
+
+.hero-corner-theme-toggle button {
+    margin: 0;
+    width: 45px;
+    height: 45px;
+    animation: pulse 3s infinite;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-corner-theme-toggle button:hover {
+    animation-play-state: paused;
+    transform: rotate(15deg) scale(1.1);
+    box-shadow: 0 0 15px var(--accent-indigo);
+}
+
+.hero-visual {
+    position: absolute;
+    right: 2rem;
+    bottom: 2rem;
+    z-index: 20;
+}
+
+.hero-tools-cluster-3d {
+    position: absolute;
+    bottom: 30px;
+    right: 2rem;
+    z-index: 20;
+}
+
+/* Gradient Aura (Studio Lighting behind cluster) */
+.cluster-glow-aura {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(227, 79, 38, 0.05) 50%, rgba(0, 0, 0, 0) 70%);
+    filter: blur(40px);
+    z-index: 0;
+    pointer-events: none;
+    animation: pulseAura 6s ease-in-out infinite alternate;
+}
+
+@keyframes pulseAura {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+    }
+}
+
+/* Individual Tool Wrappers (Floating Organic Movement) */
+.grid-tool-wrapper {
+    position: relative;
+    transform-style: preserve-3d;
+    animation: floatTool 6s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    cursor: pointer;
+    border-radius: 20px;
+    z-index: 1;
+    /* relative to aura */
+}
+
+@keyframes floatTool {
+    0% {
+        transform: translateY(0) rotateX(2deg) rotateY(-2deg);
+    }
+
+    100% {
+        transform: translateY(-8px) rotateX(-2deg) rotateY(2deg);
+    }
+}
+
+/* Glassmorphism Inner Icon */
+.float-tool-glass {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.03);
+    /* Extremely subtle glass base */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateZ(20px);
+    /* 3D pop effect */
+}
+
+/* Specific Adobe Hacks inside Glass */
+.adobe-icon-hack {
+    width: 65%;
+    height: 65%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    border-radius: 6px;
+    box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.2);
+}
+
+.grid-tool-wrapper:hover {
+    animation-play-state: paused;
+    z-index: 10 !important;
+}
+
+.grid-tool-wrapper:hover .float-tool-glass {
+    transform: scale(1.15) translateZ(40px);
+    border-color: rgba(255, 255, 255, 0.3);
+    /* Individual shadows are generated inline React side based on brand color */
+}
+
+/* Custom Tooltips for Floating Tools */
+.tool-float-tooltip {
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(50px);
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid var(--border-light);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.grid-tool-wrapper:hover .tool-float-tooltip {
+    opacity: 1;
+    visibility: visible;
+    top: -55px;
+}
+
+.tool-float-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background-color: var(--card-bg);
+    border-right: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* Click Explosion Animation */
+.click-explosion {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.click-spark {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: explodeClick 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    filter: drop-shadow(0 0 5px currentColor);
+}
+
+@keyframes explodeClick {
+    0% {
+        transform: translate(0, 0) scale(1.5);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 968px) {
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 3rem;
+    }
+
+    .hero-content {
+        align-items: center;
+        max-width: 100%;
+    }
+
+    .hero-visual {
+        align-items: center;
+    }
+
+    .tools-grid-cluster {
+        transform: scale(0.85);
+        /* Scales down natural grid beautifully */
+        margin-top: 1rem;
+    }
+
+    .typing-text-manual {
+        font-size: 80%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .tools-grid-cluster {
+        transform: scale(0.7);
+    }
+
+    .hero-profile-img {
+        max-height: 60vh;
+    }
+}

@@ -1,0 +1,388 @@
+.gallery-section {
+    background-color: var(--bg-primary);
+}
+
+.gallery-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    justify-content: center;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid var(--border-light);
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--accent-indigo);
+    color: #fff;
+    border-color: var(--accent-indigo);
+    box-shadow: var(--shadow-sm);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.gallery-section.visible .gallery-grid {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-card {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.4s ease;
+    aspect-ratio: 4/3;
+    cursor: pointer;
+}
+
+.gallery-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+}
+
+.gallery-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    mix-blend-mode: multiply;
+    opacity: 0.8;
+}
+
+/* Fallback for dark themes, blend mode changes */
+[data-theme="dark"] .gallery-image-wrapper img {
+    mix-blend-mode: luminosity;
+    opacity: 0.6;
+}
+
+.gallery-card:hover .gallery-image-wrapper img {
+    transform: scale(1.1);
+    opacity: 1;
+    mix-blend-mode: normal;
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(26, 26, 46, 0.85);
+    /* dark semi-transparent */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(4px);
+}
+
+.gallery-card:hover .gallery-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.project-category {
+    color: var(--accent-indigo);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.project-title {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s;
+}
+
+.view-project-btn {
+    background: var(--gradient-btn-portfolio);
+    color: #fff;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s;
+}
+
+.view-project-btn:hover {
+    background: linear-gradient(135deg, #F97316, #EC4899);
+}
+
+.gallery-card:hover .project-category,
+.gallery-card:hover .project-title,
+.gallery-card:hover .view-project-btn {
+    transform: translateY(0);
+}
+
+/* Project Modal */
+.project-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s ease;
+}
+
+.project-modal-content {
+    background: var(--card-bg);
+    width: 90%;
+    max-width: 1000px;
+    height: 85vh;
+    border-radius: 16px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+.project-modal-header {
+    margin-bottom: 1.5rem;
+}
+
+.project-modal-image {
+    flex: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.project-modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+
+.close-modal-btn:hover {
+    opacity: 1;
+}
+
+/* --- CONTINUOUS MARQUEE --- */
+.marquee-wrapper {
+    width: 100%;
+    overflow: hidden;
+    padding: 2rem 0 4rem 0;
+    position: relative;
+    /* gradient fades on edges */
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    animation: marquee-scroll 35s linear infinite;
+}
+
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+.marquee-card {
+    position: relative;
+    width: 350px;
+    height: 250px;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    flex-shrink: 0;
+}
+
+.marquee-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.marquee-overlay {
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    color: white;
+    transition: bottom 0.4s ease;
+    display: flex;
+    align-items: flex-end;
+}
+
+.marquee-card:hover {
+    transform: scale(1.1) translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+}
+
+.marquee-card:hover img {
+    transform: scale(1.05);
+}
+
+.marquee-card:hover .marquee-overlay {
+    bottom: 0;
+}
+
+@keyframes marquee-scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-33.33%);
+    }
+
+    /* We multiply elements x3, so shifting by 1/3 loops it */
+}
+
+/* --- MORE INFO TOGGLE --- */
+.more-info-container {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0 4rem 0;
+}
+
+.more-info-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    color: var(--accent-indigo);
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.link-external {
+    text-decoration: none;
+}
+
+.more-info-btn:hover {
+    transform: translateY(-5px);
+    color: var(--accent-emerald);
+}
+
+/* --- MULTICOLOR TEXT MARQUEE --- */
+.multicolor-marquee {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.multicolor-marquee .marquee-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    /* Base opacity to blend with background color */
+    mix-blend-mode: luminosity;
+    /* Blends texturally with the color */
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    z-index: 1;
+}
+
+.multicolor-marquee:hover .marquee-bg-img {
+    opacity: 0.7;
+    /* Reveals image more on hover */
+    transform: scale(1.1);
+    mix-blend-mode: normal;
+}
+
+.marquee-text-overlay {
+    position: relative;
+    z-index: 2;
+    /* Stands above the image */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    pointer-events: none;
+    /* Let clicks pass through to card */
+}
+
+.multicolor-marquee h3 {
+    color: white;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+    /* Stronger shadow for image contrast */
+    margin: 0;
+    transition: transform 0.4s ease;
+}
+
+.multicolor-marquee:hover h3 {
+    transform: scale(1.05);
+    /* Slight pop of text */
+}

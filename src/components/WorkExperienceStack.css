@@ -1,0 +1,204 @@
+.we-stack-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 2rem 0;
+    width: 100%;
+}
+
+.we-card-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: -30px;
+    /* Slight overlap */
+    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    cursor: pointer;
+    perspective: 1000px;
+}
+
+/* First item doesn't need negative margin */
+.we-card-wrapper:first-child {
+    margin-top: 0;
+}
+
+.we-card-inner {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+/* Scroll Animation states */
+.we-card-wrapper.we-active {
+    z-index: 10;
+}
+
+.we-card-wrapper.we-active .we-card-inner {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+    border-color: var(--accent-indigo);
+}
+
+.we-card-wrapper.we-blur .we-card-inner {
+    filter: blur(3px) brightness(0.8);
+    transform: scale(0.95);
+    z-index: 1;
+}
+
+.we-card-wrapper:hover .we-card-inner {
+    transform: translateY(-8px) scale(1.06);
+    box-shadow: 0 25px 50px rgba(99, 102, 241, 0.3);
+    filter: none;
+    /* remove blur on hover even if not active */
+}
+
+/* Card Content typography */
+.we-company {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.we-date {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.we-role-preview h5 {
+    color: var(--accent-indigo);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.we-click-text {
+    display: block;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--accent-emerald);
+    opacity: 0.8;
+}
+
+/* Expansion Modal */
+.we-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.85);
+    /* Changed from black to white transparent */
+    backdrop-filter: blur(15px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.we-modal-content {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 800px;
+    height: 100vh;
+    padding: 3rem;
+    border-radius: 0px !important;
+    /* as requested: expands to full screen detailed view, border radius reduces to 0 */
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-light);
+    animation: slideUpFade 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+        border-radius: 30px;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        border-radius: 0px;
+    }
+}
+
+/* Same close button logic */
+.we-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(0, 0, 0, 0.05);
+    /* Grey instead of white */
+    border: none;
+    color: var(--text-primary);
+    /* Changed to primary for contrast */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.we-modal-close:hover {
+    background: var(--accent-pink);
+    color: white;
+    transform: rotate(90deg);
+}
+
+.we-modal-company {
+    font-size: 2rem;
+    background: linear-gradient(90deg, var(--accent-indigo), var(--accent-emerald));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.we-modal-date {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 1.5rem;
+}
+
+.we-modal-role {
+    margin-bottom: 2.5rem;
+}
+
+.we-role-title {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.we-role-tasks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.we-role-tasks li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.we-role-tasks li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-indigo);
+}

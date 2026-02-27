@@ -1,0 +1,186 @@
+.floating-tools-super {
+    position: relative;
+    margin: 0;
+    z-index: 1000;
+    perspective-origin: center center;
+}
+
+.floating-tools-container {
+    transform-style: preserve-3d;
+}
+
+.floating-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    transform-style: preserve-3d;
+}
+
+.tool-wrapper {
+    transform: rotateX(var(--rx)) rotateY(var(--ry));
+    transform-style: preserve-3d;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tool-animator {
+    transform-style: preserve-3d;
+    position: relative;
+    animation: antiGravity var(--dur) ease-in-out var(--del) infinite;
+    will-change: transform;
+}
+
+.tool-card {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+@media (min-width: 768px) {
+    .tool-card {
+        width: 64px;
+        height: 64px;
+    }
+}
+
+.tool-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(10px);
+}
+
+.tool-icon-wrapper svg {
+    width: 20px;
+    height: 20px;
+    color: var(--brand);
+    filter: drop-shadow(0 0 8px var(--brand));
+    transition: all 0.3s ease;
+}
+
+@media (min-width: 768px) {
+    .tool-icon-wrapper svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* Base Shadow */
+.tool-shadow {
+    position: absolute;
+    bottom: -8px;
+    left: 10%;
+    width: 80%;
+    height: 6px;
+    background: var(--brand);
+    border-radius: 50%;
+    filter: blur(6px);
+    opacity: 0.3;
+    animation: shadowPulse var(--dur) ease-in-out var(--del) infinite;
+    pointer-events: none;
+    transform: translateZ(calc(var(--tz) - 10px));
+}
+
+@keyframes antiGravity {
+
+    0%,
+    100% {
+        transform: translateY(0px) translateZ(var(--tz));
+    }
+
+    25% {
+        transform: translateY(-6px) translateZ(calc(var(--tz) + 5px));
+    }
+
+    50% {
+        transform: translateY(-10px) translateZ(calc(var(--tz) + 10px));
+    }
+
+    75% {
+        transform: translateY(-4px) translateZ(calc(var(--tz) + 3px));
+    }
+}
+
+@keyframes shadowPulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(0.9) translateZ(calc(var(--tz) - 10px));
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1) translateZ(calc(var(--tz) - 10px));
+    }
+}
+
+/* Hover Interactions */
+.tool-animator:hover {
+    animation-play-state: paused;
+}
+
+.tool-animator:hover .tool-shadow {
+    animation-play-state: paused;
+    opacity: 0;
+    /* Hide base shadow to make way for glow */
+}
+
+.tool-card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.3), 0 0 25px var(--brand-glow);
+    border-color: rgba(255, 255, 255, 0.4);
+    z-index: 10;
+}
+
+/* Tooltip Styles */
+.tool-tooltip {
+    position: absolute;
+    top: -36px;
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.tool-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 4px 4px 0;
+    border-style: solid;
+    border-color: var(--text-primary) transparent transparent transparent;
+}
+
+.tool-card:hover .tool-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}

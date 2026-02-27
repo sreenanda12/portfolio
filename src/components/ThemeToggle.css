@@ -1,0 +1,35 @@
+.theme-toggle {
+    background: var(--tool-card-bg);
+    border: 1px solid var(--tool-card-border);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--toggle-icon);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:hover {
+    background: var(--accent-indigo);
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+}
+
+.theme-icon {
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.moon {
+    transform: rotate(-25deg);
+}
+
+.sun {
+    transform: rotate(0);
+}

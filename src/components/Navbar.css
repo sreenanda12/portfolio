@@ -1,0 +1,218 @@
+/* Top Header container */
+.top-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
+    z-index: 10001;
+    transition: all 0.4s ease;
+}
+
+.top-header.scrolled {
+    padding: 1rem 2rem;
+    background: var(--nav-bg);
+    backdrop-filter: var(--nav-blur);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo specific styling */
+.logo-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    color: var(--text-primary);
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+.logo-text {
+    position: absolute;
+    font-size: 1.2rem;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.logo-hover-text {
+    position: absolute;
+    opacity: 0;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transform: translateX(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    color: #fff;
+}
+
+.logo-container:hover {
+    width: 200px;
+    /* Expand width to fit full name */
+    background: var(--accent-indigo);
+    border-color: var(--accent-indigo);
+}
+
+.logo-container:hover .logo-text {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.logo-container:hover .logo-hover-text {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Right side tools wrapper */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Navbar button override */
+.nav-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-btn:hover {
+    transform: scale(1.1);
+    background: var(--accent-indigo);
+    color: white;
+}
+
+.nav-btn.open {
+    background: var(--accent-indigo);
+    color: white;
+    transform: rotate(90deg);
+}
+
+/* Theme Toggle Button Fix (Since it's in header controls now) */
+.header-controls .theme-toggle {
+    position: static;
+    width: 50px;
+    height: 50px;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Floating Overlay Menu */
+.nav-overlay-menu {
+    position: fixed;
+    top: 5rem;
+    right: 2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(20px) scale(0.9);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(15px);
+}
+
+.top-header.scrolled~.nav-overlay-menu {
+    top: 4.5rem;
+}
+
+.nav-overlay-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) scale(1);
+}
+
+.nav-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.nav-item {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.nav-links {
+    color: var(--text-primary);
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    padding-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+.nav-links::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent-indigo);
+    transition: width 0.3s ease;
+}
+
+.nav-links:hover,
+.nav-links.active {
+    color: var(--accent-indigo);
+}
+
+.nav-links:hover::after,
+.nav-links.active::after {
+    width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .top-header {
+        padding: 1rem;
+    }
+
+    .top-header.scrolled {
+        padding: 0.8rem 1rem;
+    }
+
+    .nav-btn,
+    .header-controls .theme-toggle,
+    .logo-container {
+        width: 45px;
+        height: 45px;
+    }
+
+    .logo-container:hover {
+        width: 180px;
+    }
+
+    .logo-hover-text {
+        font-size: 0.85rem;
+    }
+
+    .nav-overlay-menu {
+        top: 4rem;
+        right: 1rem;
+        width: 250px;
+    }
+}
