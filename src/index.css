@@ -73,11 +73,11 @@ body {
   font-family: var(--font-primary);
   background: var(--app-bg);
   background-image:
-    linear-gradient(to right, var(--grid-pattern-color) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-pattern-color) 1px, transparent 1px),
+    radial-gradient(var(--grid-pattern-color) 1.5px, transparent 1.5px),
     var(--app-bg);
-  background-size: 40px 40px, 40px 40px, 100% 100%;
-  background-attachment: fixed, fixed, fixed;
+  background-size: 30px 30px, 100% 100%;
+  background-position: 0 0, 0 0;
+  background-attachment: fixed, fixed;
   color: var(--text-primary);
   transition: background 0.4s ease, color 0.4s ease;
   overflow-x: hidden;

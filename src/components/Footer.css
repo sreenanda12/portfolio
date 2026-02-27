@@ -1,9 +1,10 @@
 .footer {
-    background-color: #0F0F1A;
-    /* Fixed dark background */
-    color: #94A3B8;
+    background-color: var(--bg-secondary, #F8F6F2);
+    /* Adapts to theme, defaults to light */
+    color: var(--text-secondary, #4A4A68);
     padding: 4rem 0 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--border-light);
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .footer-content {
@@ -23,7 +24,7 @@
 .footer-logo {
     font-size: 2rem;
     font-weight: 700;
-    color: #fff;
+    color: var(--text-primary);
 }
 
 .footer-logo span {
@@ -42,8 +43,9 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
+    background: var(--nav-bg);
+    border: 1px solid var(--border-light);
+    color: var(--text-primary);
     transition: all 0.3s ease;
 }
 
@@ -64,14 +66,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-light);
     padding-top: 2rem;
     font-size: 0.9rem;
 }
 
 .back-to-top {
     cursor: pointer;
-    color: #F8FAFC;
+    color: var(--text-secondary);
     transition: color 0.3s ease;
     font-weight: 500;
 }
