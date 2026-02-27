@@ -13,18 +13,22 @@ const projects = [
 
 const categories = ['All', 'UI Design', 'Logo Design', 'Web Design', 'Social Media', 'Branding'];
 
-const DesignStoriesPage = () => {
+const DesignStoriesPage = ({ isComponent = false }) => {
     const [filter, setFilter] = useState('All');
     const [filteredProjects, setFilteredProjects] = useState(projects);
     const [selectedProject, setSelectedProject] = useState(null);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-        document.title = "DESIGN STORIES";
+        if (!isComponent) {
+            window.scrollTo(0, 0);
+            document.title = "DESIGN STORIES";
+        }
         return () => {
-            document.title = "Portfolio";
+            if (!isComponent) {
+                document.title = "Portfolio";
+            }
         };
-    }, []);
+    }, [isComponent]);
 
     useEffect(() => {
         if (filter === 'All') {
@@ -35,17 +39,19 @@ const DesignStoriesPage = () => {
     }, [filter]);
 
     return (
-        <div className="design-stories-page">
-            <header className="stories-header">
-                <button
-                    className="back-btn"
-                    onClick={() => window.close()}
-                    title="Close Window"
-                >
-                    <ArrowLeft size={24} />
-                    <span>Back to Portfolio</span>
-                </button>
-            </header>
+        <div className={`design-stories-page ${isComponent ? 'embedding' : ''}`}>
+            {!isComponent && (
+                <header className="stories-header">
+                    <button
+                        className="back-btn"
+                        onClick={() => window.location.href = '/'}
+                        title="Close Window"
+                    >
+                        <ArrowLeft size={24} />
+                        <span>Back to Portfolio</span>
+                    </button>
+                </header>
+            )}
 
             <main className="container stories-main">
                 <h1 className="stories-title-main">DESIGN STORIES</h1>

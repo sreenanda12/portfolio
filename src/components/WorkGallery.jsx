@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Maximize2, Info, ChevronDown } from 'lucide-react';
 import { Link as ScrollLink } from 'react-scroll';
+import DesignStoriesPage from './DesignStoriesPage';
 import './WorkGallery.css';
 
 const projects = [
@@ -48,7 +49,16 @@ const WorkGallery = () => {
     }, []);
 
     const toggleStories = () => {
-        setShowStories(!showStories);
+        // Check if device is mobile (width < 768px as standard)
+        const isMobile = window.innerWidth <= 768;
+
+        if (isMobile) {
+            // Open in new window for mobile as requested
+            window.open('/design-stories', '_blank');
+        } else {
+            // Standard toggle for desktop
+            setShowStories(!showStories);
+        }
     };
 
     return (
@@ -79,16 +89,21 @@ const WorkGallery = () => {
 
                 {/* MORE INFO ICON BUTTON */}
                 <div className="more-info-container">
-                    <a
-                        href="/design-stories"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="more-info-btn link-external"
+                    <button
+                        onClick={toggleStories}
+                        className="more-info-btn"
                     >
-                        <Maximize2 size={28} />
-                        <span>View More</span>
-                    </a>
+                        <Maximize2 size={28} style={{ transform: showStories ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }} />
+                        <span>{showStories ? 'View Less' : 'View More'}</span>
+                    </button>
                 </div>
+
+                {/* SHOW STORIES IN-PLACE */}
+                {showStories && (
+                    <div className="expanded-stories-section animate-fade-in-up">
+                        <DesignStoriesPage isComponent={true} />
+                    </div>
+                )}
 
             </div>
 
