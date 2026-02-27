@@ -32,14 +32,22 @@ const Education3DCard = ({ edu }) => {
 
             {/* The Shatter Modal Overlay */}
             {modalData.isOpen && (
-                <div className="edu-modal-overlay" onClick={closeModal}>
+                <div
+                    className="edu-modal-overlay"
+                    onClick={closeModal}
+                    onTouchStart={closeModal}
+                >
 
                     {/* The 4 Shatter Panels starting from the card's original position */}
                     <ShatterPanels rect={modalData.rect} cardTitle={edu.title} />
 
                     {/* The Expanding Detail View */}
-                    <div className="edu-modal-content" onClick={(e) => e.stopPropagation()}>
-                        <button className="edu-modal-close" onClick={closeModal}><X size={24} /></button>
+                    <div
+                        className="edu-modal-content"
+                        onClick={(e) => e.stopPropagation()}
+                        onTouchStart={(e) => e.stopPropagation()}
+                    >
+                        <button className="edu-modal-close" onClick={closeModal} onTouchStart={closeModal}><X size={24} /></button>
                         <h2 className="edu-modal-title">{edu.title}</h2>
 
                         <div className="edu-modal-info">
