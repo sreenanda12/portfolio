@@ -49,16 +49,7 @@ const WorkGallery = () => {
     }, []);
 
     const toggleStories = () => {
-        // Check if device is mobile (width < 768px as standard)
-        const isMobile = window.innerWidth <= 768;
-
-        if (isMobile) {
-            // Open in new window for mobile as requested
-            window.open('/design-stories', '_blank');
-        } else {
-            // Standard toggle for desktop
-            setShowStories(!showStories);
-        }
+        setShowStories(!showStories);
     };
 
     return (
@@ -89,21 +80,16 @@ const WorkGallery = () => {
 
                 {/* MORE INFO ICON BUTTON */}
                 <div className="more-info-container">
-                    <button
-                        onClick={toggleStories}
-                        className="more-info-btn"
+                    <a
+                        href="#/design-stories"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="more-info-btn link-external"
                     >
-                        <Maximize2 size={28} style={{ transform: showStories ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }} />
-                        <span>{showStories ? 'View Less' : 'View More'}</span>
-                    </button>
+                        <Maximize2 size={28} />
+                        <span>View More</span>
+                    </a>
                 </div>
-
-                {/* SHOW STORIES IN-PLACE */}
-                {showStories && (
-                    <div className="expanded-stories-section animate-fade-in-up">
-                        <DesignStoriesPage isComponent={true} />
-                    </div>
-                )}
 
             </div>
 

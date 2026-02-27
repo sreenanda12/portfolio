@@ -44,8 +44,8 @@ const DesignStoriesPage = ({ isComponent = false }) => {
                 <header className="stories-header">
                     <button
                         className="back-btn"
-                        onClick={() => window.location.href = '/'}
-                        title="Close Window"
+                        onClick={() => window.location.href = '#/'}
+                        title="Back to Portfolio"
                     >
                         <ArrowLeft size={24} />
                         <span>Back to Portfolio</span>

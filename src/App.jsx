@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -31,12 +31,12 @@ function App() {
     return (
         <ThemeProvider>
             <CursorSparkles />
-            <BrowserRouter>
+            <HashRouter>
                 <Routes>
                     <Route path="/" element={<PortfolioMain />} />
                     <Route path="/design-stories" element={<DesignStoriesPage />} />
                 </Routes>
-            </BrowserRouter>
+            </HashRouter>
         </ThemeProvider>
     );
 }
