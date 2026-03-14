@@ -5,13 +5,17 @@
 }
 
 .about-page {
-    padding: 100px 0;
+    padding: 80px 0 40px;
     background-color: var(--bg-primary);
     overflow: hidden;
 }
 
 .about-section {
-    margin-bottom: 120px;
+    margin-bottom: 80px;
+}
+
+.about-section:last-child {
+    margin-bottom: 0;
 }
 
 .section-header {
