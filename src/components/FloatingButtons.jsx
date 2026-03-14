@@ -10,7 +10,7 @@ const FloatingButtons = () => {
         <>
             {/* Portfolio Bottom Right */}
             <Link
-                to="gallery"
+                to="work-gallery"
                 smooth={true}
                 duration={500}
                 className="floating-btn portfolio-btn"

@@ -39,7 +39,7 @@
 
 .we-card-wrapper.we-active .we-card-inner {
     transform: scale(1.05) translateY(-5px);
-    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 20px 40px rgba(231, 111, 46, 0.2);
     border-color: var(--accent-indigo);
 }
 
@@ -51,7 +51,7 @@
 
 .we-card-wrapper:hover .we-card-inner {
     transform: translateY(-8px) scale(1.06);
-    box-shadow: 0 25px 50px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 25px 50px rgba(231, 111, 46, 0.3);
     filter: none;
     /* remove blur on hover even if not active */
 }
@@ -79,7 +79,7 @@
     display: block;
     margin-top: 1.5rem;
     font-size: 0.85rem;
-    color: var(--accent-emerald);
+    color: var(--accent-primary);
     opacity: 0.8;
 }
 
@@ -150,14 +150,14 @@
 }
 
 .we-modal-close:hover {
-    background: var(--accent-pink);
+    background: var(--accent-hover);
     color: white;
     transform: rotate(90deg);
 }
 
 .we-modal-company {
     font-size: 2rem;
-    background: linear-gradient(90deg, var(--accent-indigo), var(--accent-emerald));
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-hover));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

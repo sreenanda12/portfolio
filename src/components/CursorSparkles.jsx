@@ -18,15 +18,15 @@ const CursorSparkles = () => {
         window.addEventListener('resize', resize);
         resize();
 
-        let cachedColors = ['#6366F1', '#10B981', '#1A1A2E', '#8B5CF6'];
+        let cachedColors = ['#E76F2E', '#F28C54', '#2F2F2F', '#F5F5F2'];
 
         const updateThemeColors = () => {
             const styles = getComputedStyle(document.documentElement);
-            const textP = styles.getPropertyValue('--text-primary').trim() || '#1A1A2E';
-            const indigo = styles.getPropertyValue('--accent-indigo').trim() || '#6366F1';
-            const emerald = styles.getPropertyValue('--accent-emerald').trim() || '#10B981';
-            // Mix of the Name text colors (textPrimary + indigo) and a little emerald/purple for magic
-            cachedColors = [textP, indigo, textP, '#8B5CF6'];
+            const textP = styles.getPropertyValue('--text-primary').trim() || '#2F2F2F';
+            const accentPrimary = styles.getPropertyValue('--accent-primary').trim() || '#E76F2E';
+            const accentHover = styles.getPropertyValue('--accent-hover').trim() || '#F28C54';
+            // Mix of the Name text colors and a little accent for magic
+            cachedColors = [textP, accentPrimary, textP, accentHover];
         };
         updateThemeColors();
 

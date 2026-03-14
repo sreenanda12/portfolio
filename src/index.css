@@ -3,63 +3,74 @@
   /* Typography */
   --font-primary: 'Poppins', sans-serif;
 
-  /* Color Scheme: Light Mode (On Click) */
-  --bg-primary: #F8F6F2;
+  /* Color Scheme: Recommended Combination */
+  --bg-primary: #F5F5F2;
   --bg-secondary: #FFFFFF;
-  --text-primary: #1A1A2E;
-  --text-secondary: #4A4A68;
+  --text-primary: #2F2F2F;
+  --text-secondary: #9A9A9A;
 
-  --accent-indigo: #6366F1;
-  --accent-pink: #EC4899;
-  --accent-emerald: #10B981;
-  --accent-amber: #F59E0B;
+  /* Burnt Orange Accent */
+  --accent-primary: #E76F2E;
+  --accent-hover: #F28C54;
+
+  --accent-indigo: var(--accent-primary);
+  --accent-pink: var(--accent-hover);
+  --accent-emerald: var(--accent-primary);
+  --accent-amber: var(--accent-primary);
   --accent-whatsapp: #25D366;
 
-  --nav-bg: rgba(255, 255, 255, 0.8);
+  --nav-bg: rgba(245, 245, 242, 0.8);
   --nav-blur: blur(10px);
 
-  --border-light: rgba(0, 0, 0, 0.05);
-  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.08);
-  --shadow-hover: 0 20px 25px rgba(0, 0, 0, 0.1);
-  --gradient-btn-cv: linear-gradient(135deg, #6366F1, #8B5CF6);
-  --gradient-btn-portfolio: linear-gradient(135deg, #EC4899, #F97316);
-  --card-bg: #FFFFFF;
-  --toggle-icon: #F59E0B;
+  --border-light: #E0E0DB;
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 20px rgba(231, 111, 46, 0.3);
+  
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --gradient-btn-cv: linear-gradient(135deg, #E76F2E, #F28C54);
+  --gradient-btn-portfolio: linear-gradient(135deg, #E76F2E, #F28C54);
+  --card-bg: #FFFFFF; /* Keep cards clean */
+  --toggle-icon: #E76F2E;
 
   /* Floating Tools and Theme Backgrounds */
-  --app-bg: linear-gradient(135deg, #f3f4f6 0%, #ffffff 50%, #e5e7eb 100%);
-  /* gray-100 -> white -> gray-200 */
-  --grid-pattern-color: rgba(0, 0, 0, 0.05);
-  /* black/5% */
-  --tool-card-bg: linear-gradient(135deg, rgba(229, 231, 235, 0.8), rgba(255, 255, 255, 0.6));
-  --tool-card-border: rgba(209, 213, 219, 0.5);
-  /* gray-300/50 */
+  --app-bg: #F5F5F2; /* Solid Moonlight */
+  --grid-pattern-color: rgba(0, 0, 0, 0.02);
+  --tool-card-bg: rgba(255, 255, 255, 0.9);
+  --tool-card-border: #E0E0DB;
 }
 
 [data-theme="dark"] {
-  /* Color Scheme: Dark Mode */
-  --bg-primary: #0F0F1A;
-  --bg-secondary: #1A1A2E;
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
+  /* Color Scheme: Dark Mode (Professional Deep Slate) */
+  --bg-primary: #121212;
+  --bg-secondary: #1E1E1E;
+  --text-primary: #F5F5F2;
+  --text-secondary: #9A9A9A;
 
-  --nav-bg: rgba(15, 15, 26, 0.8);
-  --border-light: rgba(255, 255, 255, 0.05);
-  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.3);
-  --shadow-hover: 0 20px 25px rgba(0, 0, 0, 0.4);
-  --card-bg: #1A1A2E;
-  --toggle-icon: #94A3B8;
+  --accent-primary: #E76F2E;
+  --accent-hover: #F28C54;
+  
+  --accent-indigo: var(--accent-primary);
+  --accent-pink: var(--accent-hover);
+  --accent-emerald: var(--accent-primary);
+  --accent-amber: var(--accent-primary);
+
+  --nav-bg: rgba(18, 18, 18, 0.8);
+  --border-light: rgba(231, 111, 46, 0.1); 
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(231, 111, 46, 0.4);
+  --card-bg: #1E1E1E;
+  --toggle-icon: #E76F2E;
 
   /* Floating Tools and Theme Backgrounds */
-  --app-bg: linear-gradient(135deg, #7b68ee 0%, #11111f 60%, #0F0F1A 100%);
-  /* lavender-like purple -> dark */
-  --grid-pattern-color: rgba(255, 255, 255, 0.03);
-  /* white/3% */
-  --tool-card-bg: linear-gradient(135deg, rgba(123, 104, 238, 0.15), rgba(255, 255, 255, 0.05));
-  --tool-card-border: rgba(123, 104, 238, 0.3);
-  /* lavender/30 */
+  --app-bg: #121212;
+  --grid-pattern-color: rgba(255, 255, 255, 0.02);
+  --tool-card-bg: rgba(30, 30, 30, 0.8);
+  --tool-card-border: rgba(231, 111, 46, 0.15);
 }
 
 * {
@@ -90,6 +101,7 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: 'Poppins', sans-serif !important;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -102,6 +114,29 @@ p {
 a {
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+/* Link Underline Growth Animation */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--accent-primary);
+  transition: width var(--transition-smooth);
+}
+
+.link-underline:hover::after {
+  width: 100%;
 }
 
 ul {
@@ -257,15 +292,48 @@ ul {
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
+  font-family: 'Poppins', sans-serif;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: all var(--transition-smooth);
   cursor: pointer;
   border: none;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: var(--shadow-glow);
+  filter: brightness(1.1);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Icon Hover Utility */
+.icon-hover {
+  transition: all var(--transition-smooth);
+  cursor: pointer;
+}
+
+.icon-hover:hover {
+  transform: scale(1.15) rotate(5deg);
+  color: var(--accent-primary);
+}
+
+/* Image Zoom Utility */
+.img-zoom-container {
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.img-zoom {
+  transition: transform var(--transition-smooth);
+}
+
+.img-zoom:hover {
+  transform: scale(1.03);
 }
 
 .card {

@@ -4,11 +4,12 @@ import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
+import ProfessionalExperience from './components/ProfessionalExperience';
 import WorkGallery from './components/WorkGallery';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import FloatingButtons from './components/FloatingButtons';
-import CursorSparkles from './components/CursorSparkles';
+import CustomCursor from './components/CustomCursor';
 import DesignStoriesPage from './components/DesignStoriesPage';
 
 function PortfolioMain() {
@@ -18,6 +19,7 @@ function PortfolioMain() {
             <main>
                 <Hero />
                 <About />
+                <ProfessionalExperience />
                 <WorkGallery />
                 <Contact />
             </main>
@@ -30,7 +32,7 @@ function PortfolioMain() {
 function App() {
     return (
         <ThemeProvider>
-            <CursorSparkles />
+            <CustomCursor />
             <HashRouter>
                 <Routes>
                     <Route path="/" element={<PortfolioMain />} />

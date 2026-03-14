@@ -1,79 +1,75 @@
 import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import FloatingToolsGrid from './FloatingToolsGrid';
 import './Hero.css';
 
-
-
 const Hero = () => {
-    const [typedText, setTypedText] = useState('');
-    const [showSubtitle, setShowSubtitle] = useState(false);
-    const [showDesc, setShowDesc] = useState(false);
+    const [keywordIndex, setKeywordIndex] = useState(0);
+    const keywords = ["UI/UX Designer", "Graphic Designer", "Digital Marketing Professional"];
 
-    // Custom typing effect if css animation typing is too rigid
     useEffect(() => {
-        const title = "MUHAMMED MUFLIH A";
-        let index = 0;
         const timer = setInterval(() => {
-            setTypedText(title.substring(0, index + 1));
-            index++;
-            if (index === title.length) {
-                clearInterval(timer);
-                setTimeout(() => setShowSubtitle(true), 500);
-                setTimeout(() => setShowDesc(true), 1200);
-            }
-        }, 100);
+            setKeywordIndex((prev) => (prev + 1) % keywords.length);
+        }, 2000);
         return () => clearInterval(timer);
     }, []);
 
+    const containerVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.6,
+                ease: "easeOut",
+                staggerChildren: 0.1,
+                delayChildren: 0.2
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+    };
+
     return (
         <section id="home" className="hero-section">
-            {/* Background Orbs */}
-            <div className="hero-orb-1"></div>
-            <div className="hero-orb-2"></div>
-
-            {/* Ambient Background Text */}
-            <div className="ambient-bg-text">
-                <div className="ambient-row animate-scroll-left">
-                    <span>THE DESIGNER THE DESIGNER THE DESIGNER THE DESIGNER THE DESIGNER THE DESIGNER</span>
-                </div>
-                <div className="ambient-row animate-scroll-right">
-                    <span>THE DESIGNER THE DESIGNER THE DESIGNER THE DESIGNER THE DESIGNER THE DESIGNER</span>
-                </div>
-                <div className="ambient-row animate-scroll-left">
-                    <span>THE DESIGNER THE DESIGNER THE DESIGNER THE DESIGNER THE DESIGNER THE DESIGNER</span>
-                </div>
-            </div>
-
-
-            <div className="hero-container container">
-
-                {/* LEFT SIDE CONTENT */}
+            <motion.div 
+                className="hero-container container"
+                initial="hidden"
+                animate="visible"
+                variants={containerVariants}
+            >
+                {/* CONTENT */}
                 <div className="hero-content">
+                    <motion.h1 className="hero-title" variants={itemVariants}>
+                        MUHAMMED <br /> MUFLIH A
+                    </motion.h1>
 
+                    <motion.div className="keyword-rotator" variants={itemVariants}>
+                        <span className="keyword-static">Expert</span>
+                        <div className="keyword-dynamic">
+                            {keywords[keywordIndex]}
+                        </div>
+                    </motion.div>
 
-                    <h1 className="hero-title">
-                        <span className="typing-text-manual">{typedText}</span>
-                    </h1>
-
-                    <h2 className={`hero-subtitle ${showSubtitle ? 'visible' : ''}`}>
-                        <span className="cursor">|</span> UI/UX Designer <span className="separator">|</span> Graphic Designer <span className="separator">|</span> Digital Marketing Professional
-                    </h2>
-
-                    <p className={`hero-description ${showDesc ? 'visible' : ''}`}>
-                        Creative UI/UX Designer with 5+ years of experience across web, mobile, and digital platforms. Specialized in creating engaging user experiences through gamification, 3D visuals, and micro-interactions. Passionate about blending marketing, branding, and digital experience design.
-                    </p>
-                </div>
-
-                {/* CENTER / HERO IMAGE */}
-                <div className="hero-image-wrapper">
-                    <img src="/hero-new.png" alt="Muhammed Muflih A" className="hero-profile-img" />
+                    <motion.p className="hero-description" variants={itemVariants}>
+                        Creative UI/UX Designer specialized in creating engaging user experiences through gamification, 3D visuals, and micro-interactions.
+                    </motion.p>
                 </div>
 
                 {/* RIGHT SIDE / TOOL CLUSTER */}
-                <div className="hero-tools-cluster-3d">
+                <motion.div 
+                    className="hero-tools-cluster-3d"
+                    variants={{
+                        hidden: { opacity: 0, scale: 0.9, x: 20 },
+                        visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.8, delay: 0.5 } }
+                    }}
+                >
                     <FloatingToolsGrid />
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
         </section>
     );
 };

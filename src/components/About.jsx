@@ -1,334 +1,461 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import {Award, GraduationCap, Code, Globe, PenTool, Layout, Palette, Users, Lightbulb, Figma, Monitor, ZoomIn, ZoomOut, Maximize2, ExternalLink } from 'lucide-react';
 import './About.css';
-import { Award, Briefcase, GraduationCap, ChevronLeft, ChevronRight } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import CertificationModal from './CertificationModal';
-import Education3DCard from './Education3DCard';
-import WorkExperienceStack from './WorkExperienceStack';
+
+const toolsData = [
+    { 
+        name: 'Figma', 
+        level: 95, 
+        icon: <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C9.24 2 7 4.24 7 7c0 2.11 1.3 3.91 3.14 4.67C8.3 12.42 7 14.22 7 16.33 7 19.1 9.24 21.33 12 21.33c1.38 0 2.63-.56 3.53-1.47V22c0 2.76 2.24 5 5 5s5-2.24 5-5V12c0-2.76-2.24-5-5-5h-1.47C18.16 4.24 15.92 2 13.16 2H12zM12 4h1.16c1.66 0 3 1.34 3 3s-1.34 3-3 3H12V4zm5.53 5.33H19c1.66 0 3 1.34 3 3s-1.34 3-3 3h-1.47V9.33zM12 11.33h1.16c1.66 0 3 1.34 3 3s-1.34 3-3 3H12v-6zm5.53 7.33H19c1.66 0 3 1.34 3 3s-1.34 3-3 3h-1.47v-6zM12 18.67c1.66 0 3 1.34 3 3v2.67c0 1.66-1.34 3-3 3s-3-1.34-3-3 1.34-3 3-3z"/></svg> 
+    },
+    { 
+        name: 'Meta Business Suite', 
+        level: 85, 
+        icon: <svg viewBox="0 0 24 24" fill="white"><path d="M16.7 12c-2.2 0-3.9 1-5.1 2.6C10.4 13 8.7 12 6.5 12c-3.2 0-5.8 2.2-5.8 5s2.6 5 5.8 5c1.8 0 3.5-.8 4.6-2.1.3-.4.7-.4 1 0 1.1 1.3 2.8 2.1 4.6 2.1 3.2 0 5.8-2.2 5.8-5s-2.6-5-5.8-5zM6.5 20.4c-2.3 0-4.1-1.5-4.1-3.4s1.8-3.4 4.1-3.4c1.1 0 2.2.4 3 1.2.9.9 1.4 2.1 1.4 3.4 0 1.9-1.8 3.4-4.4 3.4zm10.2 0c-2.6 0-4.4-1.5-4.4-3.4 0-1.3.5-2.5 1.4-3.4.8-.8 1.9-1.2 3-1.2 2.3 0 4.1 1.5 4.1 3.4s-1.8 3.4-4.1 3.4z"/></svg> 
+    },
+    { 
+        name: 'Photoshop', 
+        level: 90, 
+        icon: <svg viewBox="0 0 24 24" fill="white"><path d="M.5 4.5v15c0 2.2 1.8 4 4 4h15c2.2 0 4-1.8 4-4v-15c0-2.2-1.8-4-4-4h-15c-2.2 0-4 1.8-4 4zm8.2 11.5c0 1.2-.4 2.1-1.1 2.7-.7.6-1.7.9-2.9.9H3.1V8.6h2.2c1.2 0 2.2.3 2.9.8.7.5 1.1 1.3 1.1 2.4 0 .9-.3 1.6-.9 2.1-.6.5-1.5.7-2.7.7h-.9v2.2h.9c.7 0 1.3-.2 1.6-.5.3-.3.5-.8.5-1.5 0-.7-.2-1.2-.5-1.5-.3-.3-.9-.5-1.6-.5h-.9v-2.2h.9c1.2 0 2 .2 2.7.7.7.5 1.1 1.3 1.1 2.3zm8.2 1.1c0 1.2-.4 2.1-1.1 2.7-.7.6-1.7.9-2.9.9h-1.6V8.6h1.6c1.2 0 2.2.3 2.9.8.7.5 1.1 1.3 1.1 2.4 0 1.1-.4 1.9-1.1 2.4-.7.5-1.7.8-2.9.8h-1.6v2.2h1.6c1.2 0 1.9-.2 2.4-.6s.7-1.1.7-1.9z"/></svg> 
+    },
+    { 
+        name: 'Illustrator', 
+        level: 90, 
+        icon: <svg viewBox="0 0 24 24" fill="white"><path d="M.5 4.5v15c0 2.2 1.8 4 4 4h15c2.2 0 4-1.8 4-4v-15c0-2.2-1.8-4-4-4h-15c-2.2 0-4 1.8-4 4zm4.2 14.1l-1.1-3.5H1.4l-1.1 3.5H-.9l3-9.4h1.1l3 9.4h-1.5zm-1.8-5.6h-.9L1 11.1h1.5zM8.5 8.6h1.5v9.4H8.5V8.6z"/></svg> 
+    },
+    { 
+        name: 'WordPress', 
+        level: 88, 
+        icon: <svg viewBox="0 0 24 24" fill="white"><path d="M12.1 2C6.5 2 2 6.5 2 12.1s4.5 10.1 10.1 10.1 10.1-4.5 10.1-10.1S17.6 2 12.1 2zM3.9 12.1c0-1.7.5-3.2 1.3-4.5l5.2 14.3C6.9 20.8 3.9 16.8 3.9 12.1zM12.1 20.1c-.2 0-.3 0-.5-.1l-2.6-7.5h.3l2.8 7.6zm3.3.1L10.3 7c1-.2 2.2-.2 3.1 0l5.1 13.2c-1-.2-2.1-.2-3.1 0zM17.4 12c.1.9.1 1.8-.1 2.7l-2.7-7.4c1.1.8 2.1 1.9 2.8 3.1 0 .5 0 1.1 0 1.6z" /></svg> 
+    },
+    { 
+        name: 'HTML', 
+        level: 80, 
+        icon: <svg viewBox="0 0 24 24" fill="white"><path d="M1.5 0h21l-1.9 21.2L12 24l-8.6-2.8L1.5 0zm16.5 6H7.1l.2 2.2h9l-.4 4.5-3.9 1.3-4-1.3-.3-2.3H3.6l.5 5.5 7.9 2.6 7.9-2.6.5-5.5.1-4.4z" /></svg> 
+    },
+    { 
+        name: 'Premiere Pro', 
+        level: 75, 
+        icon: <svg viewBox="0 0 24 24" fill="white"><path d="M.5 4.5v15c0 2.2 1.8 4 4 4h15c2.2 0 4-1.8 4-4v-15c0-2.2-1.8-4-4-4h-15c-2.2 0-4 1.8-4 4zm8.2 11.5c0 1.2-.4 2.1-1.1 2.7-.7.6-1.7.9-2.9.9H3.1V8.6h2.2c1.2 0 2.2.3 2.9.8.7.5 1.1 1.3 1.1 2.4 0 .9-.3 1.6-.9 2.1-.6.5-1.5.7-2.7.7h-.9v2.2h.9c.7 0 1.3-.2 1.6-.5.3-.3.5-.8.5-1.5 0-.7-.2-1.2-.5-1.5-.3-.3-.9-.5-1.6-.5h-.9v-2.2h.9c1.2 0 2 .2 2.7.7.7.5 1.1 1.3 1.1 2.3zM15.4 14l-.9-2.8h-.1L13.5 14h1.9zm1.7 4.1l-1.1-3.5H13.6l-1.1 3.5H11.3l3-9.4H15.4l3 9.4h-1.3z"/></svg> 
+    }
+];
+
+const skillsData = [
+    { name: 'Designing', icon: '🎨' },
+    { name: 'Sketching', icon: '✏️' },
+    { name: 'Learning', icon: '🧠' },
+    { name: 'Teamwork', icon: '🤝' },
+    { name: 'Problem Solving', icon: '🧩' },
+    { name: 'Creativity', icon: '💡' },
+    { name: 'Logo Designing', icon: '🖌' },
+    { name: 'Digital Marketing', icon: '📈' }
+];
 
 const educationData = [
     {
-        id: 1,
-        title: "Master of Commerce, Business/Commerce, General",
+        degree: "M.Com – Commerce & E-Commerce Specialization",
+        year: "2023",
         institution: "Annamalai University",
-        date: "Jun 2021 – Apr 2023",
-        grade: "First Class A Grade",
-        skills: ["English"],
-        activities: ""
+        icon: <GraduationCap size={24} />
     },
     {
-        id: 2,
-        title: "Bachelor of Commerce – BCom, Banking, Corporate, Finance, and Securities Law",
-        institution: "University of Kerala",
-        date: "Jun 2017 – Mar 2020",
-        grade: "A",
-        skills: ["Hindi", "English", "Malayalam"],
-        activities: ""
+        degree: "B.Com – Co-Operation Specialization",
+        year: "2020",
+        institution: "Kerala University",
+        icon: <Award size={24} />
     },
     {
-        id: 3,
-        title: "Bachelor of Commerce – BCom, Co operation",
-        institution: "University of Kerala",
-        date: "Jun 2017 – Feb 2020",
-        grade: "",
-        skills: ["Hindi", "English", "Microsoft Office", "Malayalam"],
-        activities: ""
-    },
-    {
-        id: 4,
-        title: "Commerce & Computer Application, Business/Commerce, General",
-        institution: "CP Higher Secondary School, Kadakkal",
-        date: "2015 – 2017",
-        grade: "92% marks",
-        skills: ["Hindi", "English", "Malayalam"],
-        activities: ""
-    },
-    {
-        id: 4,
-        title: "High School, High School Education SSLC",
-        institution: "SCERT Kerala",
-        date: "Jun 2012 – Mar 2015",
-        grade: "95% Score",
-        skills: ["Hindi", "English", "Malayalam"],
-        activities: ""
-    },
-    {
-        id: 5,
-        title: "Professional Diploma in Indian and Foreign Accounting System, Accounting",
-        institution: "G TEC Education Calicut",
-        date: "Aug 2022 – May 2025",
-        grade: "A",
-        skills: ["HTML5", "User Interface Design", "Web Design", "Microsoft Office"],
-        activities: ""
-    },
-    {
-        id: 6,
-        title: "Certified Unity Game Developer, Game and Interactive Media Design",
-        institution: "ASAP Institute Trivandrum KINFRA",
-        date: "Jun 2024 – May 2025",
-        grade: "A",
-        skills: ["UI/UX Designing", "Web Design"],
-        activities: ""
-    },
-    {
-        id: 7,
-        title: "Social Media & Graphic Designing, Graphic Design",
-        institution: "G-TEC Education",
-        date: "2016 – 2016",
-        grade: "A+ Grade",
-        skills: ["Web Design"],
-        activities: "Social Media Management, Adobe Photoshop, Illustrator, InDesign, Premiere Pro, Fresco, MS Office, Adobe XD, Figma"
+        degree: "Higher Secondary Education (+2)",
+        year: "SCERT Syllabus",
+        institution: "CPHSS Kuttikkadu, Kadakkal",
+        icon: <GraduationCap size={24} />
     }
 ];
 
-const certData = [
+const certificationsData = [
     {
         id: 1,
         title: "Unity Certified Associate: Game Developer",
-        issuer: "ASAP Kerala",
-        issuedDate: "Issued May 2025",
-        imgSrc: null, // placeholder
-        credentialId: null,
-        skills: ["Blender", "Unity", "Game Mechanics", "C#", "Unreal Engine", "Game Development", "Game Design"]
+        issuer: "Unity / ASAP Kerala",
+        date: "2023",
+        image: "https://placehold.co/800x600/f3f4f6/2f2f2f?text=Unity+Certificate",
+        skills: ["Unity", "C#", "Game UI"]
     },
     {
         id: 2,
-        title: "Adobe Certified Associate in Graphic Design & Illustration Using Adobe Illustrator",
-        issuer: "G-Tec Computer Education",
-        issuedDate: "Issued May 2019",
-        imgSrc: "/gtec.jpeg",
-        credentialId: "290655",
-        skills: ["Graphic Design", "Photography", "Figma (Software)", "Adobe Lightroom", "Adobe Premiere Pro", "Social Media Marketing", "Adobe Fresco", "Adobe Illustrator", "Adobe XD", "UI/UX Designing", "Adobe Photoshop", "Adobe Creative Suite"]
+        title: "Graphic Design Certification",
+        issuer: "ICT Academy of Kerala",
+        date: "2022",
+        image: "https://placehold.co/800x600/f3f4f6/2f2f2f?text=Graphic+Design+Certificate",
+        skills: ["Photoshop", "Illustrator", "Branding"]
     },
     {
         id: 3,
-        title: "SOCIAL MEDIA EXPERT",
-        issuer: "G-Tec Computer Education",
-        issuedDate: "Issued May 2019",
-        imgSrc: "/asap.jpeg",
-        credentialId: "290656",
-        skills: ["Graphic Design", "Photography", "Social Media Marketing", "Google Ads", "Digital Marketing", "Canva", "Meta Ad"]
-    }
-];
-
-const workData = [
-    {
-        company: "MULTYSENSE ASSOCIATES PVT. LTD. | KERALA, INDIA",
-        date: "May 2022 – December 2025",
-        roles: [
-            {
-                title: "UI/UX Designer – INTERACTIVE & GAMIFIED EXPERIENCES",
-                tasks: [
-                    "Designed interactive UI/UX concepts integrating gamification, 3D visuals, and micro-interactions to improve engagement.",
-                    "Created avatar-based layouts, interactive interface elements, and small Unity based prototypes to support product concepts.",
-                    "Collaborated on website UX enhancements including user flows, navigation systems, and responsive layouts.",
-                    "Used Blender for basic 3D props, UI assets, and environment mockups for design visualization.",
-                    "Built interactive prototypes in Figma & Unity (basic level) to demonstrate animated user journeys.",
-                    "Designed visuals for branding, digital campaigns, and product experience strategy.",
-                    "Improved UX clarity and UI accessibility across different platforms and screen sizes.",
-                    "Key Contribution: Helped position the company’s design direction toward interactive, modern, experience-driven interfaces that feel more like products than static websites."
-                ]
-            },
-            {
-                title: "Digital Marketing & Creative Designer",
-                tasks: [
-                    "Designed and managed digital marketing creatives for social media, websites, and campaigns.",
-                    "Created high-performing visual content to increase engagement and brand visibility.",
-                    "Supported social media marketing efforts through consistent branding and campaign visuals.",
-                    "Designed promotional banners, ads, email creatives, and landing page visuals.",
-                    "Collaborated with marketing teams to align creatives with campaign goals and lead generation.",
-                    "Improved social media engagement and website interaction through design optimization.",
-                    "Managed multiple creative deliverables while meeting tight deadlines."
-                ]
-            },
-            {
-                title: "Digital Marketing & Creative Designer",
-                tasks: [
-                    "Designed social media creatives, promotional ads, and digital campaign assets.",
-                    "Supported SEO and performance marketing with optimized visual content.",
-                    "Assisted in planning and executing digital campaigns across platforms.",
-                    "Improved online reach and audience engagement through creative storytelling."
-                ]
-            }
-        ]
+        title: "UI/UX Experience Design",
+        issuer: "ASAP Kerala",
+        date: "2024",
+        image: "https://placehold.co/800x600/f3f4f6/2f2f2f?text=UI/UX+Certificate",
+        skills: ["Figma", "User Research", "Prototyping"]
     },
     {
-        company: "SPOTTERONLINE PVT. LTD | KERALA, INDIA",
-        date: "April 2020 – April 2022",
-        roles: [
-            {
-                title: "Digital Marketing & Creative Designer",
-                tasks: [
-                    "Designed digital marketing creatives for social media, websites, and campaigns.",
-                    "Created visual assets to increase online engagement and conversion rates.",
-                    "Supported SEO and performance marketing through optimized visual content.",
-                    "Designed email marketing creatives, banners, and promotional graphics.",
-                    "Coordinated with marketing teams to align creative outputs with campaign goals.",
-                    "Developed brand-consistent creatives across multiple digital platforms.",
-                    "Analyzed creative performance metrics and optimized designs accordingly.",
-                    "Managed multiple campaign creatives simultaneously.",
-                    "Supported website visuals and landing page designs.",
-                    "Enhanced brand visibility & audience engagement through creative storytelling."
-                ]
-            },
-            {
-                title: "Graphic Designer",
-                tasks: [
-                    "Designed social media creatives, posters, banners, and advertisements.",
-                    "Created promotional graphics for digital marketing campaigns.",
-                    "Developed branding materials including logos, brochures, and flyers.",
-                    "Designed online advertisements for marketing platforms.",
-                    "Assisted with website layout design and UI-related visual elements.",
-                    "Worked extensively with Adobe Photoshop and Adobe Illustrator.",
-                    "Ensured brand consistency across all design outputs.",
-                    "Collaborated with marketing teams on visual strategy execution."
-                ]
-            }
-        ]
+        id: 4,
+        title: "Visual Design Professional",
+        issuer: "Course Completion",
+        date: "2021",
+        image: "https://placehold.co/800x600/f3f4f6/2f2f2f?text=Visual+Design+Certificate",
+        skills: ["Composition", "Typography", "Color Theory"]
     }
 ];
 
-
 const About = () => {
-    const sectionRef = useRef(null);
+    const [activeSkill, setActiveSkill] = useState(null);
     const [selectedCert, setSelectedCert] = useState(null);
+    const [currentCertIndex, setCurrentCertIndex] = useState(0);
 
-    const handleCertClick = (e, cert) => {
-        // Find coordinates of the clicked card to originate the shatter from
-        const rect = e.currentTarget.getBoundingClientRect();
-        const originX = (rect.left + rect.width / 2) / window.innerWidth;
-        const originY = (rect.top + rect.height / 2) / window.innerHeight;
+    const nextCert = () => {
+        setCurrentCertIndex((prev) => (prev + 1) % certificationsData.length);
+    };
 
-        // Custom fragment/shatter explosion effect using canvas confetti
-        confetti({
-            particleCount: 150,
-            spread: 360,
-            startVelocity: 45,
-            decay: 0.9,
-            gravity: 0.8,
-            ticks: 80,
-            shape: 'square', // Make them look like fragments 
-            origin: { x: originX, y: originY },
-            colors: ['#6366f1', '#10b981', '#f43f5e', '#ffffff', '#232338']
-        });
-
-        // After small delay (allowing shatter effect to dominate visual), mount the modal
-        setTimeout(() => {
-            setSelectedCert(cert);
-        }, 300);
+    const prevCert = () => {
+        setCurrentCertIndex((prev) => (prev - 1 + certificationsData.length) % certificationsData.length);
     };
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            },
-            { threshold: 0.1 }
-        );
-
-        const elements = document.querySelectorAll('.animate-on-scroll, .animate-slide-right');
-        elements.forEach((el) => observer.observe(el));
-
-        return () => {
-            elements.forEach((el) => observer.unobserve(el));
-        };
+        const interval = setInterval(() => {
+            nextCert();
+        }, 5000);
+        return () => clearInterval(interval);
     }, []);
 
+    const { scrollY } = useScroll();
+    const yParallax = useTransform(scrollY, [0, 1000], [0, 100]);
+
+    const containerVariants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.8, staggerChildren: 0.15 }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+    };
+
     return (
-        <section id="about" className="section about-section" ref={sectionRef}>
+        <section id="about" className="about-page">
             <div className="container">
+                
+                <motion.section 
+                    className="about-section intro-section"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                >
+                    <motion.h2 
+                        className="section-header"
+                        variants={{
+                            hidden: { opacity: 0, y: 30 },
+                            visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+                        }}
+                    >
+                        Who I Am
+                    </motion.h2>
 
-                <div className="about-hero">
-                    <div className="about-hero-image-container animate-slide-right">
-                        <img src="/who.jpeg" alt="Muhammed Muflih A" className="who-image" />
-                        <h4 className="about-quote">"Design That Moves Minds."</h4>
-                    </div>
-
-                    <div className="about-intro-container">
-                        <h2 className="animated-gradient-title animate-slide-right">Who I Am</h2>
-
-                        <div className="about-description animate-slide-right">
-                            <p>
-                                I am a passionate UI/UX Designer and Digital Marketing Professional with over 5 years of experience creating engaging digital experiences. My expertise spans across web design, mobile interfaces, and interactive digital platforms. I specialize in integrating gamification, 3D visuals, and micro-interactions to enhance user engagement and create memorable experiences.
-                            </p>
-                            <br />
-                            <p>
-                                Throughout my career, I have collaborated with cross-functional teams to deliver design-led solutions that improve user experience, increase engagement, and drive business results. I believe in the power of design to transform complex problems into intuitive, beautiful solutions.
-                            </p>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div className="timeline-section animate-on-scroll fade-in">
-                    <div className="timeline-header">
-                        <div className="timeline-header-title">
-                            <Briefcase size={28} className="timeline-icon" />
-                            <h3 className="animated-gradient-title" style={{ marginBottom: 0 }}>WORK EXPERIENCE</h3>
-                        </div>
-                    </div>
-
-                    <WorkExperienceStack experiences={workData} />
-                </div>
-
-                <div className="certifications-section animate-on-scroll fade-in">
-                    <div className="timeline-header">
-                        <Award size={28} className="timeline-icon" />
-                        <h3 className="animated-gradient-title" style={{ marginLeft: '15px', marginBottom: 0 }}>Certifications</h3>
-                    </div>
-                    <div className="cert-grid">
-                        {certData.map((cert) => (
-                            <div
-                                key={cert.id}
-                                className="cert-card card"
-                                onClick={(e) => handleCertClick(e, cert)}
-                                style={{ cursor: 'pointer' }}
+                    <div className="intro-grid">
+                        <div className="intro-image-wrapper">
+                            <motion.div 
+                                className="portrait-container"
+                                variants={{
+                                    hidden: { opacity: 0, scale: 0.95, y: 30 },
+                                    visible: { 
+                                        opacity: 1, 
+                                        scale: 1, 
+                                        y: 0,
+                                        transition: { duration: 0.6, ease: "easeOut", delay: 0.2 } 
+                                    }
+                                }}
+                                whileHover={{ 
+                                    rotateX: 10, 
+                                    rotateY: 10, 
+                                    perspective: 1000,
+                                    transition: { duration: 0.3 }
+                                }}
                             >
-                                <div className="cert-content">
-                                    <Award size={32} className="cert-icon" />
-                                    <h4>{cert.title}</h4>
-                                    {cert.title.length < 40 && <p>Click to view credential & skills</p>}
+                                <img src="/who.jpeg" alt="Muhammed Muflih A" className="portrait-img" />
+                                
+                                {/* Floating Gradient Shapes */}
+                                <div className="shape shape-1"></div>
+                                <div className="shape shape-2"></div>
+                                <div className="shape shape-3"></div>
+                                <div className="shape shape-4"></div>
+                            </motion.div>
+                        </div>
+
+                        <div className="intro-text">
+                            <motion.p
+                                variants={{
+                                    hidden: { opacity: 0, y: 30 },
+                                    visible: { 
+                                        opacity: 1, 
+                                        y: 0, 
+                                        transition: { duration: 0.6, ease: "easeOut", delay: 0.1 } 
+                                    }
+                                }}
+                            >
+                                Creative UI & Graphic Designer with 5+ years of experience crafting visually engaging designs across web, mobile, and digital marketing platforms. Skilled in Figma, Adobe Photoshop, Illustrator, Premiere Pro, and Canva, with a strong focus on brand-driven visuals, social media creatives, and user-centered design. Passionate about transforming ideas into impactful digital experiences that elevate brand identity and audience engagement. Currently seeking an opportunity in the UAE to contribute to innovative and growth-focused creative teams.
+                            </motion.p>
+                        </div>
+                    </div>
+                </motion.section>
+
+                {/* SECTION 2 — MY TOOLS */}
+                <motion.section 
+                    className="about-section tools-section"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={{
+                        hidden: { opacity: 0, y: 30 },
+                        visible: { 
+                            opacity: 1, 
+                            y: 0, 
+                            transition: { 
+                                duration: 0.6, 
+                                ease: "easeOut",
+                                staggerChildren: 0.1
+                            } 
+                        }
+                    }}
+                >
+                    <h2 className="section-header">My Tools</h2>
+                    <div className="tools-grid">
+                        {toolsData.map((tool, index) => (
+                            <motion.div 
+                                key={tool.name} 
+                                className="tool-item-compact"
+                                variants={{
+                                    hidden: { opacity: 0, y: 30 },
+                                    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+                                }}
+                                whileHover={{ y: -5 }}
+                            >
+                                <div className="tool-icon-box">
+                                    {tool.icon}
                                 </div>
-                                <div className="cert-corner-img">
-                                    {cert.imgSrc ? (
-                                        <img src={cert.imgSrc} alt="Issuer Logo" onError={(e) => { e.target.style.display = 'none' }} />
-                                    ) : (
-                                        <Award size={24} style={{ color: 'var(--accent-indigo)', margin: '13px' }} />
-                                    )}
+                                <div className="tool-details-compact">
+                                    <div className="tool-label-row">
+                                        <h3>{tool.name}</h3>
+                                        <span className="tool-percent-compact">{tool.level}%</span>
+                                    </div>
+                                    <div className="progress-bar-compact">
+                                        <motion.div 
+                                            className="progress-fill-compact"
+                                            initial={{ width: 0 }}
+                                            whileInView={{ width: `${tool.level}%` }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 1.2, ease: "easeOut", delay: index * 0.1 }}
+                                        ></motion.div>
+                                    </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
-                </div>
+                </motion.section>
 
-                <div className="timeline-section animate-on-scroll fade-in">
-                    <div className="timeline-header">
-                        <GraduationCap size={28} className="timeline-icon" />
-                        <h3 className="animated-gradient-title" style={{ marginLeft: '15px', marginBottom: 0 }}>Education</h3>
+                {/* SECTION 3 — MY SKILLS */}
+                <motion.section 
+                    className="about-section skills-section"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={{
+                        hidden: { opacity: 0, y: 30 },
+                        visible: { 
+                            opacity: 1, 
+                            y: 0, 
+                            transition: { 
+                                duration: 0.6, 
+                                ease: "easeOut",
+                                staggerChildren: 0.08
+                            } 
+                        }
+                    }}
+                >
+                    <h2 className="section-header">My Skills</h2>
+                    <div className="skills-pill-container">
+                        {skillsData.map((skill, index) => (
+                            <motion.button
+                                key={skill.name}
+                                className={`skill-pill ${activeSkill === skill.name ? 'active' : ''}`}
+                                variants={{
+                                    hidden: { opacity: 0, y: 20 },
+                                    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+                                }}
+                                whileHover={{ scale: 1.05, borderColor: '#FF5A1F' }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => setActiveSkill(activeSkill === skill.name ? null : skill.name)}
+                            >
+                                <span className="skill-icon">{skill.icon}</span>
+                                {skill.name}
+                                {activeSkill === skill.name && <motion.div className="skill-ripple" layoutId="ripple" />}
+                            </motion.button>
+                        ))}
                     </div>
-                    <div className="education-scroll-window">
-                        <div className="timeline">
-                            {educationData.map((edu) => (
-                                <Education3DCard key={edu.id} edu={edu} />
+                </motion.section>
+
+                {/* SECTION 4 — EDUCATION */}
+                <motion.section 
+                    className="about-section education-section"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={{
+                        hidden: { opacity: 0, y: 30 },
+                        visible: { 
+                            opacity: 1, 
+                            y: 0, 
+                            transition: { 
+                                duration: 0.6, 
+                                ease: "easeOut",
+                                staggerChildren: 0.15
+                            } 
+                        }
+                    }}
+                >
+                    <h2 className="section-header">Education</h2>
+                    <div className="timeline-container">
+                        <motion.div 
+                            className="timeline-line"
+                            initial={{ height: 0 }}
+                            whileInView={{ height: '100%' }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1.5, ease: "easeInOut" }}
+                        ></motion.div>
+                        {educationData.map((edu, index) => (
+                            <motion.div 
+                                key={edu.degree}
+                                className="timeline-item-new"
+                                variants={{
+                                    hidden: { opacity: 0, y: 20 },
+                                    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+                                }}
+                            >
+                                <div className="timeline-dot-new">
+                                    <div className="dot-inner"></div>
+                                </div>
+                                <motion.div 
+                                    className="edu-card"
+                                    whileHover={{ y: -5, boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}
+                                >
+                                    <div className="edu-badge">
+                                        <span className="icon">{edu.icon}</span>
+                                        <span className="year">{edu.year}</span>
+                                    </div>
+                                    <h3>{edu.degree}</h3>
+                                    <p className="institution">{edu.institution}</p>
+                                </motion.div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </motion.section>
+
+                {/* SECTION 5 — CERTIFICATIONS */}
+                <motion.section 
+                    className="about-section certifications-section"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={{
+                        hidden: { opacity: 0, y: 30 },
+                        visible: { 
+                            opacity: 1, 
+                            y: 0, 
+                            transition: { 
+                                duration: 0.6, 
+                                ease: "easeOut",
+                                staggerChildren: 0.1
+                            } 
+                        }
+                    }}
+                >
+                    <div className="cert-bg-decoration"></div>
+                    <motion.h2 
+                        className="section-header"
+                        variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: { opacity: 1, y: 0 }
+                        }}
+                    >
+                        Certifications
+                    </motion.h2>
+                    <div className="cert-slider-wrapper">
+                        <div className="cert-slider-container">
+                            <AnimatePresence mode="wait">
+                                <motion.div 
+                                    key={certificationsData[currentCertIndex].id}
+                                    className="cert-card active-slide"
+                                    initial={{ opacity: 0, x: 100 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -100 }}
+                                    transition={{ 
+                                        type: "spring", 
+                                        stiffness: 300, 
+                                        damping: 30 
+                                    }}
+                                    onClick={nextCert}
+                                >
+                                    <div className="cert-image-container">
+                                        <img src={certificationsData[currentCertIndex].image} alt={certificationsData[currentCertIndex].title} />
+                                        <div className="cert-overlay">
+                                            <div className="cert-view-btn" onClick={(e) => {
+                                                e.stopPropagation();
+                                                setSelectedCert(certificationsData[currentCertIndex]);
+                                            }}>
+                                                <Maximize2 size={24} />
+                                                <span>View Certificate</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="cert-info">
+                                        <div className="cert-meta">
+                                            <span className="cert-issuer">{certificationsData[currentCertIndex].issuer}</span>
+                                            <span className="cert-date">{certificationsData[currentCertIndex].date}</span>
+                                        </div>
+                                        <h3 className="cert-title">{certificationsData[currentCertIndex].title}</h3>
+                                        <div className="click-to-next-hint">Click to see next →</div>
+                                    </div>
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+                        
+                        {/* Slide Indicators */}
+                        <div className="cert-indicators">
+                            {certificationsData.map((_, idx) => (
+                                <button 
+                                    key={idx} 
+                                    className={`indicator-dot ${idx === currentCertIndex ? 'active' : ''}`}
+                                    onClick={() => setCurrentCertIndex(idx)}
+                                />
                             ))}
                         </div>
                     </div>
-                </div>
+                </motion.section>
+
+                <CertificationModal 
+                    cert={selectedCert} 
+                    isOpen={!!selectedCert} 
+                    onClose={() => setSelectedCert(null)} 
+                />
 
             </div>
-
-            <CertificationModal
-                cert={selectedCert}
-                isOpen={!!selectedCert}
-                onClose={() => setSelectedCert(null)}
-            />
         </section>
     );
 };
 
 export default About;
+

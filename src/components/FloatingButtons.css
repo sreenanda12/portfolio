@@ -8,12 +8,12 @@
     border: none;
     cursor: pointer;
     box-shadow: var(--shadow-md);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all var(--transition-smooth);
 }
 
 .floating-btn:hover {
-    transform: scale(1.1);
-    box-shadow: var(--shadow-hover);
+    transform: scale(1.05) translateY(-4px);
+    box-shadow: var(--shadow-glow);
 }
 
 /* Portfolio Button (Bottom Right above WhatsApp) */
@@ -28,13 +28,18 @@
     font-weight: 500;
     font-size: 0.9rem;
     opacity: 0;
-    animation: slideInRight 0.5s ease 1s forwards, float 4s ease-in-out infinite;
+    animation: slideInRight 0.5s ease 1s forwards;
 }
 
 .portfolio-btn:hover {
-    animation-play-state: paused;
-    transform: scale(1.05) translateY(-5px);
-    box-shadow: 0 0 15px rgba(249, 115, 22, 0.5);
+    transform: scale(1.05);
+    box-shadow: var(--shadow-glow);
+}
+
+.portfolio-btn:active {
+    transform: scale(1.2);
+    box-shadow: 0 0 30px rgba(231, 111, 46, 0.8);
+    transition: transform 0.1s ease;
 }
 
 /* Download CV (Bottom Left) */
@@ -47,13 +52,11 @@
     border-radius: 9999px;
     gap: 0.5rem;
     font-weight: 500;
-    animation: float 4s ease-in-out infinite;
 }
 
 .cv-btn:hover {
-    animation-play-state: paused;
-    transform: scale(1.1) translateY(-5px);
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(231, 111, 46, 0.5);
 }
 
 /* WhatsApp Button (Bottom Right) */
@@ -72,8 +75,8 @@
 }
 
 .whatsapp-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.6);
+    transform: scale(1.05) translateY(-4px);
+    box-shadow: 0 0 25px rgba(34, 197, 94, 0.5);
     animation-play-state: paused;
 }
 
@@ -171,7 +174,7 @@
 
 .download-cv-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 4px 12px rgba(231, 111, 46, 0.3);
 }
 
 @keyframes fadeIn {

@@ -26,14 +26,14 @@ const Navbar = () => {
     const navLinks = [
         { name: 'Home', to: 'home' },
         { name: 'About', to: 'about' },
-        { name: 'Work Gallery', to: 'gallery' },
+        { name: 'Work Gallery', to: 'work-gallery' },
         { name: 'Contact', to: 'contact' },
     ];
 
     return (
         <div className={`top-header ${scrolled ? 'scrolled' : ''}`}>
             {/* Logo on the left */}
-            <div className="logo-container">
+            <div className="logo-container" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                 <span className="logo-text">MM</span>
                 <span className="logo-hover-text">MUHAMMED MUFLIH A</span>
             </div>
@@ -60,8 +60,8 @@ const Navbar = () => {
                                 to={link.to}
                                 spy={true}
                                 smooth={true}
-                                offset={-70}
-                                duration={500}
+                                offset={-80}
+                                duration={700}
                                 className="nav-links"
                                 onClick={() => setIsOpen(false)}
                             >

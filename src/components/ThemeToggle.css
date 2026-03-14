@@ -19,7 +19,7 @@
     background: var(--accent-indigo);
     color: #fff;
     transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 0 15px rgba(231, 111, 46, 0.4);
 }
 
 .theme-icon {
