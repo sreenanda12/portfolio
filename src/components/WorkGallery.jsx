@@ -87,7 +87,7 @@ const WorkGallery = ({ fullView = false, title = "portfolio" }) => {
                                     {activeFilter === cat && (
                                         <motion.div 
                                             layoutId="activeUnderline"
-                                            className="active-underline-gradient"
+                                            className="active-underline-orange"
                                             initial={false}
                                             transition={{ type: "spring", stiffness: 380, damping: 30 }}
                                         />

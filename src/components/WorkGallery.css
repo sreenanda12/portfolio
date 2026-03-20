@@ -12,7 +12,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url('https://grain-texture.vercel.app/grain.png');
+/*  background-image: url('https://grain-texture.vercel.app/grain.png'); */
     opacity: 0.02;
     pointer-events: none;
     z-index: 1;
@@ -107,15 +107,15 @@
 }
 
 /* ANIMATED GRADIENT UNDERLINE */
-.active-underline-gradient {
+.active-underline-orange {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: -5px;
+    left: 10%;
+    right: 10%;
     height: 3px;
-    background: linear-gradient(to right, #F6D66E, #7BC47F, #A79BCB, #E97A92);
+    background: #FF5A1F; /* Specific user requested orange or var-accent */
     border-radius: 999px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(255, 90, 31, 0.25);
 }
 
 /* MOBILE AND TABLET OVERRIDE */
