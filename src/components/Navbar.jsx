@@ -32,10 +32,9 @@ const Navbar = () => {
 
     return (
         <div className={`top-header ${scrolled ? 'scrolled' : ''}`}>
-            {/* Logo on the left */}
-            <div className="logo-container" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                <span className="logo-text">MM</span>
-                <span className="logo-hover-text">MUHAMMED MUFLIH A</span>
+            {/* Left side Theme Toggle (was Logo) */}
+            <div className="left-controls">
+                 <ThemeToggle />
             </div>
 
             {/* Desktop Navigation */}
@@ -59,10 +58,8 @@ const Navbar = () => {
                 </ul>
             </nav>
 
-            {/* Right side controls */}
+            {/* Right side controls (Hamburger only) */}
             <div className="header-controls">
-                <ThemeToggle />
-
                 <button
                     className={`hamburger-btn ${isOpen ? 'open' : ''}`}
                     onClick={toggleMenu}

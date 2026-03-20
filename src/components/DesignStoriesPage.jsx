@@ -1,158 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { Maximize2, ArrowLeft } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import WorkGallery from './WorkGallery';
 import './DesignStoriesPage.css';
 
-const projects = [
-    { 
-        id: 1, 
-        title: 'VR Interactive Experience', 
-        category: 'UI Design', 
-        colors: ['#FF5F6D', '#FFC371', '#FF5A1F'],
-        img: 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?auto=format&fit=crop&q=80&w=800' 
-    },
-    { 
-        id: 2, 
-        title: 'Brand Identity Reloaded', 
-        category: 'Logo Design', 
-        colors: ['#2196F3', '#00BCD4', '#009688'],
-        img: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=800' 
-    },
-    { 
-        id: 3, 
-        title: 'E-Commerce Redesign', 
-        category: 'Web Design', 
-        colors: ['#8E2DE2', '#4A00E0', '#6A11CB'],
-        img: 'https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&q=80&w=800' 
-    },
-    { 
-        id: 4, 
-        title: 'Summer Festival Campaign', 
-        category: 'Social Media', 
-        colors: ['#FF9A00', '#FF4E50', '#F9D423'],
-        img: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800' 
-    },
-    { 
-        id: 5, 
-        title: 'Corporate Branding Kit', 
-        category: 'Branding', 
-        colors: ['#00C4CC', '#25D366', '#128C7E'],
-        img: 'https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?auto=format&fit=crop&q=80&w=800' 
-    },
-    { 
-        id: 6, 
-        title: 'Gamified App Flow', 
-        category: 'UI Design', 
-        colors: ['#F24E1E', '#FF7A00', '#FFBD33'],
-        img: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=800' 
-    },
-];
-
-const categories = ['All', 'UI Design', 'Logo Design', 'Web Design', 'Social Media', 'Branding'];
-
-const DesignStoriesPage = ({ isComponent = false }) => {
-    const [filter, setFilter] = useState('All');
-    const [filteredProjects, setFilteredProjects] = useState(projects);
-    const [selectedProject, setSelectedProject] = useState(null);
-
+const DesignStoriesPage = () => {
     useEffect(() => {
-        if (!isComponent) {
-            window.scrollTo(0, 0);
-            document.title = "DESIGN STORIES";
-        }
-        return () => {
-            if (!isComponent) {
-                document.title = "Portfolio";
-            }
-        };
-    }, [isComponent]);
-
-    useEffect(() => {
-        if (filter === 'All') {
-            setFilteredProjects(projects);
-        } else {
-            setFilteredProjects(projects.filter(p => p.category === filter));
-        }
-    }, [filter]);
+        window.scrollTo(0, 0);
+        document.title = "Design Stories";
+    }, []);
 
     return (
-        <div className={`design-stories-page ${isComponent ? 'embedding' : ''}`}>
-            {!isComponent && (
-                <header className="stories-header">
-                    <button
-                        className="back-btn"
-                        onClick={() => window.location.href = '#/'}
-                        title="Back to Portfolio"
-                    >
-                        <ArrowLeft size={24} />
+        <div className="design-stories-page">
+            <header className="stories-nav-header">
+                <div className="container">
+                    <Link to="/" className="stories-back-link">
+                        <ArrowLeft size={20} />
                         <span>Back to Portfolio</span>
-                    </button>
-                </header>
-            )}
-
-            <main className="container stories-main">
-                <h1 className="stories-title-main">DESIGN STORIES</h1>
-
-                <div className="stories-filters">
-                    {categories.map((cat) => (
-                        <button
-                            key={cat}
-                            className={`filter-btn ${filter === cat ? 'active' : ''}`}
-                            onClick={() => setFilter(cat)}
-                        >
-                            {cat}
-                        </button>
-                    ))}
+                    </Link>
                 </div>
+            </header>
 
-                <div className="stories-grid">
-                    {filteredProjects.map((project) => (
-                        <div
-                            key={project.id}
-                            className="stories-card"
-                            style={{ 
-                                background: project.colors 
-                                    ? `linear-gradient(135deg, ${project.colors[0]}, ${project.colors[1]}, ${project.colors[2]})`
-                                    : '#2E2E2E'
-                            }}
-                        >
-                            <div className="stories-image-wrapper">
-                                <img src={project.img} alt={project.title} loading="lazy" />
-                                <div className="stories-overlay">
-                                    <span className="project-category">{project.category}</span>
-                                    <h3 className="project-title">{project.title}</h3>
-                                    <button
-                                        onClick={() => setSelectedProject(project)}
-                                        className="view-project-btn btn"
-                                        aria-label="View Project"
-                                    >
-                                        <span>View Work</span>
-                                        <Maximize2 size={18} />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </main>
-
-            {/* FULLSCREEN PROJECT DETAILS MODAL */}
-            {selectedProject && (
-                <div className="project-modal-overlay" onClick={() => setSelectedProject(null)}>
-                    <div className="project-modal-content" onClick={(e) => e.stopPropagation()}>
-                        <button className="close-modal-btn" onClick={() => setSelectedProject(null)}>✕</button>
-                        <div className="project-modal-header">
-                            <h3 className="modal-title" style={{ marginBottom: '0.5rem' }}>{selectedProject.title}</h3>
-                            <span className="project-category" style={{ transform: 'none' }}>{selectedProject.category}</span>
-                        </div>
-                        <div className="project-modal-image">
-                            <img src={selectedProject.img} alt={selectedProject.title} />
-                        </div>
-                        <div className="project-modal-details" style={{ marginTop: '1.5rem', color: 'var(--text-secondary)' }}>
-                            <p>Here you can explore more details about <strong>{selectedProject.title}</strong>, understanding the creative process, UI flow, and the impact of the final delivery. The vibrant colors and interactive layout highlight the design thinking involved.</p>
-                        </div>
-                    </div>
-                </div>
-            )}
+            <WorkGallery fullView={true} title="design stories" />
         </div>
     );
 };

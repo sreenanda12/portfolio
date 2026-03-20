@@ -6,7 +6,33 @@
     padding-top: 80px;
     position: relative;
     overflow: hidden;
-    background: var(--bg-primary); /* Focus on clean moonlight bg */
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .hero-section::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255, 106, 0, 0.08) 0%, transparent 70%);
+    filter: blur(100px);
+    z-index: 1;
+    pointer-events: none;
+}
+
+[data-theme="dark"] .hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255, 106, 0, 0.05) 0%, transparent 70%);
+    filter: blur(120px);
+    z-index: 1;
+    pointer-events: none;
 }
 
 .hero-container {
@@ -239,57 +265,48 @@
     }
 }
 
-@media screen and (max-width: 968px) {
+@media screen and (max-width: 1023px) {
     .hero-section {
-        padding-top: 50px; /* Reduced from 60px */
+        padding-top: 60px;
         align-items: flex-start;
     }
 
     .hero-container {
         flex-direction: column;
         text-align: center;
-        gap: 1.5rem; /* Reduced gap */
+        gap: 2rem;
         justify-content: flex-start;
-        padding-top: 1rem; /* Reduced from 2rem */
+        padding-top: 2rem;
     }
 
     .hero-content {
         align-items: center;
         max-width: 100%;
-        margin-bottom: 0;
     }
 
     .hero-title {
-        font-size: clamp(2.2rem, 9vw, 3.2rem);
-        margin-bottom: 0.3rem; 
-        line-height: 1.1;
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
     }
 
     .keyword-rotator {
-        margin-bottom: 1rem;
         justify-content: center;
-        font-size: 1.2rem;
     }
 
     .hero-description {
-        margin-bottom: 1.5rem;
-        font-size: 0.95rem;
-        padding: 0 1.5rem;
-        line-height: 1.5;
+        margin: 0 auto 2.5rem;
+        padding: 0 1rem;
     }
 
     .hero-tools-cluster-3d {
         position: relative;
         bottom: auto;
         right: auto;
-        transform: scale(0.6); /* Slightly smaller scale */
+        transform: scale(0.7);
         margin: 0 auto;
-        left: auto;
-        width: fit-content;
     }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 767px) {
     .hero-section {
         padding-top: 40px;
     }
@@ -299,7 +316,12 @@
     }
 
     .hero-tools-cluster-3d {
-        transform: scale(0.45); /* Even smaller for mobile */
-        margin-top: -1rem; /* Pull up slightly */
+        transform: scale(0.5);
+        margin-top: -1rem;
     }
-}
+
+    .hero-description {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+}

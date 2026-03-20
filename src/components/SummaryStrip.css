@@ -47,8 +47,17 @@
     color: #666;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
+    .strip-container {
+        justify-content: center;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 767px) {
     .summary-strip {
         display: none;
     }
 }
+
+

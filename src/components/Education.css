@@ -66,8 +66,30 @@
     font-weight: 500;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
     .edu-compact-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
+
+@media (max-width: 767px) {
+    .education-grid-section {
+        padding: 1rem 0;
+    }
+    .edu-compact-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .edu-card-compact {
+        padding: 1.2rem;
+        gap: 1rem;
+    }
+    .edu-icon-bg {
+        width: 40px;
+        height: 40px;
+    }
+    .edu-degree-small {
+        font-size: 1.1rem;
+    }
+}
+

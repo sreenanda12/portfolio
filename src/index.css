@@ -53,34 +53,31 @@
 }
 
 [data-theme="dark"] {
-  /* Color Scheme: Dark Mode (Professional Deep Slate) */
-  --bg-primary: #121212;
-  --bg-secondary: #1E1E1E;
-  --text-primary: #F5F5F2;
-  --text-secondary: #9A9A9A;
+  /* Designer Dark Mode - Deep Slate & Charcoal */
+  --bg-primary: #0A0A0B;
+  --bg-secondary: #141416;
+  --text-primary: #FFFFFF;
+  --text-secondary: #A1A1AA;
 
-  --accent-primary: #E76F2E;
-  --accent-hover: #F28C54;
+  --accent-primary: #FF6A00;
+  --accent-hover: #FF8A33;
   
-  --accent-indigo: var(--accent-primary);
-  --accent-pink: var(--accent-hover);
-  --accent-emerald: var(--accent-primary);
-  --accent-amber: var(--accent-primary);
+  --nav-bg: rgba(10, 10, 11, 0.85);
+  --border-light: rgba(255, 255, 255, 0.05); 
+  --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 15px 30px rgba(0, 0, 0, 0.7);
+  --shadow-hover: 0 30px 60px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 25px rgba(255, 106, 0, 0.25);
+  --card-bg: #141416;
+  --toggle-icon: #FF6A00;
 
-  --nav-bg: rgba(18, 18, 18, 0.8);
-  --border-light: rgba(231, 111, 46, 0.1); 
-  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.4);
-  --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px rgba(231, 111, 46, 0.4);
-  --card-bg: #1E1E1E;
-  --toggle-icon: #E76F2E;
-
-  /* Floating Tools and Theme Backgrounds */
-  --app-bg: #121212;
-  --grid-pattern-color: rgba(255, 255, 255, 0.02);
-  --tool-card-bg: rgba(30, 30, 30, 0.8);
-  --tool-card-border: rgba(231, 111, 46, 0.15);
+  /* Designer Textures */
+  --app-bg: #0A0A0B;
+  --grid-pattern-color: rgba(255, 255, 255, 0.03);
+  --tool-card-bg: rgba(20, 20, 22, 0.6);
+  --tool-card-border: rgba(255, 106, 0, 0.15);
+  
+  --section-glow: radial-gradient(circle at 50% 50%, rgba(255, 106, 0, 0.05) 0%, transparent 70%);
 }
 
 * {
@@ -125,8 +122,9 @@ h4 { font-size: var(--text-h4); font-weight: 500; }
 
 [data-theme="dark"] h1, 
 [data-theme="dark"] h2 {
-    background: linear-gradient(135deg, #FFF 0%, #AAA 100%);
+    background: linear-gradient(135deg, #FFFFFF 0%, #AAAAAA 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 0 30px rgba(255, 106, 0, 0.2);
 }

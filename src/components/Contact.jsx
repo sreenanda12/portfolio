@@ -1,133 +1,218 @@
-import React from 'react';
-import { Phone, Mail, Linkedin, Briefcase, Globe, MessageSquare, ArrowUpRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef, useEffect } from 'react';
+import { Phone, Mail, Linkedin, Briefcase, MessageSquare, ArrowUpRight } from 'lucide-react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import './Contact.css';
 
-// Custom SVG for WhatsApp
-const WhatsappIcon = ({ size = 20, color = "currentColor" }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 21l1.65-3.8A9 9 0 1 1 20 18.5 9 9 0 0 1 6.8 20L3 21Z" />
+// Magnetic Hook for reusable magnetic elements
+const Magnetic = ({ children }) => {
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    const springConfig = { damping: 15, stiffness: 150 };
+    const x = useSpring(mouseX, springConfig);
+    const y = useSpring(mouseY, springConfig);
+
+    const handleMouseMove = (e) => {
+        const { clientX, clientY, currentTarget } = e;
+        const { left, top, width, height } = currentTarget.getBoundingClientRect();
+        const centerX = left + width / 2;
+        const centerY = top + height / 2;
+        mouseX.set((clientX - centerX) * 0.3);
+        mouseY.set((clientY - centerY) * 0.3);
+    };
+
+    const handleMouseLeave = () => {
+        mouseX.set(0);
+        mouseY.set(0);
+    };
+
+    return (
+        <motion.div
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ x, y }}
+        >
+            {children}
+        </motion.div>
+    );
+};
+
+// Ripple Effect Hook
+const useRipple = () => {
+    const [ripples, setRipples] = useState([]);
+
+    const createRipple = (event) => {
+        const container = event.currentTarget.getBoundingClientRect();
+        const size = Math.max(container.width, container.height);
+        const x = event.clientX - container.left - size / 2;
+        const y = event.clientY - container.top - size / 2;
+
+        const newRipple = { x, y, size, id: Date.now() };
+        setRipples((prev) => [...prev, newRipple]);
+    };
+
+    useEffect(() => {
+        if (ripples.length > 0) {
+            const timer = setTimeout(() => {
+                setRipples((prev) => prev.slice(1));
+            }, 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [ripples]);
+
+    return { ripples, createRipple };
+};
+
+const WhatsappIcon = ({ size = 20 }) => (
+    <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.7 8.38 8.38 0 0 1 3.8.9L21 3z" />
         <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z" />
         <path d="M14 14a.5.5 0 0 0 1 0v-1a.5.5 0 0 0-1 0v1Z" />
-        <path d="M9.5 8.5c.33-.33.33-.83 0-1.16-.33-.33-.83-.33-1.16 0L7.5 8.2c-.33.33-.33.86 0 1.2a11.5 11.5 0 0 0 6.6 6.6c.34.33.87.33 1.2 0l.86-.86c.33-.33.33-.83 0-1.16-.33-.33-.83-.33-1.16 0l-.5.5" />
     </svg>
 );
 
 const Contact = () => {
+    const { ripples, createRipple } = useRipple();
+    const sectionRef = useRef(null);
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+    useEffect(() => {
+        const handleGlobalMouseMove = (e) => {
+            if (!sectionRef.current) return;
+            const rect = sectionRef.current.getBoundingClientRect();
+            setMousePos({
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            });
+        };
+        window.addEventListener('mousemove', handleGlobalMouseMove);
+        return () => window.removeEventListener('mousemove', handleGlobalMouseMove);
+    }, []);
+
     const contactMethods = [
-        {
-            icon: <WhatsappIcon size={24} />,
-            label: "WhatsApp",
-            value: "+971 50 503 4907",
-            link: "https://wa.me/971505034907",
-            color: "#25D366"
-        },
-        {
-            icon: <Mail size={24} />,
-            label: "Email",
-            value: "muflinml8@gmail.com",
-            link: "mailto:muflinml8@gmail.com",
-            color: "#E76F2E"
-        },
-        {
-            icon: <Phone size={24} />,
-            label: "Phone",
-            value: "+971 50 503 4907",
-            link: "tel:+971505034907",
-            color: "#3B82F6"
-        }
+        { icon: <WhatsappIcon size={24} />, label: "WhatsApp", value: "+971 50 503 4907", link: "https://wa.me/971505034907", color: "rgba(37, 211, 102, 0.15)" },
+        { icon: <Mail size={24} />, label: "Email", value: "muflinml8@gmail.com", link: "mailto:muflinml8@gmail.com", color: "rgba(231, 111, 46, 0.15)" },
+        { icon: <Phone size={24} />, label: "Phone", value: "+971 50 503 4907", link: "tel:+971505034907", color: "rgba(59, 130, 246, 0.15)" }
     ];
 
     const socials = [
         { icon: <Linkedin size={20} />, link: "https://linkedin.com/in/mhdmuflhindia", name: "LinkedIn" },
         { icon: <Briefcase size={20} />, link: "https://behance.net/muflihzayid", name: "Behance" },
-        { icon: <MessageSquare size={20} />, link: "https://dribbble.com", name: "Dribbble" } // Placeholder for Dribbble
+        { icon: <MessageSquare size={20} />, link: "https://dribbble.com", name: "Dribbble" }
     ];
 
     return (
-        <section id="contact" className="premium-contact-section">
-            <div className="contact-glow-1"></div>
-            <div className="contact-glow-2"></div>
+        <section 
+            id="contact" 
+            className="luxury-contact-section" 
+            ref={sectionRef}
+            onClick={createRipple}
+        >
+            {/* NOISE TEXTURE OVERLAY */}
+            <div className="grain-overlay"></div>
 
-            <div className="container">
-                <div className="contact-layout-wrapper">
-                    {/* LEFT CONTENT — LARGE TYPOGRAPHY */}
-                    <div className="contact-typography-column">
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
-                        >
-                            <span className="contact-pre-title">HAVE A PROJECT IN MIND?</span>
-                            <h1 className="contact-main-heading">
-                                Let's build <br />
-                                <span className="highlight-text">something</span> <br />
-                                amazing.
-                            </h1>
-                            <p className="contact-sub-description">
-                                I'm currently available for freelance projects and full-time roles. 
-                                Reach out and let's turn your ideas into reality.
-                            </p>
+            {/* CURSOR GLOW */}
+            <div 
+                className="cursor-glow-bubble"
+                style={{
+                    left: `${mousePos.x}px`,
+                    top: `${mousePos.y}px`
+                }}
+            ></div>
 
-                            <div className="availability-status">
-                                <span className="pulse-dot"></span>
-                                Available for new opportunities
-                            </div>
-                        </motion.div>
-                    </div>
+            {/* PARALLAX GRADIENT BLOBS */}
+            <div className="parallax-blobs">
+                <div className="blob-1" style={{ transform: `translate(${mousePos.x * 0.02}px, ${mousePos.y * 0.02}px)` }}></div>
+                <div className="blob-2" style={{ transform: `translate(${mousePos.x * -0.015}px, ${mousePos.y * -0.015}px)` }}></div>
+            </div>
 
-                    {/* RIGHT CONTENT — CONTACT CARDS & SOCIALS */}
-                    <div className="contact-actions-column">
-                        <div className="contact-cards-grid">
-                            {contactMethods.map((method, idx) => (
+            {/* CLICK RIPPLES */}
+            {ripples.map(ripple => (
+                <span 
+                    key={ripple.id} 
+                    className="click-ripple"
+                    style={{ left: ripple.x, top: ripple.y, width: ripple.size, height: ripple.size }}
+                />
+            ))}
+
+            <div className="container luxury-layout">
+                {/* LEFT: EMOTIONAL SECTION */}
+                <div className="luxury-left">
+                    <motion.div
+                        initial={{ opacity: 0, x: -60 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        <div className="luxury-availability">
+                            <span className="availability-dot"></span>
+                            <span>Available for new opportunities</span>
+                        </div>
+
+                        <h1 className="luxury-headline">
+                            Let's build <br />
+                            something <span className="amazing-gradient">amazing.</span>
+                        </h1>
+
+                        <p className="luxury-subtext">
+                            I'm available for freelance projects and full-time roles. <br />
+                            Let's create something meaningful together.
+                        </p>
+                    </motion.div>
+                </div>
+
+                {/* RIGHT: CONTACT CARDS */}
+                <div className="luxury-right">
+                    <div className="luxury-cards-stack">
+                        {contactMethods.map((method, idx) => (
+                            <Magnetic key={method.label}>
                                 <motion.a
-                                    key={method.label}
                                     href={method.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="contact-method-card"
-                                    initial={{ opacity: 0, y: 30 }}
+                                    className="luxury-glass-card"
+                                    initial={{ opacity: 0, y: 40 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ duration: 0.6, delay: idx * 0.1 }}
+                                    transition={{ duration: 0.7, delay: idx * 0.15 }}
                                 >
-                                    <div className="method-icon-wrap" style={{ '--accent-c': method.color }}>
+                                    <div className="luxury-card-icon" style={{ backgroundColor: method.color }}>
                                         {method.icon}
                                     </div>
-                                    <div className="method-info">
-                                        <span className="method-label">{method.label}</span>
-                                        <span className="method-value">{method.value}</span>
+                                    <div className="luxury-card-info">
+                                        <span className="luxury-card-label">{method.label}</span>
+                                        <span className="luxury-card-value">{method.value}</span>
                                     </div>
-                                    <ArrowUpRight className="method-arrow" size={20} />
+                                    <ArrowUpRight className="luxury-card-arrow" strokeWidth={2.5} size={20} />
                                 </motion.a>
-                            ))}
-                        </div>
+                            </Magnetic>
+                        ))}
+                    </div>
 
-                        <motion.div 
-                            className="social-links-footer"
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1, delay: 0.5 }}
-                        >
-                            <span className="social-footer-label">OR FOLLOW ME AT</span>
-                            <div className="social-pill-container">
-                                {socials.map((social) => (
+                    {/* SOCIAL FOOTER */}
+                    <motion.div 
+                        className="luxury-social-footer"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                    >
+                        <span className="social-tagline">Or follow me at</span>
+                        <div className="luxury-social-row">
+                            {socials.map((social) => (
+                                <Magnetic key={social.name}>
                                     <a 
-                                        key={social.name} 
                                         href={social.link} 
                                         target="_blank" 
                                         rel="noopener noreferrer"
-                                        className="social-glass-pill"
+                                        className="luxury-social-icon"
+                                        aria-label={social.name}
                                     >
                                         {social.icon}
-                                        <span>{social.name}</span>
                                     </a>
-                                ))}
-                            </div>
-                        </motion.div>
-                    </div>
+                                </Magnetic>
+                            ))}
+                        </div>
+                    </motion.div>
                 </div>
             </div>
         </section>
@@ -135,4 +220,3 @@ const Contact = () => {
 };
 
 export default Contact;
-

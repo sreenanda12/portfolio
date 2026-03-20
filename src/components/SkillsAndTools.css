@@ -96,8 +96,9 @@
 }
 
 [data-theme="dark"] .tool-card-compact {
-    background: rgba(30, 30, 30, 0.4);
-    border-color: rgba(255, 255, 255, 0.05);
+    background: rgba(20, 20, 22, 0.4);
+    backdrop-filter: blur(25px);
+    border-color: rgba(255, 255, 255, 0.03);
 }
 
 .tool-card-compact:hover {
@@ -107,7 +108,9 @@
 }
 
 [data-theme="dark"] .tool-card-compact:hover {
-    background: rgba(45, 45, 45, 0.8);
+    background: rgba(30, 30, 35, 0.8);
+    border-color: rgba(255, 106, 0, 0.4);
+    box-shadow: 0 0 30px rgba(255, 106, 0, 0.15);
 }
 
 .tool-icon-mini {
@@ -247,17 +250,29 @@
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
+    .tools-compact-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+    }
+}
+
+@media (max-width: 767px) {
     .tools-compact-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
-    .tool-tooltip { display: none; } /* Hide tooltips on touch */
-}
-
-@media (max-width: 480px) {
+    .tool-tooltip { display: none; }
+    
     .st-tab-btn {
         padding: 0.6rem 1.5rem;
         min-width: 100px;
+        font-size: 0.8rem;
+    }
+
+    .skill-chip-mini {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
     }
 }
+

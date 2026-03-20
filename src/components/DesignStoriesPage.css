@@ -1,151 +1,58 @@
+/* DESIGN STORIES PAGE STYLES */
 .design-stories-page {
     min-height: 100vh;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    padding: 2rem 0;
+    background-color: #FDFDFB;
 }
 
-.design-stories-page.embedding {
-    min-height: auto;
-    background-color: transparent;
-    padding: 0;
-}
-
-.stories-header {
-    padding: 0 5%;
-    margin-bottom: 2rem;
-}
-
-.back-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: transparent;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.back-btn:hover {
-    color: var(--accent-indigo);
-}
-
-.stories-main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.stories-title-main {
-    text-align: center;
-    font-size: 3rem;
-    margin-bottom: 3rem;
-    background: linear-gradient(90deg, var(--accent-indigo), var(--accent-emerald));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-}
-
-.stories-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 3rem;
-    justify-content: center;
-}
-
-.stories-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
-    animation: fadeInGrid 0.8s ease;
-}
-
-@keyframes fadeInGrid {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.stories-card {
-    position: relative;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.4s ease;
-    aspect-ratio: 4/3;
-    cursor: pointer;
-    background-size: 200% 200% !important;
-    animation: gradientShift 8s ease infinite;
-}
-
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.stories-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-hover);
-    animation: gradientShift 3s ease infinite; /* Speed up on hover */
-}
-
-.stories-image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.stories-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-    mix-blend-mode: overlay; /* Changed from multiply */
-    opacity: 0.9; /* Increased opacity */
-}
-
-[data-theme="dark"] .stories-image-wrapper img {
-    mix-blend-mode: soft-light; /* Changed from luminosity */
-    opacity: 0.7;
-}
-
-.stories-card:hover .stories-image-wrapper img {
-    transform: scale(1.1);
-    opacity: 1;
-    mix-blend-mode: normal;
-}
-
-.stories-overlay {
-    position: absolute;
+.stories-nav-header {
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    background: rgba(26, 26, 46, 0.85);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 2rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.4s ease;
-    backdrop-filter: blur(4px);
+    padding: 2rem 0;
+    background: rgba(253, 253, 251, 0.8);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
 }
 
-.stories-card:hover .stories-overlay {
+.stories-back-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+    width: fit-content;
+}
+
+.stories-back-link:hover {
     opacity: 1;
-    visibility: visible;
+    color: var(--accent-primary);
+}
+
+.stories-back-link svg {
+    transition: transform 0.3s ease;
+}
+
+.stories-back-link:hover svg {
+    transform: translateX(-5px);
+}
+
+/* Ensure the gallery inside fits the page flow */
+.design-stories-page .gallery-section {
+    padding-top: 140px;
+}
+
+.design-stories-page .gallery-main-title {
+    margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 767px) {
+    .stories-nav-header { padding: 1.5rem 0; }
+    .design-stories-page .gallery-section { padding-top: 100px; }
 }

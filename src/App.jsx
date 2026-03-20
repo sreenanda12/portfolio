@@ -15,6 +15,7 @@ import Footer from './components/Footer';
 import FloatingButtons from './components/FloatingButtons';
 import CustomCursor from './components/CustomCursor';
 import DesignStoriesPage from './components/DesignStoriesPage';
+import ProjectDetailsPage from './components/ProjectDetailsPage';
 import SectionHeader from './components/SectionHeader';
 
 function PortfolioMain() {
@@ -25,10 +26,9 @@ function PortfolioMain() {
                 <Hero />
                 <SummaryStrip />
                 
-                <SectionHeader title="Portfolio" id="portfolio" />
                 <WorkGallery />
 
-                <SectionHeader label="Who I Am" title="Who I Am" id="who-i-am" highlight="Am" />
+                <SectionHeader title="Who I Am" id="who-i-am" />
                 <WhoIAm />
 
                 <SectionHeader title="Skills & Tools" id="skills-and-tools" highlight="Tools" />
@@ -59,6 +59,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<PortfolioMain />} />
                     <Route path="/design-stories" element={<DesignStoriesPage />} />
+                    <Route path="/project/:id" element={<ProjectDetailsPage />} />
                 </Routes>
             </HashRouter>
         </ThemeProvider>
