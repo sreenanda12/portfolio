@@ -25,8 +25,8 @@ const Navbar = () => {
 
     const navLinks = [
         { name: 'Home', to: 'home' },
-        { name: 'About', to: 'about' },
-        { name: 'Work Gallery', to: 'work-gallery' },
+        { name: 'Portfolio', to: 'portfolio' },
+        { name: 'About', to: 'who-i-am' },
         { name: 'Contact', to: 'contact' },
     ];
 
@@ -38,19 +38,40 @@ const Navbar = () => {
                 <span className="logo-hover-text">MUHAMMED MUFLIH A</span>
             </div>
 
+            {/* Desktop Navigation */}
+            <nav className="desktop-navbar">
+                <ul className="desktop-nav-list">
+                    {navLinks.map((link) => (
+                        <li key={link.name}>
+                            <Link
+                                activeClass="active"
+                                to={link.to}
+                                spy={true}
+                                smooth={true}
+                                offset={-80}
+                                duration={700}
+                                className="desktop-nav-link"
+                            >
+                                {link.name}
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+
             {/* Right side controls */}
             <div className="header-controls">
                 <ThemeToggle />
 
                 <button
-                    className={`nav-btn ${isOpen ? 'open' : ''}`}
+                    className={`hamburger-btn ${isOpen ? 'open' : ''}`}
                     onClick={toggleMenu}
                 >
                     {isOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
             </div>
 
-            {/* The overlay popup menu */}
+            {/* Mobile Overlay Menu */}
             <div className={`nav-overlay-menu ${isOpen ? 'active' : ''}`}>
                 <ul className="nav-menu-list">
                     {navLinks.map((link) => (

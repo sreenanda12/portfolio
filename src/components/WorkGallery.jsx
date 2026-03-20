@@ -47,16 +47,6 @@ const WorkGallery = () => {
         >
             <div className="container" style={{ maxWidth: '100%', padding: 0 }}>
 
-                <motion.h2 
-                    className="animated-gradient-title" 
-                    style={{ paddingLeft: '2rem' }}
-                    variants={{
-                        hidden: { opacity: 0, y: 20 },
-                        visible: { opacity: 1, y: 0, transition: { duration: 0.7 } }
-                    }}
-                >
-                    WORK GALLERY
-                </motion.h2>
 
                 {/* CONTINUOUS MARQUEE SCROLL (Right to Left) */}
                 <motion.div 

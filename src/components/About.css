@@ -19,13 +19,14 @@
 }
 
 .section-header {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: var(--text-h2);
     font-weight: 800;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
     color: var(--text-primary);
-    letter-spacing: -1px;
+    letter-spacing: -0.01em;
     position: relative;
     display: inline-block;
+    line-height: 1.2;
 }
 
 .section-header::after {
@@ -127,8 +128,8 @@
 }
 
 .intro-text p {
-    font-size: 1.25rem;
-    line-height: 1.8;
+    font-size: var(--text-base);
+    line-height: var(--lh-base);
     color: var(--text-secondary);
     font-weight: 400;
 }

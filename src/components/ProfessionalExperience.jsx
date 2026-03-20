@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Briefcase, MapPin, Calendar, CheckCircle2 } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { Calendar, MapPin, ChevronDown, CheckCircle2, Building2, ExternalLink } from 'lucide-react';
 import './ProfessionalExperience.css';
 
 const experienceData = [
@@ -10,6 +10,7 @@ const experienceData = [
         period: "May 2022 – December 2025",
         roles: [
             {
+                id: "multy-1",
                 title: "UI/UX Designer – INTERACTIVE & GAMIFIED EXPERIENCES",
                 tags: ["UX Design", "Gamification", "3D UI", "Figma", "Unity"],
                 responsibilities: [
@@ -24,6 +25,7 @@ const experienceData = [
                 ]
             },
             {
+                id: "multy-2",
                 title: "Digital Marketing & Creative Designer",
                 tags: ["Digital Marketing", "Branding", "Social Media", "Creatives"],
                 responsibilities: [
@@ -37,6 +39,7 @@ const experienceData = [
                 ]
             },
             {
+                id: "multy-3",
                 title: "Digital Marketing & Creative Designer (Campaign Specialists)",
                 tags: ["SEO", "Campaign Design", "Storytelling", "Performance"],
                 responsibilities: [
@@ -54,6 +57,7 @@ const experienceData = [
         period: "April 2020 – April 2022",
         roles: [
             {
+                id: "spotter-1",
                 title: "Digital Marketing & Creative Designer",
                 tags: ["SEO", "Ad Campaigns", "Storytelling", "Engagement"],
                 responsibilities: [
@@ -70,6 +74,7 @@ const experienceData = [
                 ]
             },
             {
+                id: "spotter-2",
                 title: "Graphic Designer",
                 tags: ["Branding", "Print Design", "UI Visualization", "Consistency"],
                 responsibilities: [
@@ -87,141 +92,182 @@ const experienceData = [
     }
 ];
 
-const RoleAccordion = ({ role, isOpen, onToggle }) => {
+const ExperienceCard = ({ company, activeRoleIndex, onRoleSelect }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const cardRef = useRef(null);
+    
+    // 3D Tilt Effect Values
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    const mouseXSpring = useSpring(x);
+    const mouseYSpring = useSpring(y);
+    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+    const handleMouseMove = (e) => {
+        if (!cardRef.current) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        const xPct = (mouseX / width) - 0.5;
+        const yPct = (mouseY / height) - 0.5;
+        x.set(xPct);
+        y.set(yPct);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    const activeRole = company.roles[activeRoleIndex];
+
     return (
-        <div className="role-accordion-item">
-            <button 
-                className={`role-toggle-btn ${isOpen ? 'active' : ''}`}
-                onClick={onToggle}
-            >
-                <div className="role-header-content">
-                    <div className="role-tags">
-                        {role.tags.map(tag => (
-                            <span key={tag} className="role-tag">{tag}</span>
-                        ))}
+        <motion.div 
+            className="exp-glass-card"
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ rotateX, rotateY, perspective: 1000 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+            <div className="exp-card-glow"></div>
+            
+            <div className="exp-card-content">
+                {/* Header */}
+                <div className="exp-header">
+                    <div className="exp-company-info">
+                        <Building2 className="exp-building-icon" size={24} />
+                        <div>
+                            <h3 className="exp-company-name">{company.company}</h3>
+                            <div className="exp-meta">
+                                <span className="exp-meta-item"><MapPin size={14} /> {company.location}</span>
+                                <span className="exp-meta-item"><Calendar size={14} /> {company.period}</span>
+                            </div>
+                        </div>
                     </div>
-                    <h4 className="role-title">{role.title}</h4>
                 </div>
-                <motion.div 
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                >
-                    <ChevronDown size={20} className="accordion-icon" />
-                </motion.div>
-            </button>
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.4, ease: "easeInOut" }}
-                        className="role-content-wrapper"
-                    >
-                        <motion.ul 
-                            className="responsibilities-list"
-                            initial="hidden"
-                            animate="visible"
-                            variants={{
-                                visible: { transition: { staggerChildren: 0.1 } }
+
+                {/* Role Toggle Tabs */}
+                <div className="role-switcher">
+                    {company.roles.map((role, idx) => (
+                        <button 
+                            key={role.id}
+                            className={`role-tab ${activeRoleIndex === idx ? 'active' : ''}`}
+                            onClick={() => {
+                                onRoleSelect(idx);
+                                setIsExpanded(false);
                             }}
                         >
-                            {role.responsibilities.map((resp, idx) => {
-                                const isKeyContrib = resp.startsWith("Key Contribution:");
-                                return (
-                                    <motion.li 
-                                        key={idx} 
-                                        className={isKeyContrib ? "key-contribution" : ""}
-                                        variants={{
-                                            hidden: { opacity: 0, x: -10 },
-                                            visible: { opacity: 1, x: 0 }
-                                        }}
-                                    >
-                                        <CheckCircle2 size={16} className="task-bullet" />
-                                        <span>
-                                            {isKeyContrib ? (
-                                                <><strong>Key Contribution:</strong> {resp.replace("Key Contribution:", "").trim()}</>
-                                            ) : resp}
-                                        </span>
-                                    </motion.li>
-                                );
-                            })}
-                        </motion.ul>
+                            {idx === 0 ? "Main Role" : `Role ${idx + 1}`}
+                        </button>
+                    ))}
+                </div>
+
+                {/* Active Role Content */}
+                <AnimatePresence mode="wait">
+                    <motion.div 
+                        key={activeRole.id}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.3 }}
+                        className="active-role-container"
+                    >
+                        <h4 className="active-role-title">{activeRole.title}</h4>
+                        
+                        <div className="exp-tags-row">
+                            {activeRole.tags.slice(0, 4).map(tag => (
+                                <span key={tag} className="exp-tag">{tag}</span>
+                            ))}
+                            {activeRole.tags.length > 4 && (
+                                <span className="exp-tag more">+{activeRole.tags.length - 4} more</span>
+                            )}
+                        </div>
+
+                        <button 
+                            className={`view-details-btn ${isExpanded ? 'expanded' : ''}`}
+                            onClick={() => setIsExpanded(!isExpanded)}
+                        >
+                            <span>{isExpanded ? "Hide Details" : "View Details"}</span>
+                            <ChevronDown size={18} />
+                        </button>
+
+                        <AnimatePresence>
+                            {isExpanded && (
+                                <motion.div 
+                                    className="details-expansion"
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: "auto", opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                                >
+                                    <ul className="details-list">
+                                        {activeRole.responsibilities.map((resp, i) => (
+                                            <li key={i}>
+                                                <CheckCircle2 size={16} className="details-check" />
+                                                <span>{resp}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </motion.div>
-                )}
-            </AnimatePresence>
-        </div>
+                </AnimatePresence>
+            </div>
+        </motion.div>
     );
 };
 
 const ProfessionalExperience = () => {
-    const [openRoles, setOpenRoles] = useState({});
+    const [activeCompanyIndex, setActiveCompanyIndex] = useState(0);
+    const [activeRoleIndices, setActiveRoleIndices] = useState(
+        experienceData.map(() => 0)
+    );
 
-    const toggleRole = (companyIndex, roleIndex) => {
-        const key = `${companyIndex}-${roleIndex}`;
-        setOpenRoles(prev => ({
-            ...prev,
-            [key]: !prev[key]
-        }));
+    const handleRoleSelect = (roleIdx) => {
+        const newIndices = [...activeRoleIndices];
+        newIndices[activeCompanyIndex] = roleIdx;
+        setActiveRoleIndices(newIndices);
     };
 
     return (
-        <section id="experience" className="experience-section">
+        <section id="experience" className="modern-exp-section">
             <div className="container">
-                <motion.h2 
-                    className="section-header"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                >
-                    Professional Experience
-                </motion.h2>
-
-                <div className="experience-timeline">
-                    <div className="timeline-spine"></div>
+                <div className="exp-layout-2026">
                     
-                    {experienceData.map((exp, companyIdx) => (
-                        <motion.div 
-                            key={exp.company}
-                            className="experience-card"
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.2 }}
-                            transition={{ duration: 0.6, ease: "easeOut", delay: companyIdx * 0.1 }}
-                        >
-                            <div className="timeline-marker">
-                                <div className="marker-inner">
-                                    <Briefcase size={16} />
-                                </div>
-                            </div>
-                            
-                            <div className="card-header">
-                                <h3 className="company-name">{exp.company}</h3>
-                                <div className="company-meta">
-                                    <span className="meta-item">
-                                        <MapPin size={14} />
-                                        {exp.location}
-                                    </span>
-                                    <span className="meta-item">
-                                        <Calendar size={14} />
-                                        {exp.period}
-                                    </span>
-                                </div>
-                            </div>
+                    {/* LEFT: MINIMAL TIMELINE */}
+                    <div className="exp-timeline-nav">
+                        {experienceData.map((exp, idx) => (
+                            <button 
+                                key={exp.company}
+                                className={`timeline-step ${activeCompanyIndex === idx ? 'active' : ''}`}
+                                onClick={() => setActiveCompanyIndex(idx)}
+                            >
+                                <div className="step-dot"></div>
+                                <span className="step-label">{exp.company.split(' ')[0]}</span>
+                            </button>
+                        ))}
+                    </div>
 
-                            <div className="company-roles">
-                                {exp.roles.map((role, roleIdx) => (
-                                    <RoleAccordion 
-                                        key={role.title}
-                                        role={role}
-                                        isOpen={openRoles[`${companyIdx}-${roleIdx}`]}
-                                        onToggle={() => toggleRole(companyIdx, roleIdx)}
-                                    />
-                                ))}
-                            </div>
-                        </motion.div>
-                    ))}
+                    {/* CENTER: 3D GLASS CARD */}
+                    <div className="exp-main-stage">
+                        <AnimatePresence mode="wait">
+                            <ExperienceCard 
+                                key={experienceData[activeCompanyIndex].company}
+                                company={experienceData[activeCompanyIndex]}
+                                activeRoleIndex={activeRoleIndices[activeCompanyIndex]}
+                                onRoleSelect={handleRoleSelect}
+                            />
+                        </AnimatePresence>
+                    </div>
+
                 </div>
             </div>
         </section>

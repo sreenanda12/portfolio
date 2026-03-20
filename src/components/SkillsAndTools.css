@@ -1,0 +1,263 @@
+.st-section {
+    padding: 100px 0;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.st-bg-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle at center, rgba(231, 111, 46, 0.08), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.st-tabs-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+}
+
+.st-tabs {
+    display: flex;
+    position: relative;
+    background: rgba(231, 111, 46, 0.05);
+    padding: 6px;
+    border-radius: 40px;
+    width: fit-content;
+    border: 1px solid rgba(231, 111, 46, 0.08);
+}
+
+.st-tabs-pill {
+    position: absolute;
+    height: calc(100% - 12px);
+    width: calc(50% - 6px);
+    background: var(--accent-primary);
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(231, 111, 46, 0.3);
+    z-index: 0;
+}
+
+.st-tab-btn {
+    background: none;
+    border: none;
+    padding: 0.8rem 2.5rem;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    min-width: 120px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.st-tab-btn.active {
+    color: white;
+}
+
+.st-content-wrapper {
+    min-height: 200px;
+    position: relative;
+    z-index: 1;
+}
+
+/* TOOLS GRID */
+.tools-compact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.tool-card-compact {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 1rem 1.2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    overflow: visible; /* To allow tooltip display */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .tool-card-compact {
+    background: rgba(30, 30, 30, 0.4);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.tool-card-compact:hover {
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-primary);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="dark"] .tool-card-compact:hover {
+    background: rgba(45, 45, 45, 0.8);
+}
+
+.tool-icon-mini {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: all 0.4s ease;
+}
+
+.tool-card-compact:hover .tool-icon-mini {
+    color: var(--accent-primary);
+    filter: drop-shadow(0 0 8px rgba(231, 111, 46, 0.4));
+    transform: scale(1.1);
+}
+
+.tool-info-mini {
+    display: flex;
+    flex-direction: column;
+}
+
+.tool-name-mini {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.2px;
+}
+
+.tool-percent-mini {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+/* Tooltip Styling */
+.tool-tooltip {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px) scale(0.9);
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    opacity: 0;
+    visibility: hidden;
+    white-space: nowrap;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.tool-card-compact:hover .tool-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.tool-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--text-primary);
+}
+
+/* Progress Underline */
+.tool-hover-bar {
+    position: absolute;
+    bottom: 8px;
+    left: 1.2rem;
+    right: 1.2rem;
+    height: 2.5px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .tool-hover-bar {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.tool-level-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #FF8A00, #FF5E00);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 138, 0, 0.3);
+}
+
+/* SKILLS CHIPS */
+.skills-compact-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.skill-chip-mini {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    padding: 0.75rem 1.8rem;
+    border-radius: 100px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    cursor: default;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .skill-chip-mini {
+    background: rgba(30, 30, 30, 0.4);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.skill-chip-mini:hover {
+    background: white;
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    box-shadow: 0 10px 25px rgba(231, 111, 46, 0.15);
+}
+
+.skill-emoji {
+    font-size: 1.3rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+@media (max-width: 768px) {
+    .tools-compact-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    .tool-tooltip { display: none; } /* Hide tooltips on touch */
+}
+
+@media (max-width: 480px) {
+    .st-tab-btn {
+        padding: 0.6rem 1.5rem;
+        min-width: 100px;
+    }
+}

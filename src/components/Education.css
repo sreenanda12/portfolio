@@ -1,0 +1,73 @@
+.education-grid-section {
+    padding: 2rem 0;
+    width: 100%;
+}
+
+.edu-compact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.edu-card-compact {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid #ebebeb;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+.edu-card-compact:hover {
+    transform: translateY(-5px);
+    border-color: #FF5A1F20;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.edu-icon-bg {
+    width: 48px;
+    height: 48px;
+    background: #FF5A1F10;
+    color: #FF5A1F;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.edu-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.edu-year-small {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #FF5A1F;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.edu-degree-small {
+    font-size: var(--text-h4);
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.25;
+    margin-bottom: 0.4rem;
+}
+
+.edu-inst-small {
+    font-size: var(--text-sm);
+    color: #666;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .edu-compact-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,103 +1,68 @@
-.custom-cursor-container {
+.custom-cursor-layer {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 99999;
+    z-index: 9999999;
 }
 
-.cursor-dot {
+.main-cursor {
     position: fixed;
-    width: 8px;
-    height: 8px;
-    background-color: var(--accent-primary);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 100000;
-    transform: translate(-50%, -50%);
-}
-
-.cursor-outline {
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    border: 1.5px solid var(--accent-primary);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99999;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); /* Center the cursor on mouse pointer */
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: width 0.3s ease, height 0.3s ease;
+    pointer-events: none;
+    z-index: 1000000;
 }
 
-.cursor-text {
-    font-size: 8px;
-    font-weight: 800;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
+.cursor-ring {
+    width: 44px;
+    height: 44px;
+    border: 1.5px solid #FF5A1F;
+    border-radius: 50%;
+    opacity: 0.6;
+    transition: all 0.2s ease;
 }
 
-/* Cursor State Classes from Framer Motion variants */
-.cursor-outline.hovering-link {
-    background-color: rgba(231, 111, 46, 0.1);
-    box-shadow: 0 0 15px rgba(231, 111, 46, 0.3);
+.cursor-arrow {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.cursor-outline.hovering-view .cursor-text {
-    opacity: 1;
+.cursor-arrow svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(0deg); /* Adjust rotation if needed */
 }
 
-.cursor-ripple {
+/* RIPPLE EFFECT ON CLICK */
+.click-ripple {
     position: fixed;
     width: 20px;
     height: 20px;
-    border: 1px solid var(--accent-primary);
+    border: 2px solid #FF5A1F;
     border-radius: 50%;
-    pointer-events: none;
     transform: translate(-50%, -50%);
-    z-index: 99998;
+    pointer-events: none;
+    z-index: 999999;
 }
 
-.scroll-indicator-arrows {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    opacity: 0.6;
-}
-
-.arrow-up, .arrow-down {
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-}
-
-.arrow-up {
-    border-bottom: 6px solid var(--accent-primary);
-}
-
-.arrow-down {
-    border-top: 6px solid var(--accent-primary);
-}
-
-/* Hide default cursor globally */
+/* HIDE DEFAULT CURSOR GLOBALLY */
 @media (pointer: fine) {
-    body, a, button, .cursor-pointer-none {
+    body, a, button, .interactive {
         cursor: none !important;
     }
 }
 
-/* Utility to show cursor if needed (mobile etc) */
 @media (pointer: coarse) {
-    .custom-cursor-container {
+    .custom-cursor-layer {
         display: none;
     }
     body {

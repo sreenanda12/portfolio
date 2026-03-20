@@ -8,16 +8,7 @@ const FloatingButtons = () => {
 
     return (
         <>
-            {/* Portfolio Bottom Right */}
-            <Link
-                to="work-gallery"
-                smooth={true}
-                duration={500}
-                className="floating-btn portfolio-btn"
-                aria-label="View Portfolio"
-            >
-                <span>Portfolio</span>
-            </Link>
+
 
             {/* Download CV Bottom Left */}
             <button
