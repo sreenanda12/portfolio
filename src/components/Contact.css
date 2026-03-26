@@ -38,7 +38,6 @@
 .parallax-blobs .blob-2 {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
     opacity: 0.05;
     pointer-events: none;
     z-index: 1;
@@ -49,7 +48,7 @@
     height: 600px;
     top: -10%;
     right: -10%;
-    background: #FFD7BE;
+    background: radial-gradient(circle, #FFD7BE 0%, transparent 65%);
 }
 
 .blob-2 {
@@ -57,7 +56,7 @@
     height: 500px;
     bottom: -10%;
     left: -10%;
-    background: #FFB088;
+    background: radial-gradient(circle, #FFB088 0%, transparent 65%);
 }
 
 /* Click Ripple */
