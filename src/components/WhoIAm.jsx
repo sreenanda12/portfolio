@@ -21,7 +21,7 @@ const WhoIAm = () => {
                                 transition: { duration: 0.3 }
                             }}
                         >
-                            <img src="who.jpeg" alt="Muhammed Muflih A" className="portrait-img" loading="lazy" />
+                            <img src="/who.jpeg" alt="Muhammed Muflih A" className="portrait-img" loading="lazy" />
                             <div className="shape shape-1"></div>
                             <div className="shape shape-2"></div>
                             <div className="shape shape-3"></div>

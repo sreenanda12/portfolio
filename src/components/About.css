@@ -396,4 +396,302 @@
         padding: 1.5rem;
     }
 }
-
+
+
+/* CERTS DISPLAY TOGGLE */
+.desktop-only { display: block; }
+.mobile-only { display: none; }
+
+@media (max-width: 767px) {
+    .desktop-only { display: none; }
+    .mobile-only { display: block; }
+}
+
+/* SECTION 5 — CERTIFICATIONS */
+.certifications-section {
+    position: relative;
+    padding: 80px 40px;
+    background: rgba(231, 111, 46, 0.02);
+    border-radius: 40px;
+    margin-top: 50px;
+}
+
+[data-theme="dark"] .certifications-section {
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.cert-bg-decoration {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(231, 111, 46, 0.05) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* DESKTOP SLIDER */
+.cert-slider-wrapper {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    z-index: 10;
+}
+
+.cert-slider-container {
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cert-card.active-slide {
+    width: 100%;
+    background: var(--bg-secondary);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-light);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.cert-card.active-slide:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-orange);
+}
+
+.click-to-next-hint {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-orange);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    animation: pulseHint 2s infinite;
+}
+
+@keyframes pulseHint {
+    0%, 100% { opacity: 0.4; transform: translateX(0); }
+    50% { opacity: 1; transform: translateX(5px); }
+}
+
+.cert-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 2rem;
+}
+
+.indicator-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 90, 31, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.indicator-dot.active {
+    background: var(--accent-orange);
+    width: 30px;
+    border-radius: 10px;
+}
+
+.cert-image-container {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #000;
+}
+
+.cert-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cert-card:hover .cert-image-container img {
+    transform: scale(1.05);
+}
+
+.cert-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
+}
+
+.cert-card:hover .cert-overlay {
+    opacity: 1;
+}
+
+.cert-view-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-orange);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 100px;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cert-card:hover .cert-view-btn {
+    transform: translateY(0);
+}
+
+.cert-info {
+    padding: 30px;
+}
+
+.cert-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.cert-issuer {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-orange);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.cert-date {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.cert-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* MOBILE TOUCH-OPTIMIZED SWIPE SYSTEM */
+@media (max-width: 767px) {
+    .certifications-section {
+        padding: 40px 0;
+        margin-left: -1.5rem;
+        margin-right: -1.5rem;
+        border-radius: 0;
+        background: transparent;
+    }
+
+    .certifications-section .section-header {
+        padding-left: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .cert-mobile-scroll-container {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .cert-scroll-track {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding: 0 1.5rem 24px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .cert-scroll-track::-webkit-scrollbar {
+        display: none;
+    }
+
+    .cert-mobile-card {
+        flex: 0 0 85%; /* SHOWS 85% OF CURRENT, PREVIEWS NEXT */
+        scroll-snap-align: center;
+        background: #121212; /* DEEP CHARCOAL */
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .cert-mobile-image {
+        position: relative;
+        aspect-ratio: 4 / 3;
+        background: #000;
+    }
+
+    .cert-mobile-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .cert-mobile-tag {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: rgba(255, 90, 31, 0.85); /* MUTED ORANGE */
+        color: #fff;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .cert-mobile-info {
+        padding: 20px;
+    }
+
+    .cert-mobile-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #eaeaea; /* SOFT GREY TEXT */
+        margin-bottom: 6px;
+        line-height: 1.4;
+    }
+
+    .cert-mobile-date {
+        font-size: 0.85rem;
+        color: #666;
+        font-weight: 500;
+    }
+
+    /* CLEAN DOT INDICATORS */
+    .cert-mobile-indicators {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .mi-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .mi-dot.active {
+        width: 20px;
+        border-radius: 10px;
+        background: rgba(255, 90, 31, 0.6);
+    }
+}

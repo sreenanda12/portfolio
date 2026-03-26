@@ -42,11 +42,11 @@ const FloatingButtons = () => {
                         <h3 className="modal-title">My Resume</h3>
 
                         <div className="pdf-actions">
-                            <a href="cv.pdf" target="_blank" rel="noopener noreferrer" className="btn view-cv-btn">
+                            <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" className="btn view-cv-btn">
                                 <Eye size={18} />
                                 View CV
                             </a>
-                            <a href="cv.pdf" download className="btn download-cv-btn">
+                            <a href="/cv.pdf" download className="btn download-cv-btn">
                                 <Download size={18} />
                                 Download PDF
                             </a>

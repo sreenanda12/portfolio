@@ -1,197 +1,213 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Maximize2, ExternalLink } from 'lucide-react';
-import { Link } from 'react-scroll';
+import { Maximize2, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import './About.css';
 import CertificationModal from './CertificationModal';
-import './Certifications.css';
 
-// Using the provided data from the local file
 export const allCertificates = [
     {
         id: 1,
-        title: "Unity Certified Associate: Game Developer",
-        issuer: "Unity / ASAP Kerala",
-        date: "2023",
-        image: "certificates/c1.jpeg",
-        skills: ["Unity", "C#", "Game UI"]
+        title: "",
+        issuer: "",
+        date: "2024",
+        image: "/certificates/c1.jpeg",
+        skills: ["Skill 1", "Skill 2"]
     },
     {
         id: 2,
-        title: "Graphic Design Professional",
-        issuer: "ICT Academy of Kerala",
-        date: "2022",
-        image: "certificates/c2.jpeg",
-        skills: ["Photoshop", "Illustrator"]
+        title: "",
+        issuer: "",
+        date: "2024",
+        image: "/certificates/c2.jpeg",
+        skills: []
     },
     {
         id: 3,
-        title: "UI/UX Experience Design",
-        issuer: "ASAP Kerala",
-        date: "2024",
-        image: "certificates/c3.jpeg",
-        skills: ["Figma", "Design Thinking"]
+        title: "",
+        issuer: "",
+        date: "2023",
+        image: "/certificates/c3.jpeg",
+        skills: []
     },
     {
         id: 4,
-        title: "Meta Social Media Marketing",
-        issuer: "Coursera / Meta",
+        title: "",
+        issuer: "",
         date: "2023",
-        image: "certificates/c4.jpeg",
-        skills: ["Meta Ads", "Campaign Strategy"]
+        image: "/certificates/c4.jpeg",
+        skills: []
     },
     {
         id: 5,
-        title: "Advanced Visual Design",
-        issuer: "Interaction Design Foundation",
+        title: "",
+        issuer: "",
         date: "2022",
-        image: "certificates/c5.jpeg",
-        skills: ["Typography", "Layout"]
+        image: "/certificates/c5.jpeg",
+        skills: []
     },
     {
         id: 6,
-        title: "Digital Illustrator Mastery",
-        issuer: "Adobe Certified Expert",
+        title: "",
+        issuer: "",
         date: "2022",
-        image: "certificates/c6.jpeg",
-        skills: ["Vector Graphics", "Branding"]
+        image: "/certificates/c6.jpeg",
+        skills: []
+    },
+    {
+        id: 7,
+        title: "",
+        issuer: "",
+        date: "2021",
+        image: "/certificates/c7.jpeg",
+        skills: []
     }
 ];
 
 const Certifications = () => {
     const [selectedCert, setSelectedCert] = useState(null);
-    const [activeIndex, setActiveIndex] = useState(0);
-    const scrollRef = useRef(null);
+    const [currentCertIndex, setCurrentCertIndex] = useState(0);
+    const [isMobileInteracting, setIsMobileInteracting] = useState(false);
+    const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
 
-    // Track active index on mobile scroll
+    const nextCert = () => {
+        setCurrentCertIndex((prev) => (prev + 1) % allCertificates.length);
+    };
+
+    // Auto-flow for desktop slider
     useEffect(() => {
-        const handleScroll = () => {
-            if (!scrollRef.current || !scrollRef.current.children.length) return;
-            const scrollLeft = scrollRef.current.scrollLeft;
-            const firstChild = scrollRef.current.children[0];
-            const itemWidth = firstChild.offsetWidth;
-            const index = Math.round(scrollLeft / itemWidth);
-            if (index !== activeIndex) {
-                setActiveIndex(index);
-            }
-        };
+        const interval = setInterval(() => {
+            if (!selectedCert) nextCert();
+        }, 5000);
+        return () => clearInterval(interval);
+    }, [selectedCert]);
 
-        const currentRef = scrollRef.current;
-        if (currentRef) {
-            currentRef.addEventListener('scroll', handleScroll, { passive: true });
-        }
-        return () => {
-            if (currentRef) {
-                currentRef.removeEventListener('scroll', handleScroll);
-            }
-        };
-    }, [activeIndex]);
+    // Auto-flow for mobile swipe
+    useEffect(() => {
+        if (isMobileInteracting || selectedCert) return;
+        
+        const interval = setInterval(() => {
+            setMobileActiveIndex((prev) => (prev + 1) % allCertificates.length);
+        }, 4000);
+        
+        return () => clearInterval(interval);
+    }, [isMobileInteracting, selectedCert]);
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1,
-                delayChildren: 0.2
-            }
+    // Track scroll position to update index
+    const handleMobileScroll = (e) => {
+        const { scrollLeft, offsetWidth } = e.target;
+        const index = Math.round(scrollLeft / (offsetWidth * 0.85));
+        if (index !== mobileActiveIndex) {
+            setMobileActiveIndex(index);
         }
     };
 
-    const cardVariants = {
-        hidden: { opacity: 0, y: 30 },
-        visible: { 
-            opacity: 1, 
-            y: 0, 
-            transition: { 
-                duration: 0.8, 
-                ease: [0.2, 0.8, 0.2, 1] 
-            } 
-        }
-    };
-
-    const renderCard = (cert, index) => (
-        <motion.div 
-            key={cert.id}
-            className="cert-card-refined"
-            variants={cardVariants}
-            onClick={() => setSelectedCert(cert)}
-            whileHover={{ y: -8 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        >
-            <div className="cert-img-wrapper">
-                <img src={cert.image} alt={cert.title} loading="lazy" />
-                <div className="cert-card-overlay">
-                    <div className="view-cert-icon">
-                        <Maximize2 size={24} />
-                    </div>
-                </div>
-            </div>
-            
-            <div className="cert-content-refined">
-                <div className="cert-header-info">
-                    <span className="cert-issuer-premium">{cert.issuer}</span>
-                    <h3 className="cert-title-premium">{cert.title}</h3>
-                </div>
+    return (
+        <section id="certifications" className="about-section certifications-section">
+            <div className="container">
+                <div className="cert-bg-decoration"></div>
                 
-                <div className="cert-footer-premium">
-                    <span className="cert-date-refined">{cert.date}</span>
-                    <div className="cert-skills-preview">
-                        {cert.skills.slice(0, 2).map((skill, sIdx) => (
-                            <span key={sIdx} className="mini-skill-tag">{skill}</span>
+                {/* Desktop Slider View */}
+                <div className="cert-slider-wrapper desktop-only">
+                    <div className="cert-slider-container">
+                        <AnimatePresence mode="wait">
+                            <motion.div 
+                                key={allCertificates[currentCertIndex].id}
+                                className="cert-card active-slide"
+                                initial={{ opacity: 0, x: 100 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -100 }}
+                                transition={{ 
+                                    type: "spring", 
+                                    stiffness: 300, 
+                                    damping: 30 
+                                }}
+                                onClick={nextCert}
+                            >
+                                <div className="cert-image-container">
+                                    <img src={allCertificates[currentCertIndex].image} alt={allCertificates[currentCertIndex].title} loading="lazy" />
+                                    <div className="cert-overlay">
+                                        <div className="cert-view-btn" onClick={(e) => {
+                                            e.stopPropagation();
+                                            setSelectedCert(allCertificates[currentCertIndex]);
+                                        }}>
+                                            <Maximize2 size={24} />
+                                            <span>View Certificate</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="cert-info">
+                                    <div className="cert-meta" style={{ justifyContent: 'center' }}>
+                                        {allCertificates[currentCertIndex].issuer && <span className="cert-issuer">{allCertificates[currentCertIndex].issuer}</span>}
+                                        <span className="cert-date">{allCertificates[currentCertIndex].date}</span>
+                                    </div>
+                                    <div className="click-to-next-hint" style={{ marginTop: '10px' }}>Click to see next →</div>
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
+                    
+                    <div className="cert-indicators">
+                        {allCertificates.map((_, idx) => (
+                            <button 
+                                key={idx} 
+                                className={`indicator-dot ${idx === currentCertIndex ? 'active' : ''}`}
+                                onClick={() => setCurrentCertIndex(idx)}
+                            />
                         ))}
                     </div>
                 </div>
-            </div>
-        </motion.div>
-    );
 
-    return (
-        <section className="cert-section-premium">
-            <div className="container">
-                <motion.div 
-                    className="section-title-wrap"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <h2 className="section-title">Professional Certifications</h2>
-                    <p style={{ color: 'var(--text-muted)', maxWidth: '600px', marginBottom: '1rem' }}>
-                        Curated collection of industry-recognized certifications in UI/UX, Graphic Design, and Game Development.
-                    </p>
-                </motion.div>
-
-                {/* DESKTOP GRID */}
-                <motion.div 
-                    className="cert-grid-desktop"
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                >
-                    {allCertificates.map((cert, index) => renderCard(cert, index))}
-                </motion.div>
-
-                {/* MOBILE SCROLL */}
-                <div className="cert-mobile-scroll" ref={scrollRef}>
-                    {allCertificates.map((cert, index) => renderCard(cert, index))}
+                {/* Mobile Swipe Carousel with Subtle Previews */}
+                <div className="cert-mobile-scroll-container mobile-only">
+                    <div 
+                        className="cert-scroll-track"
+                        onScroll={handleMobileScroll}
+                        onTouchStart={() => setIsMobileInteracting(true)}
+                        onTouchEnd={() => setTimeout(() => setIsMobileInteracting(false), 2000)}
+                    >
+                        {allCertificates.map((cert, index) => {
+                            const isActive = index === mobileActiveIndex;
+                            return (
+                                <motion.div 
+                                    key={`mob-${cert.id}`} 
+                                    className="cert-mobile-card"
+                                    animate={{ 
+                                        opacity: isActive ? 1 : 0.8,
+                                        scale: isActive ? 1 : 0.98
+                                    }}
+                                    transition={{ duration: 0.4 }}
+                                    onClick={() => setSelectedCert(cert)}
+                                >
+                                    <div className="cert-mobile-image">
+                                        <img src={cert.image} alt={cert.title} loading="lazy" />
+                                        {cert.issuer && <div className="cert-mobile-tag">{cert.issuer}</div>}
+                                    </div>
+                                    <div className="cert-mobile-info">
+                                        <h3 className="cert-mobile-title">{cert.title}</h3>
+                                        <span className="cert-mobile-date">{cert.date}</span>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
+                    </div>
+                    
+                    {/* Clean Dot Indicators for Mobile */}
+                    <div className="cert-mobile-indicators">
+                        {allCertificates.map((_, idx) => (
+                            <div 
+                                key={`mi-${idx}`} 
+                                className={`mi-dot ${idx === mobileActiveIndex ? 'active' : ''}`}
+                            />
+                        ))}
+                    </div>
                 </div>
 
-                {/* MOBILE DOTS */}
-                <div className="cert-scroll-indicators">
-                    {allCertificates.map((_, idx) => (
-                        <div 
-                            key={idx} 
-                            className={`cert-dot ${idx === activeIndex ? 'active' : ''}`}
-                        />
-                    ))}
-                </div>
-
-                <div className="cert-view-more-container" style={{ marginTop: '2.5rem', textAlign: 'center' }}>
-                    <a href="/#/certifications" className="btn btn-primary" style={{ display: 'inline-flex', gap: '0.5rem', padding: '0.8rem 2rem' }}>
+                <div className="cert-view-more-container" style={{ marginTop: '2rem', textAlign: 'center' }}>
+                    <Link to="/certifications" className="view-details-btn" style={{ display: 'inline-flex', width: 'auto' }}>
                         <span>View All Certifications</span>
-                        <ExternalLink size={18} />
-                    </a>
+                        <ArrowRight size={18} style={{ marginLeft: '8px' }} />
+                    </Link>
                 </div>
 
                 <CertificationModal 
