@@ -12,7 +12,7 @@ export const allCertificates = [
         title: "Unity Certified Associate: Game Developer",
         issuer: "Unity / ASAP Kerala",
         date: "2023",
-        image: "/certificates/c1.jpeg",
+        image: "certificates/c1.jpeg",
         skills: ["Unity", "C#", "Game UI"]
     },
     {
@@ -20,7 +20,7 @@ export const allCertificates = [
         title: "Graphic Design Professional",
         issuer: "ICT Academy of Kerala",
         date: "2022",
-        image: "/certificates/c2.jpeg",
+        image: "certificates/c2.jpeg",
         skills: ["Photoshop", "Illustrator"]
     },
     {
@@ -28,7 +28,7 @@ export const allCertificates = [
         title: "UI/UX Experience Design",
         issuer: "ASAP Kerala",
         date: "2024",
-        image: "/certificates/c3.jpeg",
+        image: "certificates/c3.jpeg",
         skills: ["Figma", "Design Thinking"]
     },
     {
@@ -36,7 +36,7 @@ export const allCertificates = [
         title: "Meta Social Media Marketing",
         issuer: "Coursera / Meta",
         date: "2023",
-        image: "/certificates/c4.jpeg",
+        image: "certificates/c4.jpeg",
         skills: ["Meta Ads", "Campaign Strategy"]
     },
     {
@@ -44,7 +44,7 @@ export const allCertificates = [
         title: "Advanced Visual Design",
         issuer: "Interaction Design Foundation",
         date: "2022",
-        image: "/certificates/c5.jpeg",
+        image: "certificates/c5.jpeg",
         skills: ["Typography", "Layout"]
     },
     {
@@ -52,7 +52,7 @@ export const allCertificates = [
         title: "Digital Illustrator Mastery",
         issuer: "Adobe Certified Expert",
         date: "2022",
-        image: "/certificates/c6.jpeg",
+        image: "certificates/c6.jpeg",
         skills: ["Vector Graphics", "Branding"]
     }
 ];
@@ -65,10 +65,10 @@ const Certifications = () => {
     // Track active index on mobile scroll
     useEffect(() => {
         const handleScroll = () => {
-            if (!scrollRef.current) return;
-            const scrollWidth = scrollRef.current.scrollWidth;
+            if (!scrollRef.current || !scrollRef.current.children.length) return;
             const scrollLeft = scrollRef.current.scrollLeft;
-            const itemWidth = scrollRef.current.children[0].offsetWidth;
+            const firstChild = scrollRef.current.children[0];
+            const itemWidth = firstChild.offsetWidth;
             const index = Math.round(scrollLeft / itemWidth);
             if (index !== activeIndex) {
                 setActiveIndex(index);
@@ -146,7 +146,7 @@ const Certifications = () => {
     );
 
     return (
-        <section id="certifications" className="cert-section-premium">
+        <section className="cert-section-premium">
             <div className="container">
                 <motion.div 
                     className="section-title-wrap"
@@ -185,6 +185,13 @@ const Certifications = () => {
                             className={`cert-dot ${idx === activeIndex ? 'active' : ''}`}
                         />
                     ))}
+                </div>
+
+                <div className="cert-view-more-container" style={{ marginTop: '2.5rem', textAlign: 'center' }}>
+                    <a href="/#/certifications" className="btn btn-primary" style={{ display: 'inline-flex', gap: '0.5rem', padding: '0.8rem 2rem' }}>
+                        <span>View All Certifications</span>
+                        <ExternalLink size={18} />
+                    </a>
                 </div>
 
                 <CertificationModal 
