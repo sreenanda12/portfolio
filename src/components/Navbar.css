@@ -27,8 +27,9 @@
 }
 
 [data-theme="dark"] .top-header.scrolled {
-    background: rgba(18, 18, 18, 0.85);
+    background: rgba(14, 14, 14, 0.88);
     border-bottom-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
 }
 
 /* DESKTOP NAVBAR */
@@ -131,8 +132,9 @@
 }
 
 [data-theme="dark"] .nav-overlay-menu {
-    background: rgba(24, 24, 27, 0.98);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(26, 26, 26, 0.96);
+    border-color: rgba(255, 140, 0, 0.1);
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.8);
 }
 
 .nav-overlay-menu.active {

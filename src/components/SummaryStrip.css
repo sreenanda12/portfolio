@@ -60,4 +60,21 @@
     }
 }
 
+/* DARK MODE */
+[data-theme="dark"] .summary-strip {
+    background: #1A1A1A;
+    border-color: rgba(255, 255, 255, 0.05);
+}
 
+[data-theme="dark"] .strip-icon {
+    background: rgba(255, 140, 0, 0.1);
+    color: #FF8C00;
+}
+
+[data-theme="dark"] .strip-label {
+    color: #F5F5F5;
+}
+
+[data-theme="dark"] .strip-detail {
+    color: #A8A8A8;
+}

@@ -1,102 +1,206 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
 import './CustomCursor.css';
 
+/**
+ * PREMIUM CUSTOM ANIMATED CURSOR
+ * Inspired by Apple (macOS) and High-End Product UI.
+ * Features: Layered Lerp, Liquid Ring, Floating Depth, Magnetic Interaction, Staggered Hover.
+ */
 const CustomCursor = () => {
-    const [cursorState, setCursorState] = useState('default');
-    const [clicks, setClicks] = useState([]);
+    const ringRef = useRef(null);
+    const arrowRef = useRef(null);
+    const auraRef = useRef(null);
     
-    // Smooth mouse movement with high stiffness for NO lag
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-
-    const springConfig = { damping: 30, stiffness: 500, mass: 0.1 }; // Fast and snappy
-    const cursorX = useSpring(mouseX, springConfig);
-    const cursorY = useSpring(mouseY, springConfig);
+    // Animation Frame Tracking
+    const requestRef = useRef();
+    
+    // Physics & Motion State (Using Refs for 60fps performance)
+    const mouse = useRef({ x: 0, y: 0 });
+    const pos = useRef({ x: 0, y: 0 });      // Inner Arrow pos
+    const ringPos = useRef({ x: 0, y: 0 });  // Outer Ring pos
+    const vel = useRef({ x: 0, y: 0 });      // For stretching
+    
+    // Interaction States
+    const [isHovering, setIsHovering] = useState(false);
+    const [isAnticipating, setIsAnticipating] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
+    
+    // Ref-based state for the loop
+    const isHoveringRef = useRef(false);
+    const activeTarget = useRef(null);
 
     useEffect(() => {
-        const moveMouse = (e) => {
-            mouseX.set(e.clientX);
-            mouseY.set(e.clientY);
+        const onMouseMove = (e) => {
+            mouse.current = { x: e.clientX, y: e.clientY };
+            if (!isVisible) setIsVisible(true);
         };
 
-        const handleMouseOver = (e) => {
-            const target = e.target;
-            if (!target || !(target instanceof Element)) return;
+        const onTouchStart = () => {
+            document.body.classList.add('touch-device');
+        };
+
+        const createRipple = (x, y) => {
+            const container = document.querySelector('.cursor-ripple-container');
+            if (!container) return;
+
+            const ripple = document.createElement('div');
+            ripple.className = 'cursor-click-ripple';
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
             
-            if (target.closest('a') || target.closest('button') || target.tagName === 'BUTTON') {
-                setCursorState('hover');
+            container.appendChild(ripple);
+            
+            // Cleanup after animation
+            setTimeout(() => {
+                ripple.remove();
+            }, 800);
+        };
+
+        const onMouseDown = (e) => {
+            // Double Ripple logic: 2 rings staggered by 80ms
+            createRipple(e.clientX, e.clientY);
+            setTimeout(() => createRipple(e.clientX, e.clientY), 80);
+        };
+
+        const handleHover = (e) => {
+            const target = e.target.closest('a, button, [role="button"], .interactive');
+            if (target) {
+                activeTarget.current = target;
+                if (!isHoveringRef.current) {
+                    // Step 5: Micro Anticipation before expansion
+                    setIsAnticipating(true);
+                    setTimeout(() => {
+                        setIsAnticipating(false);
+                        setIsHovering(true);
+                        isHoveringRef.current = true;
+                    }, 80); // Cinematic staggered delay
+                }
             } else {
-                setCursorState('default');
+                activeTarget.current = null;
+                setIsHovering(false);
+                isHoveringRef.current = false;
             }
         };
 
-        const handleMouseDown = (e) => {
-            setCursorState('click');
-            const newClick = { id: Date.now(), x: e.clientX, y: e.clientY };
-            setClicks(prev => [...prev, newClick]);
-            setTimeout(() => {
-                setClicks(prev => prev.filter(c => c.id !== newClick.id));
-            }, 600);
+        const animate = () => {
+            // 1. MAGNETIC & FRICTION CALCULATION
+            let targetX = mouse.current.x;
+            let targetY = mouse.current.y;
+            let friction = 0.15; // Smooth lag for ring
+
+            if (activeTarget.current) {
+                const rect = activeTarget.current.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const distX = centerX - mouse.current.x;
+                const distY = centerY - mouse.current.y;
+                const distance = Math.hypot(distX, distY);
+
+                // MAGNETIC PULL (Gently attract within radius)
+                const attractionRadius = 80;
+                if (distance < attractionRadius) {
+                    const pullStrength = 1 - (distance / attractionRadius);
+                    targetX = mouse.current.x + distX * pullStrength * 0.3;
+                    targetY = mouse.current.y + distY * pullStrength * 0.3;
+                    
+                    // FRICTION: Slower motion near targets for tactile feel
+                    friction = 0.08;
+                }
+            }
+
+            // 2. LAYERED LERP (Different speeds for depth)
+            // Arrow handles faster tracking
+            pos.current.x += (targetX - pos.current.x) * 0.25;
+            pos.current.y += (targetY - pos.current.y) * 0.25;
+
+            // Ring handles smooth trailing tracking
+            ringPos.current.x += (targetX - ringPos.current.x) * friction;
+            ringPos.current.y += (targetY - ringPos.current.y) * friction;
+
+            // 3. VELOCITY-BASED RESPONSE
+            const vx = targetX - pos.current.x;
+            const vy = targetY - pos.current.y;
+            const speed = Math.hypot(vx, vy);
+            
+            // LIQUID RING (Stretch based on speed)
+            const stretchX = Math.min(speed * 0.005, 0.1);
+            const stretchY = -stretchX; // Stretch and squash logic
+            const angle = Math.atan2(vy, vx) * (180 / Math.PI);
+
+            // 4. INNER ARROW FLOATING DEPTH
+            const floatX = vx * 0.15; // Arrow shifts slightly relative to movement
+            const floatY = vy * 0.15;
+
+            // 5. DOM UPDATES (Vanilla performance)
+            if (ringRef.current) {
+                // Determine scale based on state
+                let scale = 1;
+                if (isAnticipating) scale = 0.95;
+                else if (isHoveringRef.current) scale = 1.45;
+
+                ringRef.current.style.transform = `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0) rotate(${angle}deg) scale(${scale + stretchX}, ${scale + stretchY})`;
+            }
+
+            if (arrowRef.current) {
+                const arrowScale = isHoveringRef.current ? 1.1 : 1;
+                // Move arrow relative to center based on float depth
+                const finalX = pos.current.x + floatX;
+                const finalY = pos.current.y + floatY;
+                arrowRef.current.style.transform = `translate3d(${finalX}px, ${finalY}px, 0) scale(${arrowScale})`;
+            }
+
+            if (auraRef.current) {
+                auraRef.current.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0)`;
+            }
+
+            requestRef.current = requestAnimationFrame(animate);
         };
 
-        const handleMouseUp = () => setCursorState('default');
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseover', handleHover);
+        window.addEventListener('mousedown', onMouseDown);
+        window.addEventListener('touchstart', onTouchStart);
+        document.addEventListener('mouseleave', () => setIsVisible(false));
+        document.addEventListener('mouseenter', () => setIsVisible(true));
 
-        window.addEventListener('mousemove', moveMouse);
-        window.addEventListener('mouseover', handleMouseOver);
-        window.addEventListener('mousedown', handleMouseDown);
-        window.addEventListener('mouseup', handleMouseUp);
+        requestRef.current = requestAnimationFrame(animate);
 
         return () => {
-            window.removeEventListener('mousemove', moveMouse);
-            window.removeEventListener('mouseover', handleMouseOver);
-            window.removeEventListener('mousedown', handleMouseDown);
-            window.removeEventListener('mouseup', handleMouseUp);
+            window.removeEventListener('mousemove', onMouseMove);
+            window.removeEventListener('mouseover', handleHover);
+            window.removeEventListener('mousedown', onMouseDown);
+            window.removeEventListener('touchstart', onTouchStart);
+            cancelAnimationFrame(requestRef.current);
         };
-    }, [mouseX, mouseY]);
+    }, [isVisible, isAnticipating]);
 
     return (
-        <div className="custom-cursor-layer">
-            {/* CLICK RIPPLE ANIMATIONS */}
-            <AnimatePresence>
-                {clicks.map(click => (
-                    <motion.div
-                        key={click.id}
-                        className="click-ripple"
-                        initial={{ scale: 0, opacity: 0.5 }}
-                        animate={{ scale: 4, opacity: 0 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5, ease: "easeOut" }}
-                        style={{
-                            left: click.x,
-                            top: click.y,
-                        }}
-                    />
-                ))}
-            </AnimatePresence>
+        <div className={`cursor-premium-wrapper ${isHovering ? 'is-hovering' : ''} ${isVisible ? 'is-visible' : ''}`}>
+            {/* CLICK RIPPLE LAYER */}
+            <div className="cursor-ripple-container"></div>
+            
+            {/* SOFT LIGHT AURA (Radial Glow) */}
+            <div ref={auraRef} className="cursor-aura"></div>
 
-            {/* THE MAIN CURSOR (Circle + Arrow) */}
-            <motion.div
-                className="main-cursor"
-                style={{
-                    left: cursorX,
-                    top: cursorY,
-                }}
-                animate={{
-                    scale: cursorState === 'hover' ? 1.4 : 1,
-                }}
-                transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-            >
-                <div className="cursor-ring"></div>
-                <div className="cursor-arrow">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#FF5A1F" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                        <polyline points="7 7 17 7 17 17"></polyline>
-                    </svg>
-                </div>
-            </motion.div>
+            {/* OUTER CIRCULAR RING (Orange) */}
+            <div ref={ringRef} className="cursor-ring-outer">
+                <div className="ring-inner-line"></div>
+            </div>
+            
+            {/* INNER ARROW POINTER (Mac-style) */}
+            <div ref={arrowRef} className="cursor-arrow-inner">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path 
+                        d="M5.5 3.21V20.8L10.18 16.12L13.3 22.39L16.22 20.93L13.1 14.66H18.99L5.5 3.21Z" 
+                        fill="#FFA500" 
+                        stroke="white"
+                        strokeWidth="0.8"
+                    />
+                </svg>
+            </div>
         </div>
     );
 };
 
 export default CustomCursor;
+

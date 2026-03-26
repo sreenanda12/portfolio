@@ -312,21 +312,22 @@
 
 /* DARK MODE OVERRIDES */
 [data-theme="dark"] .luxury-contact-section {
-    background: #0E0E0F;
+    background: #0E0E0E;
 }
 
 [data-theme="dark"] .luxury-availability {
-    background: rgba(20, 20, 22, 0.6);
-    border-color: rgba(255, 255, 255, 0.05);
+    background: rgba(34, 34, 34, 0.6);
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
 [data-theme="dark"] .luxury-glass-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(34, 34, 34, 0.6);
     border-color: rgba(255, 255, 255, 0.08);
 }
 
 [data-theme="dark"] .luxury-glass-card:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(44, 44, 44, 0.85);
+    border-color: rgba(255, 140, 0, 0.15);
 }
 
 [data-theme="dark"] .blob-1 { background: #E76F2E22; }

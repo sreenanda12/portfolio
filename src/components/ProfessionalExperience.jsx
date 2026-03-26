@@ -92,8 +92,9 @@ const experienceData = [
     }
 ];
 
-const ExperienceCard = ({ company, activeRoleIndex, onRoleSelect }) => {
+const ExperienceCard = ({ company }) => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [activeRoleIndex, setActiveRoleIndex] = useState(0);
     const cardRef = useRef(null);
     
     // 3D Tilt Effect Values
@@ -160,7 +161,7 @@ const ExperienceCard = ({ company, activeRoleIndex, onRoleSelect }) => {
                             key={role.id}
                             className={`role-tab ${activeRoleIndex === idx ? 'active' : ''}`}
                             onClick={() => {
-                                onRoleSelect(idx);
+                                setActiveRoleIndex(idx);
                                 setIsExpanded(false);
                             }}
                         >
@@ -226,48 +227,16 @@ const ExperienceCard = ({ company, activeRoleIndex, onRoleSelect }) => {
 };
 
 const ProfessionalExperience = () => {
-    const [activeCompanyIndex, setActiveCompanyIndex] = useState(0);
-    const [activeRoleIndices, setActiveRoleIndices] = useState(
-        experienceData.map(() => 0)
-    );
-
-    const handleRoleSelect = (roleIdx) => {
-        const newIndices = [...activeRoleIndices];
-        newIndices[activeCompanyIndex] = roleIdx;
-        setActiveRoleIndices(newIndices);
-    };
-
     return (
         <section id="experience" className="modern-exp-section">
             <div className="container">
-                <div className="exp-layout-2026">
-                    
-                    {/* LEFT: MINIMAL TIMELINE */}
-                    <div className="exp-timeline-nav">
-                        {experienceData.map((exp, idx) => (
-                            <button 
-                                key={exp.company}
-                                className={`timeline-step ${activeCompanyIndex === idx ? 'active' : ''}`}
-                                onClick={() => setActiveCompanyIndex(idx)}
-                            >
-                                <div className="step-dot"></div>
-                                <span className="step-label">{exp.company.split(' ')[0]}</span>
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* CENTER: 3D GLASS CARD */}
-                    <div className="exp-main-stage">
-                        <AnimatePresence mode="wait">
-                            <ExperienceCard 
-                                key={experienceData[activeCompanyIndex].company}
-                                company={experienceData[activeCompanyIndex]}
-                                activeRoleIndex={activeRoleIndices[activeCompanyIndex]}
-                                onRoleSelect={handleRoleSelect}
-                            />
-                        </AnimatePresence>
-                    </div>
-
+                {/* NEW DUAL-GRID DIRECT RENDER */}
+                <div className="exp-grid-layout">
+                    {experienceData.map((company) => (
+                        <div key={company.company} className="exp-card-wrapper">
+                            <ExperienceCard company={company} />
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

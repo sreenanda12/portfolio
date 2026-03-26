@@ -4,6 +4,10 @@
     background-color: #FDFDFB;
 }
 
+[data-theme="dark"] .design-stories-page {
+    background-color: var(--bg-primary);
+}
+
 .stories-nav-header {
     position: fixed;
     top: 0;
@@ -13,6 +17,10 @@
     background: rgba(253, 253, 251, 0.8);
     backdrop-filter: blur(20px);
     z-index: 1000;
+}
+
+[data-theme="dark"] .stories-nav-header {
+    background: rgba(14, 14, 14, 0.88);
 }
 
 .stories-back-link {
@@ -53,6 +61,11 @@
 }
 
 @media screen and (max-width: 767px) {
-    .stories-nav-header { padding: 1.5rem 0; }
-    .design-stories-page .gallery-section { padding-top: 100px; }
+    .stories-nav-header {
+        padding: 1.5rem 0;
+    }
+
+    .design-stories-page .gallery-section {
+        padding-top: 100px;
+    }
 }

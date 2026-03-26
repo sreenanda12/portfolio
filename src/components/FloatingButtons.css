@@ -157,11 +157,11 @@
 .view-cv-btn {
     background: transparent;
     color: var(--text-primary);
-    border: 2px solid var(--accent-indigo);
+    border: 2px solid var(--accent-primary);
 }
 
 .view-cv-btn:hover {
-    background: var(--accent-indigo);
+    background: var(--accent-primary);
     color: #fff;
     transform: translateY(-2px);
 }

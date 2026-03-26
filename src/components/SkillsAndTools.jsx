@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useSpring, useMotionValue, useTransform, animate } from 'framer-motion';
+import React from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import './SkillsAndTools.css';
 
 const toolsData = [
@@ -23,135 +23,171 @@ const skillsData = [
     { icon: '📈', name: 'Digital Marketing' }
 ];
 
-const PercentageCounter = ({ target }) => {
-    const count = useMotionValue(0);
-    const rounded = useTransform(count, (latest) => Math.round(latest));
-    
-    useEffect(() => {
-        const controls = animate(count, target, { duration: 1.5, ease: "easeOut" });
-        return controls.stop;
-    }, [target]);
+const PremiumCard = ({ children, className }) => {
+    const mouseX = useMotionValue(0.5);
+    const mouseY = useMotionValue(0.5);
 
-    return <motion.span>{rounded}</motion.span>;
-};
+    const springConfig = { damping: 25, stiffness: 400 };
+    const rotateX = useSpring(useTransform(mouseY, [0, 1], [5, -5]), springConfig);
+    const rotateY = useSpring(useTransform(mouseX, [0, 1], [-5, 5]), springConfig);
 
-const ToolCard = ({ tool, index }) => {
+    const handleMouseMove = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        mouseX.set(x);
+        mouseY.set(y);
+        
+        e.currentTarget.style.setProperty('--mouse-x', `${(e.clientX - rect.left)}px`);
+        e.currentTarget.style.setProperty('--mouse-y', `${(e.clientY - rect.top)}px`);
+    };
+
+    const handleMouseLeave = () => {
+        mouseX.set(0.5);
+        mouseY.set(0.5);
+    };
+
     return (
         <motion.div 
-            className="tool-card-compact"
-            variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 }
-            }}
-            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-            whileHover={{ 
-                scale: 1.05, 
-                translateY: -5,
-                transition: { duration: 0.3 }
-            }}
+            className={`st-premium-card ${className}`}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ rotateX, rotateY }}
         >
-            <div className="tool-icon-mini">{tool.icon}</div>
-            <div className="tool-info-mini">
-                <span className="tool-name-mini">{tool.name}</span>
-                <span className="tool-percent-mini"><PercentageCounter target={tool.level} />%</span>
-            </div>
+            {/* LAYERED DEPTH SYSTEM */}
+            <div className="st-card-border-glow"></div>
+            <div className="st-card-inner-glow"></div>
+            <div className="st-card-shine-sweep"></div>
             
-            {/* Tooltip */}
-            <div className="tool-tooltip">
-                <span className="tooltip-text">{tool.levelText}</span>
-            </div>
-
-            <div className="tool-hover-bar">
-                <motion.div 
-                    className="tool-level-fill" 
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${tool.level}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-                ></motion.div>
+            <div className="st-card-inner-layer">
+                {children}
             </div>
         </motion.div>
     );
 };
 
+
+
+const SectionHeading = ({ title }) => (
+    <div className="st-heading-wrapper">
+        <h4 className="st-sub-heading">{title}</h4>
+        <motion.div 
+            className="st-heading-accent"
+            initial={{ width: 0 }}
+            whileInView={{ width: 50 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: "circOut" }}
+        />
+    </div>
+);
+
 const SkillsAndTools = () => {
-    const [activeTab, setActiveTab] = useState('tools');
+    const skills = skillsData;
+    const tools = toolsData;
 
     return (
-        <section id="skills-and-tools" className="st-section">
-            <div className="st-bg-glow"></div>
-            <div className="container">
-                <div className="st-tabs-wrapper">
-                    <div className="st-tabs">
-                        <motion.div 
-                            className="st-tabs-pill"
-                            animate={{ x: activeTab === 'tools' ? 0 : 100 }}
-                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        />
-                        <button 
-                            className={`st-tab-btn ${activeTab === 'tools' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('tools')}
-                        >
-                            Tools
-                        </button>
-                        <button 
-                            className={`st-tab-btn ${activeTab === 'skills' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('skills')}
-                        >
-                            Skills
-                        </button>
-                    </div>
-                </div>
+        <section id="skills-and-tools" className="st-premium-section">
+            <div className="st-premium-glow"></div>
+            
 
-                <div className="st-content-wrapper">
-                    <AnimatePresence mode="wait">
-                        {activeTab === 'tools' ? (
-                            <motion.div 
-                                key="tools"
-                                className="tools-compact-grid"
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true, amount: 0.1 }}
-                                variants={{
-                                    visible: { transition: { staggerChildren: 0.08 } }
-                                }}
-                            >
-                                {toolsData.map((tool, idx) => (
-                                    <ToolCard key={tool.name} tool={tool} index={idx} />
-                                ))}
-                            </motion.div>
-                        ) : (
-                            <motion.div 
-                                key="skills"
-                                className="skills-compact-tags"
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true }}
-                                variants={{
-                                    visible: { transition: { staggerChildren: 0.05 } }
-                                }
-                                }
-                            >
-                                {skillsData.map((skill) => (
-                                    <motion.span 
-                                        key={skill.name} 
-                                        className="skill-chip-mini"
-                                        variants={{
-                                            hidden: { opacity: 0, scale: 0.8 },
-                                            visible: { opacity: 1, scale: 1 }
+            
+            <div className="st-main-view">
+                <div className="st-responsive-layout">
+                    {/* SKILLS ZONE */}
+                    <motion.div 
+                        className="st-responsive-col skills-col"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                    >
+                        <div className="st-blob-wrapper">
+                            <div className="st-contained-blob st-contained-blob-skills"></div>
+                        </div>
+                        <div className="st-col-wrapper">
+                            <SectionHeading title="Skills" />
+                            <div className="st-responsive-grid skills-grid">
+                                {skills.map((skill, idx) => (
+                                    <motion.div
+                                        key={`skill-${idx}`}
+                                        initial={{ opacity: 0, x: -50, y: 10 }}
+                                        whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ 
+                                            duration: 0.6, 
+                                            delay: idx * 0.08, 
+                                            ease: [0.16, 1, 0.3, 1] 
                                         }}
-                                        whileHover={{ scale: 1.1, translateY: -3 }}
                                     >
-                                        <span className="skill-emoji">{skill.icon}</span> {skill.name}
-                                    </motion.span>
+                                        <PremiumCard className="skill-item-card">
+                                            <span className="skill-icon-emoji">{skill.icon}</span>
+                                            <span className="skill-name-text">{skill.name}</span>
+                                        </PremiumCard>
+                                    </motion.div>
                                 ))}
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* TOOLS ZONE */}
+                    <motion.div 
+                        className="st-responsive-col tools-col"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                    >
+                        <div className="st-blob-wrapper">
+                            <div className="st-contained-blob st-contained-blob-tools"></div>
+                        </div>
+                        <div className="st-col-wrapper">
+                            <SectionHeading title="Tools" />
+                            <div className="st-responsive-grid tools-grid">
+                                {tools.map((tool, idx) => (
+                                    <motion.div
+                                        key={`tool-${idx}`}
+                                        initial={{ opacity: 0, x: 50, y: 10 }}
+                                        whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ 
+                                            duration: 0.6, 
+                                            delay: 0.1 + idx * 0.08, 
+                                            ease: [0.16, 1, 0.3, 1] 
+                                        }}
+                                    >
+                                        <PremiumCard className="tool-item-card">
+                                            <div className="tool-icon-wrapper">{tool.icon}</div>
+                                            <div className="tool-meta">
+                                                <span className="tool-label">{tool.name}</span>
+                                            </div>
+                                            
+                                            <div className="tool-mini-tooltip">{tool.levelText} ({tool.level}%)</div>
+                                            
+                                            <div className="tool-progress-track">
+                                                <motion.div 
+                                                    className="tool-progress-fill"
+                                                    initial={{ width: 0 }}
+                                                    whileInView={{ width: `${tool.level}%` }}
+                                                    viewport={{ once: true }}
+                                                    transition={{ duration: 1.5, delay: 0.5 }}
+                                                />
+                                            </div>
+                                        </PremiumCard>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    </motion.div>
                 </div>
             </div>
         </section>
     );
 };
 
+
+
+
+
+
+
 export default SkillsAndTools;
+
+

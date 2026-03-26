@@ -3,17 +3,17 @@ import { createContext, useState, useEffect, useContext } from 'react';
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-    const [theme, setTheme] = useState('dark');
+    const [theme, setTheme] = useState('light');
 
     useEffect(() => {
-        // Check local storage or use dark as default
+        // Check local storage or use light as default
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             setTheme(savedTheme);
             document.body.setAttribute('data-theme', savedTheme);
         } else {
-            setTheme('dark');
-            document.body.setAttribute('data-theme', 'dark');
+            setTheme('light');
+            document.body.setAttribute('data-theme', 'light');
         }
     }, []);
 
