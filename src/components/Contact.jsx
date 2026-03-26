@@ -77,13 +77,22 @@ const Contact = () => {
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
+        let ticking = false;
         const handleGlobalMouseMove = (e) => {
             if (!sectionRef.current) return;
-            const rect = sectionRef.current.getBoundingClientRect();
-            setMousePos({
-                x: e.clientX - rect.left,
-                y: e.clientY - rect.top
-            });
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    if (sectionRef.current) {
+                        const rect = sectionRef.current.getBoundingClientRect();
+                        setMousePos({
+                            x: e.clientX - rect.left,
+                            y: e.clientY - rect.top
+                        });
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
         window.addEventListener('mousemove', handleGlobalMouseMove);
         return () => window.removeEventListener('mousemove', handleGlobalMouseMove);

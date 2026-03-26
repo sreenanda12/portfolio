@@ -134,7 +134,6 @@ body {
     var(--app-bg);
   background-size: 100% 100%, 100% 100%, 40px 40px, 100% 100%;
   background-position: center center;
-  background-attachment: fixed;
   color: var(--text-primary);
   transition: background 0.8s ease, color 0.4s ease;
   overflow-x: hidden;
@@ -443,8 +442,6 @@ ul {
 
 [data-theme="dark"] .card {
   background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border-radius: 16px;
   box-shadow: var(--shadow-md);
   border: none;

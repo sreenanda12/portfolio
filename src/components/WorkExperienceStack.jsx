@@ -9,26 +9,33 @@ const WorkExperienceStack = ({ experiences }) => {
     const [expandedExp, setExpandedExp] = useState(null);
 
     useEffect(() => {
+        let ticking = false;
         const handleScroll = () => {
             if (!containerRef.current) return;
-            const cards = containerRef.current.querySelectorAll('.we-card-wrapper');
-            let closestIndex = 0;
-            let minDiff = Infinity;
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const cards = containerRef.current.querySelectorAll('.we-card-wrapper');
+                    let closestIndex = 0;
+                    let minDiff = Infinity;
+                    const centerViewport = window.innerHeight / 2;
 
-            cards.forEach((card, index) => {
-                const rect = card.getBoundingClientRect();
-                const centerNode = rect.top + rect.height / 2;
-                const centerViewport = window.innerHeight / 2;
-                const diff = Math.abs(centerNode - centerViewport);
-                if (diff < minDiff) {
-                    minDiff = diff;
-                    closestIndex = index;
-                }
-            });
-            setActiveIndex(closestIndex);
+                    cards.forEach((card, index) => {
+                        const rect = card.getBoundingClientRect();
+                        const centerNode = rect.top + rect.height / 2;
+                        const diff = Math.abs(centerNode - centerViewport);
+                        if (diff < minDiff) {
+                            minDiff = diff;
+                            closestIndex = index;
+                        }
+                    });
+                    setActiveIndex(closestIndex);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         // initial check
         handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);

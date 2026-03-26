@@ -129,9 +129,6 @@ const About = () => {
         return () => clearInterval(interval);
     }, []);
 
-    const { scrollY } = useScroll();
-    const yParallax = useTransform(scrollY, [0, 1000], [0, 100]);
-
     const containerVariants = {
         hidden: { opacity: 0, y: 50 },
         visible: {

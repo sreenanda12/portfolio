@@ -53,7 +53,7 @@ const ProjectDetailsPage = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, delay: 0.2 }}
                 >
-                    <img src={project.img} alt={project.title} className="p-hero-img" />
+                    <img src={project.img} alt={project.title} className="p-hero-img" loading="lazy" />
                     <div className="p-image-glow"></div>
                 </motion.div>
 

@@ -1,0 +1,232 @@
+/* MODERN CERTIFICATIONS SECTION SYTLES */
+
+.cert-section-premium {
+    padding: 80px 0;
+    background-color: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+/* DESKTOP GRID LAYOUT */
+.cert-grid-desktop {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+/* MOBILE SNAP LAYOUT */
+.cert-mobile-scroll {
+    display: none; /* Default hidden, shown on mobile */
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 20px 0 40px;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.cert-mobile-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+/* CARD DESIGN */
+.cert-card-refined {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                border-color 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.cert-card-refined:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 140, 0, 0.3);
+}
+
+.cert-img-wrapper {
+    position: relative;
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+    background: #000;
+}
+
+.cert-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Professional look for certs */
+    transition: transform 0.6s ease;
+    opacity: 0.9;
+}
+
+.cert-card-refined:hover .cert-img-wrapper img {
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+/* SUBTLE OVERLAY */
+.cert-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cert-card-refined:hover .cert-card-overlay {
+    opacity: 1;
+}
+
+.view-cert-icon {
+    background: var(--accent-primary);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0.8);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cert-card-refined:hover .view-cert-icon {
+    transform: scale(1);
+}
+
+/* CONTENT AREA */
+.cert-content-refined {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cert-header-info {
+    margin-bottom: 1rem;
+}
+
+.cert-issuer-premium {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.4rem;
+    opacity: 0.8;
+}
+
+.cert-title-premium {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.cert-footer-premium {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cert-date-refined {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.cert-skills-preview {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.mini-skill-tag {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* MOBILE INDICATORS */
+.cert-scroll-indicators {
+    display: none;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1.5rem;
+}
+
+.cert-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    opacity: 0.3;
+    transition: all 0.3s ease;
+}
+
+.cert-dot.active {
+    width: 20px;
+    border-radius: 4px;
+    background: var(--accent-primary);
+    opacity: 1;
+}
+
+/* RESPONSIVE OVERRIDES */
+@media screen and (max-width: 767px) {
+    .cert-grid-desktop {
+        display: none;
+    }
+    
+    .cert-mobile-scroll {
+        display: flex;
+        padding-left: 2rem; /* Initial offset */
+        padding-right: 2rem;
+    }
+    
+    .cert-card-refined {
+        min-width: 85%; /* Slight preview of next */
+        scroll-snap-align: center;
+        background: var(--bg-secondary); /* Balanced theme */
+    }
+    
+    .cert-scroll-indicators {
+        display: flex;
+    }
+
+    .cert-section-premium {
+        padding: 60px 0;
+    }
+}
+
+/* ANIMATIONS */
+.cert-entrance {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.cert-reveal {
+    animation: certFadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes certFadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
