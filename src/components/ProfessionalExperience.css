@@ -35,8 +35,8 @@
 }
 
 [data-theme="dark"] .exp-glass-card {
-    background: rgba(34, 34, 34, 0.6);
-    border-color: rgba(255, 255, 255, 0.08);
+    background: var(--gray-800);
+    border-color: var(--border-subtle);
 }
 
 .exp-card-glow {
@@ -81,6 +81,25 @@
     display: flex;
     align-items: center;
     gap: 6px;
+}
+
+.exp-date-highlight {
+    background: rgba(255, 140, 0, 0.1);
+    color: var(--accent-primary);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(255, 140, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(255, 140, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.exp-date-highlight:hover {
+    background: rgba(255, 140, 0, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 140, 0, 0.2);
 }
 
 /* ROLE TAB SWITCHER */
@@ -158,7 +177,7 @@
 }
 
 [data-theme="dark"] .exp-tag {
-    background: rgba(34, 34, 34, 0.6);
+    background: var(--gray-900);
 }
 
 .exp-tag.more {

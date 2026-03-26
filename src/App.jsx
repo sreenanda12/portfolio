@@ -17,6 +17,8 @@ import CustomCursor from './components/CustomCursor';
 import DesignStoriesPage from './components/DesignStoriesPage';
 import ProjectDetailsPage from './components/ProjectDetailsPage';
 import SectionHeader from './components/SectionHeader';
+import AllCertificationsPage from './components/AllCertificationsPage';
+import CertificateViewerPage from './components/CertificateViewerPage';
 
 function PortfolioMain() {
     return (
@@ -60,6 +62,8 @@ function App() {
                     <Route path="/" element={<PortfolioMain />} />
                     <Route path="/design-stories" element={<DesignStoriesPage />} />
                     <Route path="/project/:id" element={<ProjectDetailsPage />} />
+                    <Route path="/certifications" element={<AllCertificationsPage />} />
+                    <Route path="/certificate-view/:id" element={<CertificateViewerPage />} />
                 </Routes>
             </HashRouter>
         </ThemeProvider>

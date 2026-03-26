@@ -9,6 +9,18 @@
     background: var(--bg-primary);
 }
 
+[data-theme="dark"] .hero-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(11, 11, 12, 0.95) 100%);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    mask-image: radial-gradient(ellipse at center, transparent 40%, black 90%);
+    -webkit-mask-image: radial-gradient(ellipse at center, transparent 40%, black 90%);
+}
+
 [data-theme="dark"] .hero-section::before {
     content: '';
     position: absolute;

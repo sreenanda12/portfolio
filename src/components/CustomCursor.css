@@ -148,6 +148,13 @@ body:not(.touch-device) .interactive {
 
 
 
-/* MOBILE/TOUCH ALLOWED PER USER REQUEST */
-/* Custom cursor will now render normally on all views */
+/* MOBILE/TOUCH HIDDEN PER USER REQUEST */
+body.touch-device .cursor-premium-wrapper {
+    display: none !important;
+}
 
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+    .cursor-premium-wrapper {
+        display: none !important;
+    }
+}

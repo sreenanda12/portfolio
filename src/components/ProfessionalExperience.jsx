@@ -148,7 +148,7 @@ const ExperienceCard = ({ company }) => {
                             <h3 className="exp-company-name">{company.company}</h3>
                             <div className="exp-meta">
                                 <span className="exp-meta-item"><MapPin size={14} /> {company.location}</span>
-                                <span className="exp-meta-item"><Calendar size={14} /> {company.period}</span>
+                                <span className="exp-meta-item exp-date-highlight"><Calendar size={14} /> {company.period}</span>
                             </div>
                         </div>
                     </div>

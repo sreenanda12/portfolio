@@ -52,45 +52,58 @@
 
 [data-theme="dark"] {
   /* ═══════════════════════════════════════════════════════
-     PREMIUM CINEMATIC DARK MODE — Apple / Linear / Stripe
+     PREMIUM CINEMATIC DARK MODE — EXACT SPECIFICATIONS
      ═══════════════════════════════════════════════════════ */
 
   /* FOUNDATION: Deep Black & Charcoal */
-  --bg-primary: #0E0E0E;
-  --bg-secondary: #1A1A1A;
-  --text-primary: #F5F5F5;
-  --text-secondary: #A8A8A8;
+  --bg-primary: #0B0B0C;
+  --bg-secondary: #121212;
+  --bg-elevated: #1A1A1A;
+  --card-bg: #202020;
+
+  /* TEXT COLORS */
+  --text-primary: #EAEAEA;
+  --text-secondary: #A1A1A1;
+  --text-muted: #6B6B6B;
+
+  /* Backward Compatibility Gray Layers to match new architecture */
+  --gray-1000: #050505;
+  --gray-950: #0B0B0C;
+  --gray-900: #121212;
+  --gray-800: #1A1A1A;
+  --gray-700: #202020;
+  --gray-600: #2b2b2b;
+  --gray-500: #444444;
 
   /* BRAND ACCENT: Cinematic Orange */
   --accent-primary: #FF8C00;
-  --accent-hover: #FFA94D;
+  --accent-hover: #FFA733;
 
   /* NAVIGATION: Frosted Dark Glass */
-  --nav-bg: rgba(14, 14, 14, 0.88);
+  --nav-bg: rgba(11, 11, 12, 0.88);
   --nav-blur: blur(20px);
 
-  /* BORDERS: Subtle White Lines */
-  --border-light: rgba(255, 255, 255, 0.08);
+  /* BORDERS / GLASS */
+  --border-light: rgba(255, 255, 255, 0.03);
+  --border-subtle: rgba(255, 255, 255, 0.02);
+  --border-strong: rgba(255, 255, 255, 0.06);
 
-  /* SHADOWS: Cinematic Depth */
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 10px 40px rgba(0, 0, 0, 0.6);
-  --shadow-hover: 0 30px 60px rgba(0, 0, 0, 0.7);
-  --shadow-glow: 0 0 30px rgba(255, 140, 0, 0.3);
+  /* SHADOWS: Cinematic Depth (Layered specs) */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-glow: 0 0 20px rgba(255, 140, 0, 0.25);
+  --btn-glow: 0 0 15px rgba(255, 140, 0, 0.15);
 
-  /* CARD: Elevated Charcoal */
-  --card-bg: #222222;
-  --toggle-icon: #FF8C00;
-
-  /* APP BACKGROUND: Deep Black + Subtle Orange Top Glow */
-  --app-bg: #0E0E0E;
-  --grid-pattern-color: rgba(255, 255, 255, 0.02);
+  /* APP BACKGROUND / ATMOSPHERE */
+  --gradient-overlay: linear-gradient(145deg, #0B0B0C, #1A1A1A);
+  --app-bg: #0B0B0C;
   --glow-primary: rgba(255, 140, 0, 0.08);
   --glow-secondary: rgba(255, 140, 0, 0.03);
 
-  /* TOOL CARDS: Dark Glassmorphism */
-  --tool-card-bg: rgba(34, 34, 34, 0.6);
-  --tool-card-border: rgba(255, 140, 0, 0.15);
+  /* DESIGNER SPECIFIED GLASS */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.03);
 
   /* SECTION GLOW */
   --section-glow: radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.06) 0%, transparent 70%);
@@ -133,8 +146,8 @@ body {
   background-image: 
     url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E'),
     radial-gradient(circle at top, rgba(255, 140, 0, 0.08), transparent 60%),
-    radial-gradient(var(--grid-pattern-color) 2px, transparent 2px);
-  background-size: 150px 150px, 100% 100%, 40px 40px;
+    var(--gradient-overlay);
+  background-size: 150px 150px, 100% 100%, 100% 100%;
 }
 
 h1,
@@ -173,7 +186,11 @@ p {
 }
 
 [data-theme="dark"] p {
-    color: #A8A8A8;
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .text-muted {
+    color: var(--text-muted);
 }
 
 .text-highlight {
@@ -378,6 +395,10 @@ ul {
   filter: brightness(1.1);
 }
 
+[data-theme="dark"] .btn:hover {
+  box-shadow: var(--btn-glow);
+}
+
 .btn:active {
   transform: translateY(0) scale(0.98);
 }
@@ -409,7 +430,7 @@ ul {
 
 .card {
   background-color: var(--card-bg);
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: var(--shadow-sm);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
@@ -422,15 +443,17 @@ ul {
 }
 
 [data-theme="dark"] .card {
-  background: rgba(34, 34, 34, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 -2px 10px rgba(255, 140, 0, 0.05);
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  border: none;
 }
 
 [data-theme="dark"] .card:hover {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 140, 0, 0.15);
-  border-color: rgba(255, 140, 0, 0.5);
+  box-shadow: var(--shadow-hover), var(--shadow-glow-hover);
+  border-color: rgba(255, 140, 0, 0.2);
 }
 
 /* Typing Effect */

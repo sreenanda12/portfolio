@@ -312,28 +312,28 @@
 
 /* DARK MODE OVERRIDES */
 [data-theme="dark"] .luxury-contact-section {
-    background: #0E0E0E;
+    background: var(--gray-950);
 }
 
 [data-theme="dark"] .luxury-availability {
-    background: rgba(34, 34, 34, 0.6);
-    border-color: rgba(255, 255, 255, 0.08);
+    background: var(--gray-800);
+    border-color: var(--border-subtle);
 }
 
 [data-theme="dark"] .luxury-glass-card {
-    background: rgba(34, 34, 34, 0.6);
-    border-color: rgba(255, 255, 255, 0.08);
+    background: var(--gray-900);
+    border-color: var(--border-subtle);
 }
 
 [data-theme="dark"] .luxury-glass-card:hover {
-    background: rgba(44, 44, 44, 0.85);
-    border-color: rgba(255, 140, 0, 0.15);
+    background: var(--gray-800);
+    border-color: var(--border-strong);
 }
 
-[data-theme="dark"] .blob-1 { background: #E76F2E22; }
-[data-theme="dark"] .blob-2 { background: #3B82F611; }
+[data-theme="dark"] .blob-1 { background: #FF8C0015; }
+[data-theme="dark"] .blob-2 { background: #FF8C000A; }
 
 [data-theme="dark"] .luxury-social-icon {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.08);
+    background: var(--gray-900);
+    border-color: var(--border-subtle);
 }

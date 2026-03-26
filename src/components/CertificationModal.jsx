@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ZoomIn, ZoomOut, RotateCcw, Maximize } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import './CertificationModal.css';
 
 const CertificationModal = ({ cert, isOpen, onClose }) => {
+    const navigate = useNavigate();
     const [zoom, setZoom] = useState(1);
     const [isZoomed, setIsZoomed] = useState(false);
     const imageRef = useRef(null);
@@ -105,13 +107,16 @@ const CertificationModal = ({ cert, isOpen, onClose }) => {
                         {/* FOOTER INFO */}
                         <div className="cert-viewer-footer">
                             <div className="cert-skills-tags">
-                                {cert.skills.map(skill => (
+                                {cert.skills && cert.skills.map(skill => (
                                     <span key={skill} className="cert-skill-tag">{skill}</span>
                                 ))}
                             </div>
-                            <button className="cert-external-link" onClick={() => window.open(cert.image, '_blank')}>
+                            <button className="cert-external-link" onClick={() => {
+                                onClose();
+                                navigate('/certificate-view/' + cert.id);
+                            }}>
                                 <Maximize size={16} />
-                                <span>Open in Tab</span>
+                                <span>Open Full Page</span>
                             </button>
                         </div>
                     </motion.div>

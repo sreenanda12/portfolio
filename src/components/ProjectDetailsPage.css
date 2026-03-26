@@ -199,9 +199,10 @@
 }
 
 /* DARK MODE */
-[data-theme="dark"] .project-detail-page { background: #0A0A0B; color: #FFF; }
-[data-theme="dark"] .detail-nav { background: rgba(10, 10, 11, 0.85); }
-[data-theme="dark"] .back-btn-pill { background: rgba(255, 255, 255, 0.05); color: #FFF; }
-[data-theme="dark"] .p-specs-card { background: #141416; border-color: rgba(255, 255, 255, 0.05); }
-[data-theme="dark"] .divider { background: rgba(255, 255, 255, 0.05); }
-[data-theme="dark"] .footer-home-link { color: #FFF; }
+[data-theme="dark"] .project-detail-page { background: var(--gray-950); color: var(--text-primary); }
+[data-theme="dark"] .detail-nav { background: rgba(12, 12, 11, 0.85); }
+[data-theme="dark"] .back-btn-pill { background: var(--gray-800); color: var(--text-primary); }
+[data-theme="dark"] .p-specs-card { background: var(--gray-900); border-color: var(--border-subtle); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+[data-theme="dark"] .p-description p { color: var(--text-secondary); }
+[data-theme="dark"] .divider { background: var(--border-subtle); }
+[data-theme="dark"] .footer-home-link { color: var(--text-primary); }

@@ -192,7 +192,7 @@ const CustomCursor = () => {
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                     <path 
                         d="M5.5 3.21V20.8L10.18 16.12L13.3 22.39L16.22 20.93L13.1 14.66H18.99L5.5 3.21Z" 
-                        fill="#FFA500" 
+                        fill="#FF8C00" 
                         stroke="white"
                         strokeWidth="0.8"
                     />

@@ -35,6 +35,7 @@ const Hero = () => {
 
     return (
         <section id="home" className="hero-section">
+            <div className="hero-vignette"></div>
             <motion.div 
                 className="hero-container container"
                 initial="hidden"
