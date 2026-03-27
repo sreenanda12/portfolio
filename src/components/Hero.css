@@ -139,16 +139,20 @@
     cursor: pointer;
     border-radius: 20px;
     z-index: 1;
-    /* relative to aura */
+    /* GPU Acceleration & Performance Tuning */
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    contain: layout paint style;
 }
 
 @keyframes floatTool {
     0% {
-        transform: translateY(0) rotateX(2deg) rotateY(-2deg);
+        transform: translate3d(0, 0, 0) rotateX(2deg) rotateY(-2deg);
     }
 
     100% {
-        transform: translateY(-8px) rotateX(-2deg) rotateY(2deg);
+        transform: translate3d(0, -8px, 0) rotateX(-2deg) rotateY(2deg);
     }
 }
 
@@ -349,10 +353,7 @@
         gap: 8px;
     }
 
-    /* Disable heavy floating animation on mobile for performance */
-    .grid-tool-wrapper {
-        animation: none;
-    }
+    /* 3D floating animation is kept enabled on mobile per request, heavily hardware accelerated instead */
 }
 
 @media screen and (max-width: 480px) {

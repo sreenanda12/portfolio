@@ -30,6 +30,9 @@
     position: relative;
     animation: antiGravity var(--dur) ease-in-out var(--del) infinite;
     will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    contain: layout style paint;
 }
 
 .tool-card {
@@ -69,7 +72,7 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    transform: translateZ(10px);
+    transform: translate3d(0, 0, 10px);
 }
 
 .tool-icon-wrapper svg {
@@ -100,26 +103,26 @@
     opacity: 0.3;
     animation: shadowPulse var(--dur) ease-in-out var(--del) infinite;
     pointer-events: none;
-    transform: translateZ(calc(var(--tz) - 10px));
+    transform: translate3d(0, 0, calc(var(--tz) - 10px));
 }
 
 @keyframes antiGravity {
 
     0%,
     100% {
-        transform: translateY(0px) translateZ(var(--tz));
+        transform: translate3d(0px, 0px, var(--tz));
     }
 
     25% {
-        transform: translateY(-6px) translateZ(calc(var(--tz) + 5px));
+        transform: translate3d(0px, -6px, calc(var(--tz) + 5px));
     }
 
     50% {
-        transform: translateY(-10px) translateZ(calc(var(--tz) + 10px));
+        transform: translate3d(0px, -10px, calc(var(--tz) + 10px));
     }
 
     75% {
-        transform: translateY(-4px) translateZ(calc(var(--tz) + 3px));
+        transform: translate3d(0px, -4px, calc(var(--tz) + 3px));
     }
 }
 
@@ -128,12 +131,12 @@
     0%,
     100% {
         opacity: 0.3;
-        transform: scale(0.9) translateZ(calc(var(--tz) - 10px));
+        transform: scale(0.9) translate3d(0px, 0px, calc(var(--tz) - 10px));
     }
 
     50% {
         opacity: 0.5;
-        transform: scale(1) translateZ(calc(var(--tz) - 10px));
+        transform: scale(1) translate3d(0px, 0px, calc(var(--tz) - 10px));
     }
 }
 
