@@ -68,7 +68,7 @@ const CertificationModal = ({ cert, isOpen, onClose }) => {
                         <div className="cert-modal-viewer-header">
                             <div className="cert-viewer-info">
                                 <h3>{cert.title}</h3>
-                                <p>{cert.issuer} • {cert.date}</p>
+                                <p>{cert.issuer}</p>
                             </div>
                             <div className="cert-viewer-actions">
                                 <button onClick={handleZoomOut} title="Zoom Out" disabled={zoom <= 1}><ZoomOut size={20} /></button>

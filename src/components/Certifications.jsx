@@ -10,7 +10,6 @@ export const allCertificates = [
         id: 1,
         title: "",
         issuer: "",
-        date: "2024",
         image: "/certificates/c1.jpeg",
         skills: ["Skill 1", "Skill 2"]
     },
@@ -18,7 +17,6 @@ export const allCertificates = [
         id: 2,
         title: "",
         issuer: "",
-        date: "2024",
         image: "/certificates/c2.jpeg",
         skills: []
     },
@@ -26,7 +24,6 @@ export const allCertificates = [
         id: 3,
         title: "",
         issuer: "",
-        date: "2023",
         image: "/certificates/c3.jpeg",
         skills: []
     },
@@ -34,7 +31,6 @@ export const allCertificates = [
         id: 4,
         title: "",
         issuer: "",
-        date: "2023",
         image: "/certificates/c4.jpeg",
         skills: []
     },
@@ -42,7 +38,6 @@ export const allCertificates = [
         id: 5,
         title: "",
         issuer: "",
-        date: "2022",
         image: "/certificates/c5.jpeg",
         skills: []
     },
@@ -50,7 +45,6 @@ export const allCertificates = [
         id: 6,
         title: "",
         issuer: "",
-        date: "2022",
         image: "/certificates/c6.jpeg",
         skills: []
     },
@@ -58,7 +52,6 @@ export const allCertificates = [
         id: 7,
         title: "",
         issuer: "",
-        date: "2021",
         image: "/certificates/c7.jpeg",
         skills: []
     }
@@ -146,7 +139,6 @@ const Certifications = () => {
                                 <div className="cert-info">
                                     <div className="cert-meta" style={{ justifyContent: 'center' }}>
                                         {allCertificates[currentCertIndex].issuer && <span className="cert-issuer">{allCertificates[currentCertIndex].issuer}</span>}
-                                        <span className="cert-date">{allCertificates[currentCertIndex].date}</span>
                                     </div>
                                     <div className="click-to-next-hint" style={{ marginTop: '10px' }}>Click to see next →</div>
                                 </div>
@@ -192,7 +184,6 @@ const Certifications = () => {
                                     </div>
                                     <div className="cert-mobile-info">
                                         <h3 className="cert-mobile-title">{cert.title}</h3>
-                                        <span className="cert-mobile-date">{cert.date}</span>
                                     </div>
                                 </motion.div>
                             );

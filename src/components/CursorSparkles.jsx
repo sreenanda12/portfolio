@@ -5,6 +5,9 @@ const CursorSparkles = () => {
     const canvasRef = useRef(null);
 
     useEffect(() => {
+        // COMPLETELY DISABLE ON TOUCH DEVICES / MOBILE
+        if (!window.matchMedia('(pointer: fine)').matches) return;
+
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         let particles = [];
