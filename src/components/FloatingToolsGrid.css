@@ -100,39 +100,40 @@
     opacity: 0.3;
     animation: shadowPulse var(--dur) ease-in-out var(--del) infinite;
     pointer-events: none;
-    transform: translate3d(0, 0, calc(var(--tz) - 10px));
-    will-change: transform, opacity;
+    transform: translateZ(calc(var(--tz) - 10px));
 }
 
 @keyframes antiGravity {
+
     0%,
     100% {
-        transform: translate3d(0, 0px, var(--tz));
+        transform: translateY(0px) translateZ(var(--tz));
     }
 
     25% {
-        transform: translate3d(0, -6px, calc(var(--tz) + 5px));
+        transform: translateY(-6px) translateZ(calc(var(--tz) + 5px));
     }
 
     50% {
-        transform: translate3d(0, -10px, calc(var(--tz) + 10px));
+        transform: translateY(-10px) translateZ(calc(var(--tz) + 10px));
     }
 
     75% {
-        transform: translate3d(0, -4px, calc(var(--tz) + 3px));
+        transform: translateY(-4px) translateZ(calc(var(--tz) + 3px));
     }
 }
 
 @keyframes shadowPulse {
+
     0%,
     100% {
         opacity: 0.3;
-        transform: translate3d(0, 0, calc(var(--tz) - 10px)) scale(0.9);
+        transform: scale(0.9) translateZ(calc(var(--tz) - 10px));
     }
 
     50% {
         opacity: 0.5;
-        transform: translate3d(0, 0, calc(var(--tz) - 10px)) scale(1);
+        transform: scale(1) translateZ(calc(var(--tz) - 10px));
     }
 }
 
@@ -144,18 +145,18 @@
 .tool-animator:hover .tool-shadow {
     animation-play-state: paused;
     opacity: 0;
+    /* Hide base shadow to make way for glow */
 }
 
-.tool-card:hover, .tool-card:active {
-    transform: translate3d(0, 0, 0) scale(1.1);
+.tool-card:hover {
+    transform: scale(1.1);
     box-shadow: 0 0 25px rgba(255, 255, 255, 0.3), 0 0 25px var(--brand-glow);
     border-color: rgba(255, 255, 255, 0.4);
     z-index: 10;
 }
 
-[data-theme="dark"] .tool-card:hover,
-[data-theme="dark"] .tool-card:active {
-    transform: translate3d(0, -2px, 0) scale(1.05);
+[data-theme="dark"] .tool-card:hover {
+    transform: scale(1.05) translateY(-2px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 140, 0, 0.15);
     border-color: rgba(255, 140, 0, 0.5);
 }
@@ -165,7 +166,7 @@
     position: absolute;
     top: -36px;
     left: 50%;
-    transform: translate3d(-50%, 5px, 0);
+    transform: translateX(-50%) translateY(5px);
     background: var(--text-primary);
     color: var(--bg-primary);
     padding: 6px 10px;
@@ -178,7 +179,6 @@
     transition: opacity 0.2s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 100;
-    will-change: transform, opacity;
 }
 
 .tool-tooltip::after {
@@ -192,30 +192,27 @@
     border-color: var(--text-primary) transparent transparent transparent;
 }
 
-.tool-card:hover .tool-tooltip,
-.tool-card:active .tool-tooltip {
+.tool-card:hover .tool-tooltip {
     opacity: 1;
-    transform: translate3d(-50%, 0, 0);
+    transform: translateX(-50%) translateY(0);
 }
 
-/* On touch devices disable heavy mouse tracking but KEEP 3D floating and allow tap tooltips */
+/* On touch devices disable hover-dependent interactions and heavy 3D */
 @media (hover: none) and (pointer: coarse) {
     .tool-wrapper {
-        /* Preserve the initial 3D rotation, just don't try to track mouse */
-        transform: rotateX(var(--rx)) rotateY(var(--ry)) translate3d(0,0,0) !important;
+        transform: none !important; /* No mouse-tracking 3D on touch */
     }
 
     .tool-animator {
         animation-duration: 8s; /* Slower animation to ease battery */
     }
 
-    .tool-card:hover, .tool-card:active {
-        transform: translate3d(0, 0, 0) scale(1.05); /* Simpler tap feedback */
-        box-shadow: none;
+    .tool-card:hover .tool-tooltip {
+        opacity: 0; /* No hover tooltips on touch */
     }
-    
-    [data-theme="dark"] .tool-card:hover, 
-    [data-theme="dark"] .tool-card:active {
-         transform: translate3d(0, 0, 0) scale(1.05); /* Consistency across themes */
+
+    .tool-card:hover {
+        transform: scale(1.05); /* Simpler tap feedback */
+        box-shadow: none;
     }
 }

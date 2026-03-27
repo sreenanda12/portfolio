@@ -129,8 +129,6 @@
     z-index: 100;
     transform: scale(0.8);
     will-change: transform;
-    /* Prevent 3D floating changes from triggering page reflows */
-    contain: layout paint;
 }
 
 /* Individual Tool Wrappers (Floating Organic Movement) */
