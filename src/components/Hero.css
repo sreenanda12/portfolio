@@ -129,6 +129,8 @@
     z-index: 100;
     transform: scale(0.8);
     will-change: transform;
+    /* Prevent 3D floating changes from triggering page reflows */
+    contain: layout paint;
 }
 
 /* Individual Tool Wrappers (Floating Organic Movement) */
@@ -139,20 +141,16 @@
     cursor: pointer;
     border-radius: 20px;
     z-index: 1;
-    /* GPU Acceleration & Performance Tuning */
-    will-change: transform;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    contain: layout paint style;
+    /* relative to aura */
 }
 
 @keyframes floatTool {
     0% {
-        transform: translate3d(0, 0, 0) rotateX(2deg) rotateY(-2deg);
+        transform: translateY(0) rotateX(2deg) rotateY(-2deg);
     }
 
     100% {
-        transform: translate3d(0, -8px, 0) rotateX(-2deg) rotateY(2deg);
+        transform: translateY(-8px) rotateX(-2deg) rotateY(2deg);
     }
 }
 
@@ -353,7 +351,10 @@
         gap: 8px;
     }
 
-    /* 3D floating animation is kept enabled on mobile per request, heavily hardware accelerated instead */
+    /* Disable heavy floating animation on mobile for performance */
+    .grid-tool-wrapper {
+        animation: none;
+    }
 }
 
 @media screen and (max-width: 480px) {

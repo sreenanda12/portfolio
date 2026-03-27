@@ -36,7 +36,7 @@ const AllCertificationsPage = () => {
                         {allCertificates.map(cert => (
                             <div key={cert.id} className="cert-page-card" onClick={() => setSelectedCert(cert)}>
                                 <div className="cert-image-container">
-                                    <img src={cert.image} alt={cert.title} />
+                                    <img src={cert.image} alt={cert.title} loading="lazy" />
                                     <div className="cert-overlay">
                                         <div className="cert-view-btn">
                                             <Maximize2 size={24} />

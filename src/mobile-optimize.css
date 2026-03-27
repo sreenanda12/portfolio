@@ -443,8 +443,10 @@ img[width][height] {
 
 /* ── 20. CERTIFICATIONS SECTION ─────────────────────────────── */
 @media (max-width: 767px) {
-    .cert-mobile-card-pure { border-radius: 16px; }
-    .cert-premium-slider-wrapper { max-width: 100%; }
+    .cert-mobile-card { border-radius: 16px; }
+    .cert-mobile-info { padding: 16px; }
+    .cert-mobile-title { font-size: 0.95rem; }
+    .cert-slider-wrapper { max-width: 100%; }
 }
 
 /* ── 21. DESIGN STORIES PAGE ────────────────────────────────── */
@@ -457,7 +459,8 @@ img[width][height] {
 @media (max-width: 767px) {
     [data-theme="dark"] .gallery-filters-area { background: #0E0E0E; }
     [data-theme="dark"] .gallery-header { background: linear-gradient(to right, #0E0E0E, #0E0E0E); }
-    [data-theme="dark"] .cert-mobile-card-pure { border-color: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .cert-mobile-card { background: #1A1A1A; border-color: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .cert-mobile-title { color: #F5F5F5; }
     [data-theme="dark"] .we-modal-overlay { background: rgba(0,0,0,0.9); }
     [data-theme="dark"] .we-modal-content { background: #1A1A1A; border-color: rgba(255,255,255,0.08); }
 }
