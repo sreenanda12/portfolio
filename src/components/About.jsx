@@ -142,12 +142,19 @@ const About = () => {
         return () => clearInterval(interval);
     }, [isMobileInteracting, selectedCert]);
 
-    // Track scroll position to update index
+    // Track scroll position to update index with throttling
     const handleMobileScroll = (e) => {
-        const { scrollLeft, offsetWidth } = e.target;
-        const index = Math.round(scrollLeft / (offsetWidth * 0.85));
-        if (index !== mobileActiveIndex) {
-            setMobileActiveIndex(index);
+        if (!e.target._ticking) {
+            const el = e.target;
+            window.requestAnimationFrame(() => {
+                const { scrollLeft, offsetWidth } = el;
+                const index = Math.round(scrollLeft / (offsetWidth * 0.85));
+                if (index !== mobileActiveIndex) {
+                    setMobileActiveIndex(index);
+                }
+                el._ticking = false;
+            });
+            e.target._ticking = true;
         }
     };
 

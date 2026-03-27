@@ -93,12 +93,19 @@ const Certifications = () => {
         return () => clearInterval(interval);
     }, [isMobileInteracting, selectedCert]);
 
-    // Track scroll position to update index
+    // Track scroll position to update index with throttling
     const handleMobileScroll = (e) => {
-        const { scrollLeft, offsetWidth } = e.target;
-        const index = Math.round(scrollLeft / (offsetWidth * 0.85));
-        if (index !== mobileActiveIndex) {
-            setMobileActiveIndex(index);
+        if (!e.target._ticking) {
+            const el = e.target;
+            window.requestAnimationFrame(() => {
+                const { scrollLeft, offsetWidth } = el;
+                const index = Math.round(scrollLeft / (offsetWidth * 0.85));
+                if (index !== mobileActiveIndex) {
+                    setMobileActiveIndex(index);
+                }
+                el._ticking = false;
+            });
+            e.target._ticking = true;
         }
     };
 
@@ -125,7 +132,7 @@ const Certifications = () => {
                                 onClick={nextCert}
                             >
                                 <div className="cert-image-container">
-                                    <img src={allCertificates[currentCertIndex].image} alt={allCertificates[currentCertIndex].title} loading="lazy" />
+                                    <img src={allCertificates[currentCertIndex].image} alt={allCertificates[currentCertIndex].title} loading="lazy" decoding="async" />
                                     <div className="cert-overlay">
                                         <div className="cert-view-btn" onClick={(e) => {
                                             e.stopPropagation();
@@ -180,7 +187,7 @@ const Certifications = () => {
                                     onClick={() => setSelectedCert(cert)}
                                 >
                                     <div className="cert-mobile-image">
-                                        <img src={cert.image} alt={cert.title} loading="lazy" />
+                                        <img src={cert.image} alt={cert.title} loading="lazy" decoding="async" />
                                         {cert.issuer && <div className="cert-mobile-tag">{cert.issuer}</div>}
                                     </div>
                                     <div className="cert-mobile-info">
