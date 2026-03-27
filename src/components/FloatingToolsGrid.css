@@ -33,13 +33,13 @@
 }
 
 .tool-card {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-radius: 12px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -51,15 +51,16 @@
 }
 
 [data-theme="dark"] .tool-card {
-    background: rgba(34, 34, 34, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    background: rgba(34, 34, 34, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 140, 0, 0.05);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
     .tool-card {
-        width: 54px;
-        height: 54px;
+        width: 68px;
+        height: 68px;
+        border-radius: 18px;
     }
 }
 
@@ -69,34 +70,34 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    transform: translateZ(10px);
+    transform: translateZ(15px);
 }
 
 .tool-icon-wrapper svg {
-    width: 16px;
-    height: 16px;
+    width: 22px;
+    height: 22px;
     color: var(--brand);
-    filter: drop-shadow(0 0 8px var(--brand));
-    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 10px var(--brand));
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
     .tool-icon-wrapper svg {
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
     }
 }
 
 /* Base Shadow */
 .tool-shadow {
     position: absolute;
-    bottom: -8px;
+    bottom: -10px;
     left: 10%;
     width: 80%;
     height: 6px;
     background: var(--brand);
     border-radius: 50%;
-    filter: blur(6px);
+    filter: blur(8px);
     opacity: 0.3;
     animation: shadowPulse var(--dur) ease-in-out var(--del) infinite;
     pointer-events: none;
@@ -104,115 +105,79 @@
 }
 
 @keyframes antiGravity {
-
-    0%,
-    100% {
-        transform: translateY(0px) translateZ(var(--tz));
-    }
-
-    25% {
-        transform: translateY(-6px) translateZ(calc(var(--tz) + 5px));
-    }
-
-    50% {
-        transform: translateY(-10px) translateZ(calc(var(--tz) + 10px));
-    }
-
-    75% {
-        transform: translateY(-4px) translateZ(calc(var(--tz) + 3px));
-    }
+    0%, 100% { transform: translateY(0px) translateZ(var(--tz)); }
+    50% { transform: translateY(-12px) translateZ(calc(var(--tz) + 12px)); }
 }
 
 @keyframes shadowPulse {
-
-    0%,
-    100% {
-        opacity: 0.3;
-        transform: scale(0.9) translateZ(calc(var(--tz) - 10px));
-    }
-
-    50% {
-        opacity: 0.5;
-        transform: scale(1) translateZ(calc(var(--tz) - 10px));
-    }
+    0%, 100% { opacity: 0.25; transform: scale(0.85) translateZ(calc(var(--tz) - 10px)); }
+    50% { opacity: 0.5; transform: scale(1.1) translateZ(calc(var(--tz) - 10px)); }
 }
 
-/* Hover Interactions */
+/* Hover & Active Interactions */
 .tool-animator:hover {
     animation-play-state: paused;
 }
 
-.tool-animator:hover .tool-shadow {
-    animation-play-state: paused;
-    opacity: 0;
-    /* Hide base shadow to make way for glow */
-}
-
-.tool-card:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px rgba(255, 255, 255, 0.3), 0 0 25px var(--brand-glow);
-    border-color: rgba(255, 255, 255, 0.4);
-    z-index: 10;
-}
-
-[data-theme="dark"] .tool-card:hover {
-    transform: scale(1.05) translateY(-2px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 140, 0, 0.15);
-    border-color: rgba(255, 140, 0, 0.5);
-}
-
-/* Tooltip Styles */
-.tool-tooltip {
-    position: absolute;
-    top: -36px;
-    left: 50%;
-    transform: translateX(-50%) translateY(5px);
-    background: var(--text-primary);
-    color: var(--bg-primary);
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 500;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.tool-card:hover,
+.tool-card:active {
+    transform: scale(1.15) translateZ(25px);
+    box-shadow: 0 0 35px var(--brand-glow), 0 15px 40px rgba(0,0,0,0.4);
+    border-color: var(--brand);
     z-index: 100;
 }
 
-.tool-tooltip::after {
-    content: '';
+/* Premium Tooltip / Label Styles */
+.tool-tooltip {
     position: absolute;
-    bottom: -4px;
+    top: -42px;
     left: 50%;
-    transform: translateX(-50%);
-    border-width: 4px 4px 0;
-    border-style: solid;
-    border-color: var(--text-primary) transparent transparent transparent;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(15, 15, 15, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #FFFFFF;
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: 
+        opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+        transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
 }
 
-.tool-card:hover .tool-tooltip {
+[data-theme="light"] .tool-tooltip {
+    background: rgba(255, 255, 255, 0.95);
+    color: #1A1A1A;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.tool-card:hover .tool-tooltip,
+.tool-card:active .tool-tooltip {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
 
-/* On touch devices disable hover-dependent interactions and heavy 3D */
+/* On touch devices: Enable Tapping for Tooltips */
 @media (hover: none) and (pointer: coarse) {
-    .tool-wrapper {
-        transform: none !important; /* No mouse-tracking 3D on touch */
+    .tool-wrapper { transform: none !important; }
+    .tool-animator { animation-duration: 6s; }
+    
+    /* Reveal tooltip on tap (using :active) */
+    .tool-card:active .tool-tooltip {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+        transition-duration: 0.2s; /* Snappier on tap */
     }
 
-    .tool-animator {
-        animation-duration: 8s; /* Slower animation to ease battery */
-    }
-
-    .tool-card:hover .tool-tooltip {
-        opacity: 0; /* No hover tooltips on touch */
-    }
-
-    .tool-card:hover {
-        transform: scale(1.05); /* Simpler tap feedback */
-        box-shadow: none;
+    .tool-card:active {
+        transform: scale(1.1) translateZ(15px);
     }
 }

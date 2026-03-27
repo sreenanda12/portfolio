@@ -44,11 +44,10 @@ const AllCertificationsPage = () => {
                                         </div>
                                     </div>
                                 </div>
-                                {cert.title && (
-                                    <div className="cert-info">
-                                        <h3 className="cert-title">{cert.title}</h3>
-                                    </div>
-                                )}
+                                <div className="cert-info">
+                                    <h3 className="cert-title">{cert.title}</h3>
+                                    <span className="cert-issuer-sub">{cert.issuer}</span>
+                                </div>
                             </div>
                         ))}
                     </div>
