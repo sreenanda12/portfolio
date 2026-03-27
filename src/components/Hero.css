@@ -1,6 +1,6 @@
 /* HERO SECTION OVERHAUL */
 .hero-section {
-    min-height: 100vh;
+    min-height: 100svh; /* Use svh to fix mobile browser chrome issue */
     display: flex;
     align-items: center;
     padding-top: 80px;
@@ -92,8 +92,8 @@
 }
 
 @keyframes keywordFadeInOut {
-    0%, 100% { opacity: 0; transform: translateY(10px); filter: blur(5px); }
-    20%, 80% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    0%, 100% { opacity: 0; transform: translateY(10px); }
+    20%, 80% { opacity: 1; transform: translateY(0); }
 }
 
 .hero-description {
@@ -108,11 +108,12 @@
 .reveal-text {
     opacity: 0;
     transform: translateY(30px);
-    animation: revealUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation: revealUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    will-change: opacity, transform;
 }
 
-.delay-1 { animation-delay: 0.2s; }
-.delay-2 { animation-delay: 0.4s; }
+.delay-1 { animation-delay: 0.15s; }
+.delay-2 { animation-delay: 0.3s; }
 
 @keyframes revealUp {
     to {
@@ -127,6 +128,7 @@
     right: 2rem;
     z-index: 100;
     transform: scale(0.8);
+    will-change: transform;
 }
 
 /* Individual Tool Wrappers (Floating Organic Movement) */
@@ -278,16 +280,17 @@
 
 @media screen and (max-width: 1023px) {
     .hero-section {
-        padding-top: 60px;
+        padding-top: 70px;
         align-items: flex-start;
+        min-height: 100svh;
     }
 
     .hero-container {
         flex-direction: column;
         text-align: center;
-        gap: 2rem;
+        gap: 1.5rem;
         justify-content: flex-start;
-        padding-top: 2rem;
+        padding-top: 1.5rem;
     }
 
     .hero-content {
@@ -296,7 +299,7 @@
     }
 
     .hero-title {
-        font-size: clamp(2.5rem, 8vw, 3.5rem);
+        font-size: clamp(2.25rem, 7vw, 3.2rem);
     }
 
     .keyword-rotator {
@@ -304,35 +307,74 @@
     }
 
     .hero-description {
-        margin: 0 auto 2.5rem;
-        padding: 0 1rem;
+        margin: 0 auto 2rem;
+        padding: 0 0.5rem;
     }
 
     .hero-tools-cluster-3d {
         position: relative;
         bottom: auto;
         right: auto;
-        transform: scale(0.7);
-        margin: 0 auto;
+        transform: scale(0.65);
+        margin: -1rem auto 0;
+        /* Prevent the scaled grid from causing overflow */
+        max-width: 100%;
+        overflow: visible;
     }
 }
 
 @media screen and (max-width: 767px) {
     .hero-section {
-        padding-top: 40px;
+        padding-top: 70px;
     }
 
     .hero-title {
-        font-size: 2.5rem;
+        font-size: clamp(2rem, 8vw, 2.75rem);
+        line-height: 1.15;
     }
 
     .hero-tools-cluster-3d {
-        transform: scale(0.5);
-        margin-top: -1rem;
+        transform: scale(0.52);
+        margin-top: -2.5rem;
+    }
+
+    .hero-description {
+        font-size: 0.95rem;
+        line-height: 1.65;
+        padding: 0;
+    }
+
+    .keyword-rotator {
+        font-size: 1rem;
+        gap: 8px;
+    }
+
+    /* Disable heavy floating animation on mobile for performance */
+    .grid-tool-wrapper {
+        animation: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .hero-title {
+        font-size: clamp(1.75rem, 7vw, 2.25rem);
+    }
+
+    .hero-tools-cluster-3d {
+        transform: scale(0.45);
+        margin-top: -3.5rem;
     }
 
     .hero-description {
         font-size: 0.9rem;
-        line-height: 1.5;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .hero-title {
+        font-size: 1.75rem;
+    }
+    .hero-tools-cluster-3d {
+        display: none; /* Very small screens — hide tool cluster entirely */
     }
 }

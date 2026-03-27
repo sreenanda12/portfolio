@@ -119,7 +119,7 @@ const WorkGallery = ({ fullView = false, title = "portfolio" }) => {
                                 >
                                     <div className="premium-card-inner">
                                         <div className="premium-card-image">
-                                            <img src={project.img} alt={project.title} loading="lazy" />
+                                            <img src={project.img} alt={project.title} loading="lazy" decoding="async" />
                                             <div className="premium-tint-overlay"></div>
                                         </div>
                                         

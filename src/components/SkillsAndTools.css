@@ -372,9 +372,48 @@
     }
 }
 
+/* Stack vertically below tablet width for readability */
+@media (max-width: 640px) {
+    .st-responsive-layout {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .st-responsive-col {
+        padding: 1.25rem;
+        border-radius: 24px;
+    }
+
+    .st-responsive-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .st-premium-card {
+        padding: 1rem;
+        border-radius: 16px;
+        /* Disable 3D breathing to prevent repaint jank on mobile */
+        animation: none;
+        will-change: auto;
+    }
+
+    .skill-icon-emoji, .tool-icon-wrapper {
+        font-size: 1.3rem;
+        margin-right: 0.8rem;
+    }
+
+    .skill-name-text, .tool-label {
+        font-size: 0.9rem;
+    }
+    
+    .st-sub-heading {
+        font-size: 1.1rem;
+        letter-spacing: 0.05em;
+    }
+}
+
 @media (max-width: 768px) {
     .st-responsive-layout {
-        flex-direction: row; /* KEEP SIDE BY SIDE ON TABLET/MOBILE */
         gap: 1.5rem;
     }
 
@@ -391,6 +430,7 @@
     .st-premium-card {
         padding: 1rem;
         border-radius: 16px;
+        animation: none; /* Remove breathing animation — causes CLS on mobile */
     }
 
     .skill-icon-emoji, .tool-icon-wrapper {
@@ -410,48 +450,34 @@
 
 @media (max-width: 480px) {
     .st-responsive-layout {
-        gap: 0.5rem;
+        gap: 1rem;
     }
     
     .st-responsive-col {
-        padding: 0.8rem;
+        padding: 1rem;
         border-radius: 16px;
     }
 
     .st-main-view {
-        padding: 0 0.5rem;
+        padding: 0 0.75rem;
     }
 
     .st-premium-card {
-        padding: 0.8rem 0.5rem;
+        padding: 0.9rem 0.75rem;
         border-radius: 12px;
-        flex-direction: column; /* Stack icon and text tightly */
-        justify-content: center;
-        text-align: center;
+        /* Keep row layout — more scannable than column on small cards */
     }
 
     .skill-icon-emoji, .tool-icon-wrapper {
-        margin-right: 0;
-        margin-bottom: 0.3rem;
         font-size: 1.2rem;
     }
 
     .skill-name-text, .tool-label {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         font-weight: 600;
     }
 
     .tool-mini-tooltip {
-        /* Restored on mobile */
-        top: -10px;
-        right: 50%;
-        transform: translate(50%, 10px) scale(0.8);
-        border-radius: 8px;
-    }
-
-    .st-premium-card:hover .tool-mini-tooltip,
-    .st-premium-card:active .tool-mini-tooltip,
-    .st-premium-card:focus .tool-mini-tooltip {
-        transform: translate(50%, 0) scale(1);
+        display: none; /* Too cramped on tiny screens */
     }
 }

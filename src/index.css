@@ -117,11 +117,16 @@
   --gradient-btn-portfolio: linear-gradient(135deg, #FF8C00, #FFA94D);
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  scroll-behavior: smooth;
 }
 
 body {
@@ -137,7 +142,12 @@ body {
   color: var(--text-primary);
   transition: background 0.8s ease, color 0.4s ease;
   overflow-x: hidden;
-  min-height: 100vh;
+  min-height: 100svh;
+  /* Prevent rubber-band overscroll on iOS causing layout shift */
+  -webkit-overflow-scrolling: touch;
+  /* Smooth font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 [data-theme="dark"] body {
@@ -377,14 +387,19 @@ ul {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
+  min-height: 44px; /* Touch-friendly minimum */
   border-radius: 9999px;
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
+  font-size: 1rem;
   transition: all var(--transition-smooth);
   cursor: pointer;
   border: none;
   position: relative;
   overflow: hidden;
+  touch-action: manipulation; /* Remove 300ms tap delay */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 .btn:hover {
@@ -398,7 +413,12 @@ ul {
 }
 
 .btn:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(0) scale(0.97);
+}
+
+a, button, [role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Icon Hover Utility */
@@ -430,13 +450,14 @@ ul {
   background-color: var(--card-bg);
   border-radius: 16px;
   box-shadow: var(--shadow-sm);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   border: 1px solid var(--border-light);
+  will-change: transform;
 }
 
 .card:hover {
-  transform: translateY(-5px) scale(1.05);
+  transform: translateY(-5px);
   box-shadow: var(--shadow-hover);
 }
 
@@ -473,10 +494,39 @@ ul {
 /* Responsive Mixins (hand-coded for plain CSS) */
 @media (max-width: 768px) {
   .section {
-    padding: 4rem 0;
+    padding: 3.5rem 0;
   }
 
   .container {
-    padding: 0 1.5rem;
+    padding: 0 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
+}
+
+/* GPU-accelerated animations only — reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Disable heavy 3D / perspective effects on mobile for performance */
+@media (max-width: 767px) {
+  .card:hover {
+    transform: translateY(-3px);
   }
 }

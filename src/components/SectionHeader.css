@@ -91,12 +91,27 @@
 /* Responsive Scaling */
 @media (max-width: 768px) {
     .section-header-component {
-        padding: 50px 0;
-        margin: 1rem 0;
+        padding: 44px 0;
+        margin: 0.75rem 0;
     }
     
     .header-title {
-        font-size: calc(var(--text-h2) * 0.9);
-        letter-spacing: 0.08em;
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        letter-spacing: 0.06em;
+    }
+
+    .section-label {
+        letter-spacing: 2px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-header-component {
+        padding: 36px 1rem;
+    }
+
+    .header-title {
+        font-size: clamp(1.35rem, 5vw, 1.75rem);
+        letter-spacing: 0.04em;
     }
 }

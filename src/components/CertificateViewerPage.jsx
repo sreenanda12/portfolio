@@ -15,7 +15,7 @@ const CertificateViewerPage = () => {
 
     if (!cert) {
         return (
-            <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ minHeight: '100dvh', background: 'var(--bg-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <h2 style={{ color: 'var(--text-primary)' }}>Certificate not found</h2>
                 <Link to="/" style={{ marginLeft: '20px', color: 'var(--accent-primary)' }}>Go Back</Link>
             </div>
@@ -23,7 +23,7 @@ const CertificateViewerPage = () => {
     }
 
     return (
-        <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ minHeight: '100dvh', background: 'var(--bg-primary)', display: 'flex', flexDirection: 'column' }}>
             <header style={{ padding: '20px 40px', background: 'var(--nav-bg)', backdropFilter: 'var(--nav-blur)', borderBottom: '1px solid var(--border-light)', display: 'flex', alignItems: 'center', position: 'sticky', top: 0, zIndex: 10 }}>
                 {/* Custom back action rather than fixed link, acts as a true back button */}
                 <button 
@@ -40,7 +40,7 @@ const CertificateViewerPage = () => {
                     alt="Certificate Full View" 
                     style={{ 
                         maxWidth: '100%', 
-                        maxHeight: '85vh', 
+                        maxHeight: '85dvh', 
                         objectFit: 'contain', 
                         borderRadius: '12px', 
                         boxShadow: 'var(--shadow-hover)' 

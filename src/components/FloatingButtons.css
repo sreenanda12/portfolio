@@ -8,12 +8,21 @@
     border: none;
     cursor: pointer;
     box-shadow: var(--shadow-md);
-    transition: all var(--transition-smooth);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    will-change: transform;
 }
 
 .floating-btn:hover {
     transform: scale(1.05) translateY(-4px);
     box-shadow: var(--shadow-glow);
+}
+
+.floating-btn:active {
+    transform: scale(0.95) !important;
+    transition-duration: 0.1s;
 }
 
 /* Portfolio Button (Bottom Right above WhatsApp) */
@@ -46,12 +55,16 @@
 .cv-btn {
     bottom: 30px;
     left: 30px;
+    /* Respect device safe-area for bottom nav bar */
+    bottom: calc(30px + env(safe-area-inset-bottom, 0px));
     background: var(--gradient-btn-cv);
     color: #fff;
     padding: 0.8rem 1.5rem;
+    min-height: 48px;
     border-radius: 9999px;
     gap: 0.5rem;
     font-weight: 500;
+    font-size: 0.95rem;
 }
 
 .cv-btn:hover {
@@ -63,6 +76,8 @@
 .whatsapp-btn {
     bottom: 30px;
     right: 32px;
+    bottom: calc(30px + env(safe-area-inset-bottom, 0px));
+    right: calc(32px + env(safe-area-inset-right, 0px));
     background: #22C55E;
     color: #fff;
     width: 56px;
@@ -201,25 +216,40 @@
 
 @media screen and (max-width: 768px) {
     .floating-btn.portfolio-btn {
-        bottom: 80px;
-        right: 15px;
+        bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+        right: calc(15px + env(safe-area-inset-right, 0px));
         top: auto;
         left: auto;
         padding: 0.5rem 1rem;
-        font-size: 0.8rem;
+        font-size: 0.82rem;
+        min-height: 44px;
     }
 
     .floating-btn.cv-btn {
-        bottom: 15px;
-        left: 15px;
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
+        bottom: calc(15px + env(safe-area-inset-bottom, 0px));
+        left: calc(15px + env(safe-area-inset-left, 0px));
+        padding: 0.65rem 1.1rem;
+        font-size: 0.85rem;
+        min-height: 44px;
     }
 
     .floating-btn.whatsapp-btn {
-        bottom: 15px;
-        right: 15px;
-        width: 50px;
-        height: 50px;
+        bottom: calc(15px + env(safe-area-inset-bottom, 0px));
+        right: calc(15px + env(safe-area-inset-right, 0px));
+        width: 52px;
+        height: 52px;
+    }
+}
+
+/* On very small phones hide portfolio label, keep icon hint */
+@media screen and (max-width: 380px) {
+    .floating-btn.portfolio-btn span {
+        display: none;
+    }
+    .floating-btn.portfolio-btn {
+        padding: 0;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
     }
 }

@@ -108,7 +108,7 @@
     background: var(--card-bg);
     width: 100%;
     max-width: 800px;
-    height: 100vh;
+    height: 100dvh;
     padding: 3rem;
     border-radius: 0px !important;
     /* as requested: expands to full screen detailed view, border radius reduces to 0 */

@@ -1,0 +1,531 @@
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL MOBILE PERFORMANCE & PREMIUM RESPONSIVE STYLESHEET
+   Mobile-First: 320px → 480px → 768px → 1024px → 1440px+
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. GPU ACCELERATION & PERFORMANCE ────────────────────── */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    text-rendering: optimizeSpeed;
+}
+
+/* Promote interactive elements to GPU layer */
+.top-header,
+.gallery-section,
+.premium-card,
+.we-card-inner,
+.luxury-glass-card,
+.st-premium-card,
+.exp-glass-card,
+.edu-card-compact {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* ── 2. DISABLE HEAVY ANIMATIONS ON MOBILE ────────────────── */
+@media (max-width: 767px) {
+    /* Disable parallax / floating shapes */
+    .shape-1, .shape-2, .shape-3, .shape-4 {
+        display: none !important;
+    }
+
+    /* Simplify card breathing animation */
+    .st-premium-card {
+        animation: none !important;
+    }
+
+    /* Disable heavy blur filter on blur cards */
+    .we-card-wrapper.we-blur .we-card-inner {
+        filter: none !important;
+        opacity: 0.85;
+    }
+
+    /* Disable complex 3D transforms */
+    .exp-glass-card {
+        transform-style: flat !important;
+    }
+
+    /* Convert hover-only effects to simpler transitions */
+    .premium-card:hover {
+        transform: translateY(-6px) !important;
+    }
+
+    /* Reduce CursorSparkles overhead */
+    .cursor-sparkle-container {
+        display: none !important;
+    }
+
+    /* Reduce gallery card overshoot  */
+    .premium-reveal-overlay-hover {
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+    }
+}
+
+/* ── 3. PREVENT ALL HORIZONTAL OVERFLOW ─────────────────────── */
+*,
+*::before,
+*::after {
+    max-width: 100%;
+}
+
+.container,
+section,
+main,
+header,
+footer,
+nav {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* ── 4. TOUCH TARGETS (min 44×44px) ─────────────────────────── */
+@media (max-width: 1023px) {
+    a,
+    button,
+    [role="button"],
+    .filter-btn-premium,
+    .filter-btn-minimal,
+    .hamburger-btn,
+    .nav-links,
+    .desktop-nav-link,
+    .reveal-view-btn,
+    .view-details-btn,
+    .role-tab,
+    .indicator-dot,
+    .cert-viewer-actions button,
+    .back-btn-pill,
+    .stories-back-link,
+    .floating-btn {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    /* Increase spacing between tappable items */
+    .nav-menu-list { gap: 2rem; }
+    .gallery-filters { gap: 2rem; }
+    .role-switcher { gap: 1.2rem; }
+    .cert-viewer-actions { gap: 10px; }
+}
+
+/* ── 5. SMOOTH SCROLLING - 60fps OPTIMIZATION ───────────────── */
+@media (max-width: 1023px) {
+    .gallery-filters,
+    .cert-scroll-track,
+    .role-switcher {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        overscroll-behavior-x: contain;
+    }
+}
+
+/* ── 6. TYPOGRAPHY — MOBILE FIRST SCALE ────────────────────── */
+@media (max-width: 767px) {
+
+    /* Headings */
+    h1 { font-size: clamp(2rem, 7vw, 2.8rem) !important; letter-spacing: -0.03em; }
+    h2 { font-size: clamp(1.6rem, 5vw, 2rem) !important; letter-spacing: -0.02em; }
+    h3 { font-size: clamp(1.1rem, 4vw, 1.4rem) !important; }
+
+    /* Body text */
+    p { font-size: 1rem !important; line-height: 1.7 !important; }
+
+    /* Minimum 16px for inputs and body — prevent iOS zoom */
+    input, textarea, select { font-size: 16px !important; }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: clamp(1.8rem, 8vw, 2.4rem) !important; }
+    h2 { font-size: clamp(1.4rem, 6vw, 1.8rem) !important; }
+}
+
+/* ── 7. IMAGES — RESPONSIVE & LAZY ─────────────────────────── */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    /* Native lazy loading — ensure loading="lazy" in JSX */
+}
+
+/* Prevent layout shift from images */
+img[width][height] {
+    aspect-ratio: attr(width) / attr(height);
+}
+
+/* ── 8. LAYOUT SPACING — 8px GRID SYSTEM ───────────────────── */
+@media (max-width: 767px) {
+    .container { padding: 0 1.25rem; }
+    .section { padding: 3rem 0; }
+    .about-section { margin-bottom: 48px; }
+
+    /* Section padding resets */
+    .gallery-section { padding: 64px 0; }
+    .st-premium-section { padding: 48px 0; }
+    .luxury-contact-section { padding: 64px 0; min-height: auto; }
+    .modern-exp-section { padding: 64px 0; }
+    .certifications-section { padding-top: 40px !important; }
+}
+
+@media (max-width: 480px) {
+    .container { padding: 0 1rem; }
+    .gallery-section { padding: 48px 0; }
+}
+
+/* ── 9. HERO SECTION ────────────────────────────────────────── */
+@media (max-width: 767px) {
+    .hero-section {
+        min-height: auto;
+        padding: 100px 0 60px;
+    }
+
+    .hero-container {
+        gap: 2.5rem;
+        padding-top: 0;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 9vw, 2.8rem) !important;
+        line-height: 1.15;
+        letter-spacing: -0.04em;
+    }
+
+    .hero-description {
+        font-size: 0.95rem;
+        line-height: 1.65;
+        padding: 0;
+    }
+
+    .keyword-rotator {
+        font-size: 0.95rem;
+    }
+
+    .scroll-indicator {
+        display: none;
+    }
+}
+
+/* ── 10. NAVBAR ─────────────────────────────────────────────── */
+@media (max-width: 767px) {
+    .top-header { padding: 0.9rem 1.25rem; }
+    
+    .nav-overlay-menu {
+        width: calc(100% - 2.5rem);
+        right: 1.25rem;
+        top: 4.5rem;
+        padding: 2rem;
+        border-radius: 24px;
+    }
+}
+
+/* ── 11. PORTFOLIO GALLERY ──────────────────────────────────── */
+@media (max-width: 767px) {
+    .gallery-header { padding: 48px 0; }
+    .gallery-main-title { font-size: 2.2rem !important; letter-spacing: -1px; }
+
+    .gallery-responsive-grid-premium {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .gallery-filters-area { padding: 24px 0; }
+
+    /* Category bar — full horizontal swipe */
+    .gallery-filters {
+        gap: 2rem;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    .filter-btn-premium {
+        font-size: 0.72rem;
+        letter-spacing: 1.2px;
+        padding: 12px 0;
+    }
+
+    .premium-card {
+        aspect-ratio: 4 / 3;
+        border-radius: 16px;
+    }
+
+    .reveal-title { font-size: 1.4rem !important; }
+    .reveal-category { font-size: 0.65rem; }
+
+    .gallery-minimal-footer { margin-top: 5rem; }
+}
+
+/* ── 12. SKILLS & TOOLS SECTION ─────────────────────────────── */
+@media (max-width: 767px) {
+    .st-responsive-layout { flex-direction: column; gap: 1.5rem; }
+    .st-responsive-col {
+        width: 100%;
+        padding: 1.5rem;
+        border-radius: 24px;
+    }
+
+    .st-responsive-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .st-premium-card {
+        padding: 1rem;
+        border-radius: 16px;
+    }
+
+    .skill-icon-emoji, .tool-icon-wrapper {
+        font-size: 1.3rem;
+        margin-right: 0.75rem;
+    }
+
+    .skill-name-text, .tool-label {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .st-responsive-grid { grid-template-columns: 1fr; }
+}
+
+/* ── 13. PROFESSIONAL EXPERIENCE  ───────────────────────────── */
+@media (max-width: 767px) {
+    .exp-grid-layout { gap: 2rem; }
+    .exp-glass-card {
+        padding: 1.5rem;
+        border-radius: 20px;
+    }
+
+    .exp-company-name { font-size: 1.3rem; }
+    .active-role-title { font-size: 1rem; }
+
+    .role-switcher {
+        gap: 0.5rem;
+        overflow-x: auto;
+        padding-bottom: 8px;
+    }
+
+    .role-tab {
+        padding: 10px 14px;
+        font-size: 0.72rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .exp-meta { flex-direction: column; gap: 4px; }
+
+    .view-details-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 24px;
+    }
+
+    .exp-tags-row { gap: 8px; }
+    .exp-tag { font-size: 0.7rem; padding: 6px 12px; }
+}
+
+/* ── 14. EDUCATION ───────────────────────────────────────────── */
+@media (max-width: 767px) {
+    .edu-compact-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .edu-card-compact {
+        padding: 1.25rem;
+        border-radius: 14px;
+    }
+
+    .edu-degree-small { font-size: 1rem; }
+}
+
+/* ── 15. CONTACT SECTION ────────────────────────────────────── */
+@media (max-width: 767px) {
+    .luxury-layout { grid-template-columns: 1fr; gap: 40px; }
+
+    .luxury-headline {
+        font-size: 2.4rem !important;
+        letter-spacing: -1.5px;
+    }
+
+    .luxury-subtext { font-size: 1rem; }
+
+    .luxury-glass-card {
+        padding: 18px 20px;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        text-align: left;
+    }
+
+    .luxury-card-icon { 
+        width: 52px; 
+        height: 52px; 
+        border-radius: 14px;
+        flex-shrink: 0;
+        margin-right: 0;
+    }
+
+    .luxury-card-value { font-size: 1rem; }
+
+    .luxury-social-row { justify-content: center; flex-wrap: wrap; }
+}
+
+@media (max-width: 480px) {
+    .luxury-headline { font-size: 2rem !important; }
+}
+
+/* ── 16. PROJECT DETAILS PAGE ───────────────────────────────── */
+@media (max-width: 767px) {
+    .detail-content { margin-top: 100px; }
+    .detail-header { margin-bottom: 3rem; }
+
+    .p-title {
+        font-size: clamp(2rem, 8vw, 3rem) !important;
+        letter-spacing: -2px;
+    }
+
+    .p-main-image-wrap {
+        margin-bottom: 3rem;
+        border-radius: 20px;
+    }
+
+    .p-info-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .p-description p { font-size: 1rem !important; }
+
+    .p-specs-card {
+        padding: 1.75rem;
+        border-radius: 20px;
+        gap: 1.5rem;
+    }
+
+    .footer-links { flex-direction: column; gap: 0.8rem; text-align: center; }
+}
+
+/* ── 17. SUMMARY STRIP ──────────────────────────────────────── */
+@media (max-width: 767px) {
+    .summary-strip { display: none; }
+}
+
+/* ── 18. FLOATING BUTTONS ───────────────────────────────────── */
+@media (max-width: 767px) {
+    .cv-btn { bottom: 16px; left: 16px; padding: 0.7rem 1.25rem; font-size: 0.85rem; }
+    .whatsapp-btn { bottom: 16px; right: 16px; width: 52px; height: 52px; }
+    .portfolio-btn { bottom: 78px; right: 16px; padding: 0.5rem 1rem; font-size: 0.78rem; }
+}
+
+/* ── 19. WORK EXPERIENCE STACK ──────────────────────────────── */
+@media (max-width: 767px) {
+    .we-card-inner { padding: 1.5rem; }
+    .we-modal-content { padding: 1.5rem; }
+    .we-modal-company { font-size: 1.5rem; }
+    .we-modal-overlay { padding: 0.75rem; }
+    .we-card-wrapper { margin-top: -20px; }
+}
+
+/* ── 20. CERTIFICATIONS SECTION ─────────────────────────────── */
+@media (max-width: 767px) {
+    .cert-mobile-card { border-radius: 16px; }
+    .cert-mobile-info { padding: 16px; }
+    .cert-mobile-title { font-size: 0.95rem; }
+    .cert-slider-wrapper { max-width: 100%; }
+}
+
+/* ── 21. DESIGN STORIES PAGE ────────────────────────────────── */
+@media (max-width: 767px) {
+    .design-stories-page .gallery-section { padding-top: 90px; }
+    .stories-nav-header { padding: 1.25rem 0; }
+}
+
+/* ── 22. DARK MODE MOBILE OVERRIDES ─────────────────────────── */
+@media (max-width: 767px) {
+    [data-theme="dark"] .gallery-filters-area { background: #0E0E0E; }
+    [data-theme="dark"] .gallery-header { background: linear-gradient(to right, #0E0E0E, #0E0E0E); }
+    [data-theme="dark"] .cert-mobile-card { background: #1A1A1A; border-color: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .cert-mobile-title { color: #F5F5F5; }
+    [data-theme="dark"] .we-modal-overlay { background: rgba(0,0,0,0.9); }
+    [data-theme="dark"] .we-modal-content { background: #1A1A1A; border-color: rgba(255,255,255,0.08); }
+}
+
+/* ── 23. TAP MICRO-INTERACTIONS & DISABLE HOVER ON TOUCH ────────────── */
+@media (hover: none), (pointer: coarse) {
+    /* Disable sticky hover effects on touch devices */
+    a:hover, 
+    button:hover, 
+    .btn:hover, 
+    .card:hover, 
+    .premium-card:hover,
+    .luxury-glass-card:hover,
+    .icon-hover:hover,
+    .img-zoom:hover,
+    .grid-tool-wrapper:hover,
+    .hamburger-btn:hover {
+        /* Revert transforms and shadows that get stuck */
+        transform: none !important;
+        box-shadow: inherit; /* or scale(1) depending on base */
+        filter: none !important;
+    }
+
+    /* Keep the tap feedback */
+    a:active,
+    button:active,
+    .btn:active,
+    .filter-btn-premium:active,
+    .luxury-glass-card:active,
+    .edu-card-compact:active,
+    .exp-glass-card:active,
+    .st-premium-card:active,
+    .cv-btn:active,
+    .whatsapp-btn:active,
+    .portfolio-btn:active,
+    .reveal-view-btn:active,
+    .back-btn-pill:active {
+        transform: scale(0.96) !important;
+        transition: transform 0.1s ease !important;
+    }
+}
+
+/* ── 24. SAFE AREA INSETS (iOS Notch / Home Indicator) ──────── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .top-header {
+        padding-top: max(1rem, env(safe-area-inset-top));
+    }
+
+    .cv-btn, .whatsapp-btn, .portfolio-btn {
+        bottom: max(16px, env(safe-area-inset-bottom));
+    }
+
+    .we-modal-content {
+        padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+    }
+}
+
+/* ── 25. REDUCED MOTION ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.1s !important;
+        scroll-behavior: auto !important;
+    }
+}

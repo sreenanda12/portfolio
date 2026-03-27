@@ -1,13 +1,12 @@
 /* LUXURY SPLIT CONTACT SECTION */
 .luxury-contact-section {
     position: relative;
-    padding: 120px 0;
-    min-height: 100vh;
+    padding: 100px 0 80px;
     display: flex;
     align-items: center;
-    background: #FDFDFB; /* Soft light neutral base */
+    background: #FDFDFB;
     overflow: hidden;
-    cursor: none; /* Hide default cursor if using custom one globally, or handle locally */
+    /* cursor:none removed — touch devices need default cursor */
 }
 
 /* Background Atmosphere */
@@ -263,6 +262,8 @@
 .luxury-social-icon {
     width: 52px;
     height: 52px;
+    min-width: 52px;
+    min-height: 52px; /* Well above 44px minimum */
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.6);
     border: 1px solid rgba(0, 0, 0, 0.05);
@@ -272,6 +273,8 @@
     color: var(--text-primary);
     transition: all 0.4s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .luxury-social-icon:hover {
@@ -281,32 +284,62 @@
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
+.luxury-social-icon:active {
+    transform: scale(0.93);
+}
+
 /* RESPONSIVE */
 @media (max-width: 1024px) {
     .luxury-layout {
         grid-template-columns: 1fr;
-        gap: 60px;
+        gap: 50px;
         text-align: center;
     }
     .luxury-left {
         align-items: center;
     }
     .luxury-headline br { display: none; }
-    .luxury-main-heading { font-size: 4rem; }
+    /* Disable expensive blobs on tablet/mobile */
+    .parallax-blobs { display: none; }
+    .grain-overlay { display: none; }
+    .cursor-glow-bubble { display: none; }
 }
 
 @media (max-width: 767px) {
-    .luxury-headline { font-size: 3rem; }
-    .luxury-subtext { font-size: 1.1rem; }
-    .luxury-glass-card {
-        padding: 20px;
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
+    .luxury-contact-section {
+        padding: 70px 0 60px;
     }
-    .luxury-card-icon { margin-right: 0; }
+    .luxury-headline { font-size: clamp(2rem, 7vw, 3rem); letter-spacing: -1.5px; }
+    .luxury-subtext { font-size: 1rem; }
+    .luxury-glass-card {
+        padding: 18px 20px;
+        gap: 14px;
+        /* Keep row layout on mobile for cleaner look */
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        /* Remove backdrop-filter to prevent iOS scroll jank */
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
     .luxury-card-arrow { display: none; }
     .luxury-social-row { justify-content: center; }
+    .luxury-card-value { font-size: 1rem; word-break: break-all; }
+}
+
+@media (max-width: 480px) {
+    .luxury-headline { font-size: 1.9rem; }
+    .luxury-glass-card {
+        padding: 14px 16px;
+    }
+    .luxury-card-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        border-radius: 14px;
+        margin-right: 14px;
+    }
+    .luxury-social-footer { margin-top: 36px; }
 }
 
 /* DARK MODE OVERRIDES */

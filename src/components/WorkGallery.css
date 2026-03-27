@@ -1,6 +1,6 @@
 /* PREMIUM MINIMAL PORTFOLIO GALLERY - V5 LUXURY */
 .gallery-section {
-    padding: 100px 0;
+    padding: 80px 0;
     background: linear-gradient(135deg, #FDFDFB 0%, #F5F5F2 100%);
     width: 100%;
     position: relative;
@@ -128,10 +128,12 @@
         padding-bottom: 20px;
         -webkit-overflow-scrolling: touch;
         scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
         gap: 2.5rem;
-        /* Padding to allow centering scroll-snap and room for shadows */
         padding-left: 2rem;
         padding-right: 2rem;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
     
     .gallery-filters::-webkit-scrollbar {
@@ -144,6 +146,9 @@
         white-space: nowrap;
         font-size: 0.75rem;
         letter-spacing: 1.5px;
+        min-height: 44px; /* Touch-friendly */
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
     }
 }
 
@@ -151,16 +156,16 @@
 .gallery-responsive-grid-premium {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 5rem;
+    gap: 2.5rem; /* Reduced from 5rem to prevent overflow/excessive gap */
     width: 100%;
 }
 
 @media screen and (max-width: 1023px) {
-    .gallery-responsive-grid-premium { gap: 3rem; }
+    .gallery-responsive-grid-premium { gap: 2rem; }
 }
 
 @media screen and (max-width: 767px) {
-    .gallery-responsive-grid-premium { grid-template-columns: 1fr; gap: 4rem; }
+    .gallery-responsive-grid-premium { grid-template-columns: 1fr; gap: 2rem; }
 }
 
 /* PREMIUM DARK CARD DESIGN (UNCHANGED) */
@@ -216,11 +221,16 @@
     background: linear-gradient(135deg, #F2A4B3 0%, #E97A92 50%, #D05F77 100%);
 }
 
-.premium-card:hover { transform: translateY(-12px); box-shadow: 0 40px 80px rgba(231, 111, 46, 0.12); border-color: rgba(255, 255, 255, 0.1); }
+.premium-card:hover { transform: translateY(-8px); box-shadow: 0 40px 80px rgba(231, 111, 46, 0.12); border-color: rgba(255, 255, 255, 0.1); }
+.premium-card:active { transform: translateY(-3px); transition-duration: 0.15s; } /* Touch tap feedback */
 .premium-card:hover img { transform: scale(1.05); opacity: 1; }
 .premium-card:hover .premium-tint-overlay { opacity: 0.35; }
-.premium-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.03), transparent); transform: skewX(-25deg); transition: 0.8s; z-index: 5; pointer-events: none; }
-.premium-card:hover::before { left: 150%; }
+/* Disable shine sweep on mobile — it's GPU expensive */
+.premium-card::before { content: none; }
+@media (min-width: 1024px) {
+    .premium-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.03), transparent); transform: skewX(-25deg); transition: 0.8s; z-index: 5; pointer-events: none; }
+    .premium-card:hover::before { left: 150%; }
+}
 
 .premium-reveal-overlay-hover { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; text-align: center; z-index: 10; opacity: 0; transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .premium-card:hover .premium-reveal-overlay-hover { opacity: 1; }

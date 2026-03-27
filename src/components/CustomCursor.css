@@ -16,7 +16,7 @@ body:not(.touch-device) .interactive {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     pointer-events: none;
     z-index: 999999; /* Ultra high to stay above all elements */
     opacity: 0;

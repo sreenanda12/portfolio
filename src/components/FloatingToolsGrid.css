@@ -196,3 +196,23 @@
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
+
+/* On touch devices disable hover-dependent interactions and heavy 3D */
+@media (hover: none) and (pointer: coarse) {
+    .tool-wrapper {
+        transform: none !important; /* No mouse-tracking 3D on touch */
+    }
+
+    .tool-animator {
+        animation-duration: 8s; /* Slower animation to ease battery */
+    }
+
+    .tool-card:hover .tool-tooltip {
+        opacity: 0; /* No hover tooltips on touch */
+    }
+
+    .tool-card:hover {
+        transform: scale(1.05); /* Simpler tap feedback */
+        box-shadow: none;
+    }
+}
