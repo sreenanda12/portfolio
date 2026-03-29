@@ -1,7 +1,6 @@
-/* DESIGN STORIES PAGE STYLES */
 .design-stories-page {
     min-height: 100dvh;
-    background-color: #FDFDFB;
+    background-color: var(--bg-primary);
 }
 
 [data-theme="dark"] .design-stories-page {
@@ -14,7 +13,7 @@
     left: 0;
     right: 0;
     padding: 2rem 0;
-    background: rgba(253, 253, 251, 0.8);
+    background: var(--nav-bg);
     backdrop-filter: blur(20px);
     z-index: 1000;
 }

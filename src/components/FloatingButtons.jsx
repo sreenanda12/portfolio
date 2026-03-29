@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Download, Eye } from 'lucide-react';
 import { Link } from 'react-scroll';
 import './FloatingButtons.css';
 
 const FloatingButtons = () => {
     const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        if (showModal) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = '0px'; // Prevent jump if scrollbar disappears
+        } else {
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+        };
+    }, [showModal]);
 
     return (
         <>

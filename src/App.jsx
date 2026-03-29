@@ -29,20 +29,22 @@ function PortfolioMain() {
                 <SummaryStrip />
                 
                 <WorkGallery />
-
-                <SectionHeader title="Who I Am" id="who-i-am" />
                 <WhoIAm />
 
-                <SectionHeader title="Skills & Tools" id="skills-and-tools" highlight="Tools" />
+                <div id="skills-and-tools"></div>
+                <SectionHeader title="Skills & Tools" highlight="Tools" />
                 <SkillsAndTools />
 
-                <SectionHeader title="Education" id="education" />
+                <div id="education"></div>
+                <SectionHeader title="Education" />
                 <Education />
 
-                <SectionHeader title="Professional Experience" id="experience" highlight="Experience" />
+                <div id="experience"></div>
+                <SectionHeader title="Professional Experience" highlight="Experience" />
                 <ProfessionalExperience />
 
-                <SectionHeader title="Certifications" id="certifications" highlight="Certifications" />
+                <div id="certifications"></div>
+                <SectionHeader title="Certifications" highlight="Certifications" />
                 <Certifications />
 
                 <Contact />

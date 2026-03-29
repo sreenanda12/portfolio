@@ -15,8 +15,6 @@
     pointer-events: none;
     z-index: 5;
     background: radial-gradient(ellipse at center, transparent 30%, rgba(11, 11, 12, 0.95) 100%);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
     mask-image: radial-gradient(ellipse at center, transparent 40%, black 90%);
     -webkit-mask-image: radial-gradient(ellipse at center, transparent 40%, black 90%);
 }
@@ -139,7 +137,8 @@
     cursor: pointer;
     border-radius: 20px;
     z-index: 1;
-    /* relative to aura */
+    will-change: transform;
+    transform: translate3d(0,0,0);
 }
 
 @keyframes floatTool {
@@ -320,6 +319,7 @@
         /* Prevent the scaled grid from causing overflow */
         max-width: 100%;
         overflow: visible;
+        display: block !important;
     }
 }
 
@@ -336,6 +336,7 @@
     .hero-tools-cluster-3d {
         transform: scale(0.52);
         margin-top: -2.5rem;
+        display: block !important;
     }
 
     .hero-description {
@@ -349,9 +350,9 @@
         gap: 8px;
     }
 
-    /* Disable heavy floating animation on mobile for performance */
+    /* Mobile Floating Organic Movement Enabled */
     .grid-tool-wrapper {
-        animation: none;
+        animation: floatTool 6s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate !important;
     }
 }
 
@@ -363,6 +364,7 @@
     .hero-tools-cluster-3d {
         transform: scale(0.45);
         margin-top: -3.5rem;
+        display: block !important;
     }
 
     .hero-description {
@@ -375,6 +377,8 @@
         font-size: 1.75rem;
     }
     .hero-tools-cluster-3d {
-        display: none; /* Very small screens — hide tool cluster entirely */
+        display: block !important; /* Force show tools on small screens as requested */
+        transform: scale(0.4);
+        margin-top: -4rem;
     }
-}
+}

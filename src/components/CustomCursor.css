@@ -1,12 +1,8 @@
-/* GLOBAL CURSOR HIDING */
-body:not(.touch-device) {
-    cursor: none !important;
-}
-
-body:not(.touch-device) a, 
-body:not(.touch-device) button,
-body:not(.touch-device) [role="button"],
-body:not(.touch-device) .interactive {
+/* GLOBAL CURSOR HIDING — TOTAL DISABLE */
+html:not(.touch-device),
+body:not(.touch-device),
+html:not(.touch-device) *,
+body:not(.touch-device) * {
     cursor: none !important;
 }
 
@@ -18,7 +14,7 @@ body:not(.touch-device) .interactive {
     width: 100vw;
     height: 100dvh;
     pointer-events: none;
-    z-index: 999999; /* Ultra high to stay above all elements */
+    z-index: 2147483647; /* MAX Z-INDEX to stay truly on top */
     opacity: 0;
     transition: opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
@@ -32,98 +28,88 @@ body:not(.touch-device) .interactive {
     position: absolute;
     top: 0;
     left: 0;
-    width: 150px;
-    height: 150px;
-    margin-left: -75px;
-    margin-top: -75px;
-    background: radial-gradient(circle, rgba(255, 140, 0, 0.08) 0%, transparent 70%);
-    opacity: 0.3;
+    width: 200px;
+    height: 200px;
+    margin-left: -100px;
+    margin-top: -100px;
+    background: radial-gradient(circle, rgba(216, 138, 5, 0.1) 0%, transparent 75%);
+    opacity: 0.2;
     pointer-events: none;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease, background 0.5s ease;
 }
 
 .is-hovering .cursor-aura {
-    opacity: 0.6;
-    background: radial-gradient(circle, rgba(255, 140, 0, 0.12) 0%, transparent 70%);
+    opacity: 0.5;
+    background: radial-gradient(circle, rgba(216, 138, 5, 0.15) 0%, transparent 75%);
 }
 
-/* OUTER CIRCULAR RING (Orange) */
+/* OUTER CIRCULAR RING (Orange Theme) */
 .cursor-ring-outer {
     position: absolute;
     top: 0;
     left: 0;
-    width: 40px;
-    height: 40px;
-    margin-left: -20px;
-    margin-top: -20px;
+    width: 44px;
+    height: 44px;
+    margin-left: -22px;
+    margin-top: -22px;
     display: flex;
     justify-content: center;
     align-items: center;
-    pointer-events: none;
 }
 
 .ring-inner-line {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 1.5px solid #FF8C00;
-    box-shadow: 0 0 15px rgba(255, 140, 0, 0.15);
+    border: 1.5px solid var(--accent-primary);
+    box-shadow: 0 0 10px rgba(216, 138, 5, 0.15);
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-    /* CINEMATIC IDLE BREATH */
     animation: cursorBreathe 3s infinite ease-in-out;
 }
 
 .is-hovering .ring-inner-line {
-    border-color: #FFA94D;
-    background-color: rgba(255, 140, 0, 0.05);
-    box-shadow: 0 0 30px rgba(255, 140, 0, 0.3);
+    border-width: 2px;
+    border-color: var(--accent-hover);
+    background-color: rgba(216, 138, 5, 0.05);
+    box-shadow: 0 0 25px rgba(216, 138, 5, 0.25);
+    transform: scale(1.1);
 }
 
-/* INNER ARROW POINTER (Mac-style) */
+/* INNER ARROW POINTER (Mac White Style) */
 .cursor-arrow-inner {
     position: absolute;
     top: 0;
     left: 0;
-    width: 20px;
-    height: 20px;
-    margin-left: -10px;
-    margin-top: -10px;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    margin-top: -12px;
     display: flex;
     justify-content: center;
     align-items: center;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
 }
 
 .cursor-arrow-inner svg {
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.is-hovering .cursor-arrow-inner svg path {
-    fill: #FFA94D;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
 
 /* CLICK RIPPLE STYLES */
 .cursor-ripple-container {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
+    inset: 0;
 }
 
 .cursor-click-ripple {
     position: fixed;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #FF8C00;
+    width: 30px;
+    height: 30px;
+    border: 3px solid var(--accent-primary);
     border-radius: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    box-shadow: 0 0 15px rgba(255, 140, 0, 0.2);
-    /* CINEMATIC EXPANSION */
-    animation: clickRippleExpand 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    box-shadow: 0 0 15px rgba(216, 138, 5, 0.4);
+    animation: clickRippleExpand 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 
 /* ANIMATIONS */

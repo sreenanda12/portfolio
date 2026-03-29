@@ -1,139 +1,127 @@
 /* MODERN ABOUT PAGE STYLES */
 :root {
-    --accent-orange: #FF5A1F;
+    --accent-orange: #D88A05; /* Download button orange */
     --transition-smooth: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .about-page {
     padding: 80px 0 40px;
     background-color: var(--bg-primary);
-    overflow: hidden;
-    /* Prevent horizontal overflow on mobile */
+    position: relative;
+    width: 100%;
+    overflow: visible;
     max-width: 100vw;
 }
 
 .about-section {
-    margin-bottom: 80px;
+    margin-bottom: 60px;
 }
 
 .about-section:last-child {
     margin-bottom: 0;
 }
 
-.section-header {
-    font-size: var(--text-h2);
-    font-weight: 800;
-    margin-bottom: 2.5rem;
-    color: var(--text-primary);
-    letter-spacing: -0.01em;
+/* Redesigned Who I Am Section — Precision Styling */
+#who-i-am.about-section.intro-section {
+    padding: 60px 0 !important;
+    background: rgba(216, 138, 5, 0.03) !important; /* Premium subtle accent tint */
+    border-radius: 40px !important;
     position: relative;
-    display: inline-block;
-    line-height: 1.2;
+    overflow: hidden;
+    margin-top: 2rem !important;
+    margin-bottom: 80px !important;
+    border: 1px solid rgba(216, 138, 5, 0.05) !important;
 }
 
-.section-header::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 60px;
-    height: 4px;
-    background: var(--accent-orange);
+[data-theme="dark"] #who-i-am.about-section.intro-section {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-color: rgba(255, 255, 255, 0.03) !important;
 }
 
-/* SECTION 1 — INTRO */
-.intro-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 4rem;
-    align-items: center;
+#who-i-am .intro-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1.2fr !important;
+    gap: 5rem !important;
+    align-items: center !important;
 }
 
-.intro-image-wrapper {
+#who-i-am .intro-image-wrapper {
     position: relative;
     display: flex;
     justify-content: center;
+    perspective: 1200px;
 }
 
-.portrait-container {
+#who-i-am .portrait-container {
     position: relative;
-    z-index: 2;
-    transform-style: preserve-3d;
-    perspective: 1000px;
+    width: 100% !important;
+    max-width: 440px !important;
+    border-radius: 32px !important;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12) !important;
+    background: var(--bg-secondary) !important;
+    overflow: hidden;
 }
 
-.portrait-img {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 24px;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
-    filter: grayscale(20%);
-    transition: transform var(--transition-smooth), filter var(--transition-smooth), box-shadow var(--transition-smooth);
+#who-i-am .portrait-img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    border-radius: 32px !important;
+    object-fit: cover !important;
+    transform: scale(1.01);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.portrait-container:hover .portrait-img {
-    filter: grayscale(0%);
-    transform: scale(1.03);
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+#who-i-am .portrait-img:hover {
+    transform: scale(1.06) !important;
 }
 
-.shape {
+#who-i-am .intro-text {
+    text-align: left !important;
+    padding-right: 2rem;
+}
+
+#who-i-am .who-i-am-heading {
+    width: 100% !important;
+    font-size: 52px !important; /* Matches SectionHeader desktop */
+    font-weight: 700 !important; /* Matches SectionHeader weight */
+    color: var(--text-primary) !important;
+    margin-bottom: 3.5rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.8px !important;
+    position: relative;
+    display: block !important;
+    text-align: center !important;
+    background: none !important;
+    -webkit-text-fill-color: initial !important;
+    text-shadow: none !important;
+    font-family: var(--font-primary) !important;
+}
+
+#who-i-am .who-i-am-heading::after {
+    content: '';
     position: absolute;
-    border-radius: 50%;
-    z-index: -1;
-    filter: blur(40px);
-    opacity: 0.4;
-    animation: float 8s ease-in-out infinite alternate;
-}
-
-.shape-1 {
-    width: 200px;
-    height: 200px;
+    bottom: -15px;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 60px; /* Matched divider width */
+    height: 4px; /* Matched divider height */
     background: var(--accent-orange);
-    top: -20px;
-    left: -20px;
-    animation-delay: 0s;
+    border-radius: 2px;
 }
 
-.shape-2 {
-    width: 150px;
-    height: 150px;
-    background: #FF8A5B;
-    bottom: -30px;
-    right: -30px;
-    animation-delay: -2s;
+#who-i-am .intro-paragraphs p {
+    font-size: 1.2rem !important;
+    line-height: 1.9 !important;
+    color: var(--text-primary) !important;
+    opacity: 0.9 !important;
+    font-weight: 500 !important;
+    margin-bottom: 2rem !important;
+    text-align: left !important;
 }
 
-@keyframes float {
-    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-    33% { transform: translate(15px, -15px) scale(1.05) rotate(5deg); }
-    66% { transform: translate(-10px, 20px) scale(0.95) rotate(-5deg); }
-    100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-}
-
-.shape-3 {
-    width: 120px;
-    height: 120px;
-    background: rgba(255, 90, 31, 0.3);
-    top: 50%;
-    left: -60px;
-    animation-delay: -4s;
-}
-
-.shape-4 {
-    width: 180px;
-    height: 180px;
-    background: rgba(255, 138, 91, 0.2);
-    top: 10%;
-    right: -40px;
-    animation-delay: -6s;
-}
-
-.intro-text p {
-    font-size: var(--text-base);
-    line-height: var(--lh-base);
-    color: var(--text-secondary);
-    font-weight: 400;
+#who-i-am .intro-paragraphs p:last-child {
+    margin-bottom: 0 !important;
 }
 
 /* SECTION 2 — TOOLS (COMPACT RESUME STYLE) */
@@ -148,12 +136,18 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    background: #fff;
+    background: var(--bg-secondary);
     padding: 12px;
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-    border: 1px solid #f0f0f0;
+    border: 1px solid var(--border-light);
     transition: var(--transition-smooth);
+}
+
+[data-theme="dark"] .tool-item-compact {
+    background: #1A1A1A;
+    border-color: rgba(255,255,255,0.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
 .tool-icon-box {
@@ -163,7 +157,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #FF6A00, #FF8A3D);
+    background: linear-gradient(135deg, var(--accent-orange), #F2A93B);
     border-radius: 8px;
     padding: 6px;
     color: white;
@@ -188,27 +182,31 @@
 .tool-label-row h3 {
     font-size: 1rem;
     font-weight: 600;
-    color: #333;
+    color: var(--text-primary);
     margin: 0;
 }
 
 .tool-percent-compact {
     font-size: 0.8rem;
     font-weight: 700;
-    color: #FF6A00;
+    color: var(--accent-orange);
 }
 
 .progress-bar-compact {
     width: 100%;
     height: 5px;
-    background: #eee;
+    background: var(--border-light);
     border-radius: 10px;
     overflow: hidden;
 }
 
+[data-theme="dark"] .progress-bar-compact {
+    background: #2b2b2b;
+}
+
 .progress-fill-compact {
     height: 100%;
-    background: #FF6A00;
+    background: var(--accent-orange);
     border-radius: 10px;
 }
 
@@ -222,12 +220,12 @@
 .skill-pill {
     padding: 0.9rem 1.8rem;
     min-height: 48px; /* Touch-friendly */
-    background: #fff;
-    border: 1px solid #e5e7eb;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
     border-radius: 100px;
     font-size: 1rem;
     font-weight: 600;
-    color: #1f2937;
+    color: var(--text-primary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -240,18 +238,28 @@
     user-select: none;
 }
 
+[data-theme="dark"] .skill-pill {
+    background: #1A1A1A;
+    border-color: rgba(255,255,255,0.06);
+    color: #EAEAEA;
+}
+
 .skill-pill.active {
     background: var(--accent-orange);
     color: #fff;
     border-color: var(--accent-orange);
-    box-shadow: 0 10px 25px rgba(255, 90, 31, 0.4);
+    box-shadow: 0 10px 25px rgba(216, 138, 5, 0.4);
     animation: skillPulse 2s infinite;
 }
 
+[data-theme="dark"] .skill-pill.active {
+    color: #0B0B0C; /* Better contrast */
+}
+
 @keyframes skillPulse {
-    0% { box-shadow: 0 0 0 0 rgba(255, 90, 31, 0.4); }
-    70% { box-shadow: 0 0 0 15px rgba(255, 90, 31, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 90, 31, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(216, 138, 5, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(216, 138, 5, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(216, 138, 5, 0); }
 }
 
 .skill-ripple {
@@ -309,6 +317,11 @@
     transition: var(--transition-smooth);
 }
 
+[data-theme="dark"] .edu-card {
+    background: #1A1A1A;
+    border-color: rgba(255,255,255,0.04);
+}
+
 .edu-badge {
     display: flex;
     align-items: center;
@@ -324,7 +337,7 @@
     font-size: 0.9rem;
     font-weight: 700;
     color: var(--accent-orange);
-    background: rgba(255, 90, 31, 0.1);
+    background: rgba(216, 138, 5, 0.1);
     padding: 4px 12px;
     border-radius: 100px;
 }
@@ -339,33 +352,48 @@
     font-size: 1.1rem;
 }
 
-/* RESPONSIVE */
-@media (max-width: 1023px) {
-    .intro-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 3rem;
-    }
-    
-    .intro-text {
-        order: 2;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-    
-    .intro-image-wrapper {
-        order: 1;
-    }
-    
+@media (max-width: 1400px) {
     .section-header {
-        text-align: center;
-        width: 100%;
-        font-size: 2rem;
+        font-size: 44px;
+    }
+}
+
+@media (max-width: 1023px) {
+    #who-i-am.about-section.intro-section {
+        padding: 40px 30px !important;
+        border-radius: 32px !important;
+        margin: 0 !important;
+        background: var(--bg-primary) !important;
+    }
+
+    #who-i-am .intro-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2.5rem !important;
     }
     
-    .section-header::after {
-        left: 50%;
-        transform: translateX(-50%);
+    #who-i-am .intro-text {
+        order: 2 !important;
+        padding-right: 0 !important;
+    }
+    
+    #who-i-am .who-i-am-heading {
+        font-size: 2.4rem !important;
+        margin-bottom: 2rem !important;
+        text-align: center !important;
+    }
+
+    #who-i-am .intro-paragraphs p {
+        font-size: 1.1rem !important;
+        line-height: 1.8 !important;
+    }
+    
+    #who-i-am .intro-image-wrapper {
+        order: 1 !important;
+    }
+    
+    #who-i-am .portrait-container {
+        max-width: 100% !important;
+        border-radius: 24px !important;
     }
 
     .tools-grid {
@@ -375,12 +403,19 @@
 }
 
 @media (max-width: 767px) {
-    .about-page {
-        padding: 60px 0;
+    #who-i-am.about-section.intro-section {
+        padding: 30px 20px !important;
+        border-radius: 24px !important;
+        margin: 0 10px !important;
     }
-    
-    .portrait-img {
-        max-width: 280px;
+
+    #who-i-am .who-i-am-heading {
+        font-size: 2.4rem !important;
+    }
+
+    #who-i-am .portrait-img {
+        border-radius: 24px !important;
+        aspect-ratio: auto !important;
     }
     
     .skill-pill {
@@ -424,13 +459,13 @@
 .certifications-section {
     position: relative;
     padding: 80px 40px;
-    background: rgba(231, 111, 46, 0.02);
+    background: rgba(216, 138, 5, 0.02);
     border-radius: 40px;
     margin-top: 50px;
 }
 
 [data-theme="dark"] .certifications-section {
-    background: rgba(255, 255, 255, 0.01);
+    background: rgba(216, 138, 5, 0.02);
 }
 
 .cert-bg-decoration {
@@ -439,7 +474,7 @@
     right: -50px;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(231, 111, 46, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(216, 138, 5, 0.05) 0%, transparent 70%);
     z-index: 0;
     pointer-events: none;
 }
@@ -503,7 +538,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: rgba(255, 90, 31, 0.2);
+    background: rgba(216, 138, 5, 0.2);
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -658,7 +693,7 @@
         position: absolute;
         top: 10px;
         left: 10px;
-        background: rgba(255, 90, 31, 0.85); /* MUTED ORANGE */
+        background: rgba(216, 138, 5, 0.9); /* D88A05 / DOWNLOAD ORANGE */
         color: #fff;
         padding: 4px 8px;
         border-radius: 4px;
@@ -705,6 +740,6 @@
     .mi-dot.active {
         width: 20px;
         border-radius: 10px;
-        background: rgba(255, 90, 31, 0.6);
+        background: rgba(216, 138, 5, 0.8);
     }
 }

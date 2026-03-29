@@ -10,10 +10,10 @@
 }
 
 .edu-card-compact {
-    background: white;
+    background: var(--card-bg);
     padding: 1.5rem;
     border-radius: 16px;
-    border: 1px solid #ebebeb;
+    border: 1px solid var(--border-light);
     display: flex;
     align-items: flex-start;
     gap: 1.25rem;
@@ -23,15 +23,15 @@
 
 .edu-card-compact:hover {
     transform: translateY(-5px);
-    border-color: #FF5A1F20;
+    border-color: #D88A0520;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
 .edu-icon-bg {
     width: 48px;
     height: 48px;
-    background: #FF5A1F10;
-    color: #FF5A1F;
+    background: #D88A0510;
+    color: #D88A05;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -47,7 +47,7 @@
 .edu-year-small {
     font-size: 0.75rem;
     font-weight: 700;
-    color: #FF5A1F;
+    color: #D88A05;
     text-transform: uppercase;
     margin-bottom: 0.25rem;
 }

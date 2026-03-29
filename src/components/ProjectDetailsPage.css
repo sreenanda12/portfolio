@@ -1,6 +1,6 @@
 /* LUXURY PROJECT DETAILS PAGE STYLES */
 .project-detail-page {
-    background: #FDFDFB;
+    background: var(--bg-primary);
     min-height: 100dvh;
     padding-bottom: 50px;
     font-family: var(--font-primary);
@@ -12,7 +12,7 @@
     left: 0;
     right: 0;
     padding: 2rem 0;
-    background: rgba(253, 253, 251, 0.85);
+    background: var(--nav-bg);
     backdrop-filter: blur(15px);
     z-index: 1000;
 }
@@ -22,7 +22,7 @@
     align-items: center;
     gap: 0.8rem;
     padding: 10px 24px;
-    background: rgba(0, 0, 0, 0.05); /* Lightest subtle color */
+    background: var(--bg-elevated);
     border-radius: 999px;
     color: var(--text-primary);
     text-decoration: none;
@@ -31,12 +31,14 @@
     text-transform: uppercase;
     letter-spacing: 1.5px;
     transition: all 0.3s ease;
+    border: 1px solid var(--border-light);
 }
 
 .back-btn-pill:hover {
-    background: var(--text-primary);
-    color: #FFFFFF;
+    background: var(--accent-primary);
+    color: white;
     transform: translateY(-2px);
+    border-color: var(--accent-primary);
 }
 
 .detail-content {
@@ -72,7 +74,7 @@
     margin-bottom: 8rem;
     border-radius: 40px;
     overflow: hidden;
-    box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
 }
 
 .p-hero-img {
@@ -84,7 +86,7 @@
 .p-image-glow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(231, 111, 46, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle at 50% 50%, rgba(216, 138, 5, 0.05) 0%, transparent 70%);
 }
 
 .p-info-grid {
@@ -110,11 +112,11 @@
 }
 
 .p-specs-card {
-    background: #FFFFFF;
+    background: var(--card-bg);
     padding: 2.5rem;
     border-radius: 32px;
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-md);
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -160,7 +162,7 @@
 .divider {
     width: 100%;
     height: 1px;
-    background: rgba(0, 0, 0, 0.06);
+    background: var(--border-light);
     margin-bottom: 3rem;
 }
 
@@ -198,36 +200,4 @@
     .footer-links { flex-direction: column; gap: 1rem; text-align: center; }
 }
 
-/* DARK MODE */
-[data-theme="dark"] .project-detail-page {
-    background: #0E0E0E;
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .detail-nav {
-    background: rgba(14, 14, 14, 0.88);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-
-[data-theme="dark"] .back-btn-pill {
-    background: rgba(34, 34, 34, 0.8);
-    color: var(--text-primary);
-    border: 1px solid rgba(255,255,255,0.08);
-}
-
-[data-theme="dark"] .back-btn-pill:hover {
-    background: var(--accent-primary);
-    color: #fff;
-    border-color: var(--accent-primary);
-}
-
-[data-theme="dark"] .p-specs-card {
-    background: #222222;
-    border-color: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-}
-
-[data-theme="dark"] .p-description p { color: #A8A8A8; }
-[data-theme="dark"] .divider { background: rgba(255,255,255,0.08); }
-[data-theme="dark"] .footer-home-link { color: var(--text-primary); }
+/* DARK MODE ADAPTION ALREADY HANDLED BY VARIABLES */

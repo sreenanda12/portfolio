@@ -113,7 +113,7 @@ const Certifications = () => {
                         <AnimatePresence mode="wait">
                             <motion.div 
                                 key={allCertificates[currentCertIndex].id}
-                                className="cert-card active-slide"
+                                className="cert-card interactive active-slide"
                                 initial={{ opacity: 0, x: 100 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -100 }}

@@ -26,7 +26,7 @@ const educationData = [
 
 const Education = () => {
     return (
-        <section id="education" className="education-grid-section">
+        <section className="education-grid-section">
             <div className="container">
                 <div className="edu-compact-grid">
                     {educationData.map((edu, index) => (

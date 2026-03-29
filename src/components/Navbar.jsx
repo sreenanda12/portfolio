@@ -24,6 +24,14 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    }, [isOpen]);
+
     const toggleMenu = () => setIsOpen(!isOpen);
 
     const navLinks = [
@@ -35,16 +43,16 @@ const Navbar = () => {
 
     return (
         <div className={`top-header ${scrolled ? 'scrolled' : ''}`}>
-            {/* Left side Theme Toggle (was Logo) */}
+            {/* Left side Theme Toggle */}
             <div className="left-controls">
-                 <ThemeToggle />
+                <ThemeToggle />
             </div>
 
             {/* Desktop Navigation */}
             <nav className="desktop-navbar">
                 <ul className="desktop-nav-list">
                     {navLinks.map((link) => (
-                        <li key={link.name}>
+                        <li key={link.name} className={link.to === 'contact' ? 'contact' : ''}>
                             <Link
                                 activeClass="active"
                                 to={link.to}
@@ -77,7 +85,7 @@ const Navbar = () => {
             <div className={`nav-overlay-menu ${isOpen ? 'active' : ''}`}>
                 <ul className="nav-menu-list">
                     {navLinks.map((link) => (
-                        <li key={link.name} className="nav-item">
+                        <li key={link.name} className={`nav-item ${link.to === 'contact' ? 'contact' : ''}`}>
                             <Link
                                 activeClass="active"
                                 to={link.to}

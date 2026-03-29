@@ -1,28 +1,44 @@
 .theme-toggle {
-    background: var(--tool-card-bg);
-    border: 1px solid var(--tool-card-border);
-    backdrop-filter: blur(10px);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
     border-radius: 50%;
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    color: var(--toggle-icon);
+    color: var(--text-primary);
     overflow: hidden;
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    /* Prevent tap/click lag */
+    touch-action: manipulation;
+    transform: translateZ(0); 
+}
+
+[data-theme="dark"] .theme-toggle {
+    background: #1A1A1A; /* Attractive greyscale contrast */
+    border-color: rgba(255, 255, 255, 0.08); /* Soft glass border */
+    color: #EAEAEA; /* Crisp light grey icon */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .theme-toggle:hover {
-    background: var(--accent-indigo);
+    background: #D88A05; /* Required download button orange */
     color: #fff;
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(231, 111, 46, 0.4);
+    border-color: #D88A05;
+    transform: scale(1.08);
+    box-shadow: 0 8px 20px rgba(216, 138, 5, 0.35); /* Glow matches orange */
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    color: #0B0B0C; /* Super premium dark text for hover state */
 }
 
 .theme-icon {
+    width: 20px;
+    height: 20px;
     transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 

@@ -31,11 +31,13 @@ export const projects = [
 
 const categories = ['ALL', 'UI DESIGNS', 'WEB DESIGNS', 'LOGO FOLIO', 'SOCIAL MEDIA'];
 
-const WorkGallery = ({ fullView = false, title = "portfolio" }) => {
+const WorkGallery = ({ fullView = false, title = "Portfolio" }) => {
     const [activeFilter, setActiveFilter] = useState('ALL');
     const [filteredProjects, setFilteredProjects] = useState([]);
     const [selectedProject, setSelectedProject] = useState(null);
     const filterRefs = useRef({});
+    const marqueeRef = useRef(null);
+    const [isSwiping, setIsSwiping] = useState(false);
 
     useEffect(() => {
         let result = projects;
@@ -50,10 +52,28 @@ const WorkGallery = ({ fullView = false, title = "portfolio" }) => {
         setFilteredProjects(fullView ? result : result.slice(0, 4));
     }, [activeFilter, fullView]);
 
-    const handleFilterClick = (cat) => {
+    // AUTO-SCROLL LOADER FOR MOBILE MARQUEE
+    useEffect(() => {
+        let scrollInterval;
+        const container = marqueeRef.current;
+        if (container) {
+            scrollInterval = setInterval(() => {
+                if (!isSwiping) {
+                    container.scrollLeft += 1.5; // Increased speed as requested
+                    // Reset to middle if it hits the end 
+                    if (container.scrollLeft >= (container.scrollWidth / 3) * 2) {
+                        container.scrollLeft = container.scrollWidth / 3;
+                    }
+                }
+            }, 20); // Faster speed control
+        }
+        return () => clearInterval(scrollInterval);
+    }, [isSwiping]);
+
+    const handleFilterClick = (cat, isDesktop = true) => {
         setActiveFilter(cat);
-        // Auto-center clicked item on mobile/tab
-        if (filterRefs.current[cat]) {
+        // Auto-center clicked item only on desktop (prevents jumping marquee)
+        if (isDesktop && filterRefs.current[cat]) {
             filterRefs.current[cat].scrollIntoView({
                 behavior: 'smooth',
                 block: 'nearest',
@@ -66,7 +86,15 @@ const WorkGallery = ({ fullView = false, title = "portfolio" }) => {
         <section className={`gallery-section ${fullView ? 'full-gallery' : ''}`} id="portfolio">
             <div className="gallery-header">
                 <div className="container">
-                    <h2 className="gallery-main-title">{title}</h2>
+                    <motion.h2 
+                        className="gallery-main-title"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
+                        {title}
+                    </motion.h2>
                 </div>
             </div>
 
@@ -75,7 +103,9 @@ const WorkGallery = ({ fullView = false, title = "portfolio" }) => {
                     <div className="gallery-filters-scroll-wrap">
                         <div className="gallery-filters-mask left"></div>
                         <div className="gallery-filters-mask right"></div>
-                        <div className="gallery-filters">
+                        
+                        {/* Desktop Static View - Show on Laptop/Desktop */}
+                        <div className="gallery-filters desktop-only">
                             {categories.map((cat) => (
                                 <button
                                     key={cat}
@@ -95,6 +125,45 @@ const WorkGallery = ({ fullView = false, title = "portfolio" }) => {
                                 </button>
                             ))}
                         </div>
+
+                        {/* Mobile Infinite Marquee View - Show on Mobile Only */}
+                        <div 
+                            className="gallery-filters-marquee-mobile mobile-only"
+                            ref={marqueeRef}
+                            onScroll={() => {
+                                // Basic loop logic on manual scroll
+                                const container = marqueeRef.current;
+                                if (container) {
+                                    if (container.scrollLeft <= 0) container.scrollLeft = container.scrollWidth / 3;
+                                    if (container.scrollLeft >= (container.scrollWidth / 3) * 2) container.scrollLeft = container.scrollWidth / 3;
+                                }
+                            }}
+                            onTouchStart={() => setIsSwiping(true)}
+                            onTouchEnd={() => setIsSwiping(false)}
+                            onTouchCancel={() => setIsSwiping(false)}
+                            onMouseDown={() => setIsSwiping(true)}
+                            onMouseUp={() => setIsSwiping(false)}
+                            onMouseLeave={() => setIsSwiping(false)}
+                        >
+                            <div className="marquee-track">
+                                {[...['ALL', 'UI DESIGN', 'WEB DESIGN', 'LOGO FOLIO', 'SOCIAL MEDIA'], ...['ALL', 'UI DESIGN', 'WEB DESIGN', 'LOGO FOLIO', 'SOCIAL MEDIA'], ...['ALL', 'UI DESIGN', 'WEB DESIGN', 'LOGO FOLIO', 'SOCIAL MEDIA']].map((label, idx) => {
+                                    // Map label back to original functional category
+                                    const functionalCat = label === 'UI DESIGN' ? 'UI DESIGNS' : label === 'WEB DESIGN' ? 'WEB DESIGNS' : label;
+                                    return (
+                                        <button
+                                            key={`${label}-${idx}`}
+                                            className={`filter-marquee-pill ${activeFilter === functionalCat ? 'active' : ''}`}
+                                            onClick={() => handleFilterClick(functionalCat, false)}
+                                        >
+                                            <span className="cat-text">{label}</span>
+                                            {activeFilter === functionalCat && (
+                                                <div className="active-dot"></div>
+                                            )}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -109,7 +178,7 @@ const WorkGallery = ({ fullView = false, title = "portfolio" }) => {
                             {filteredProjects.map((project, index) => (
                                 <motion.div
                                     key={project.id}
-                                    className={`premium-card tint-${project.tint}`}
+                                    className={`premium-card interactive tint-${project.tint}`}
                                     initial={{ opacity: 0, y: 30 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
@@ -145,8 +214,7 @@ const WorkGallery = ({ fullView = false, title = "portfolio" }) => {
 
                 {!fullView && (
                     <div className="gallery-minimal-footer">
-                        <div className="minimal-divider"></div>
-                        <Link to="/design-stories" className="view-more-text">
+                        <Link to="/design-stories" className="view-more-btn-premium">
                             View More <span className="arrow">→</span>
                         </Link>
                     </div>

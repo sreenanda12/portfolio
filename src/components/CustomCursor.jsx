@@ -39,6 +39,11 @@ const CustomCursor = () => {
             document.body.classList.add('touch-device');
         };
 
+        // Initial detection
+        if (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.matchMedia("(pointer: coarse)").matches)) {
+            document.body.classList.add('touch-device');
+        }
+
         const createRipple = (x, y) => {
             const container = document.querySelector('.cursor-ripple-container');
             if (!container) return;
@@ -189,18 +194,19 @@ const CustomCursor = () => {
             
             {/* INNER ARROW POINTER (Mac-style) */}
             <div ref={arrowRef} className="cursor-arrow-inner">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                     <path 
                         d="M5.5 3.21V20.8L10.18 16.12L13.3 22.39L16.22 20.93L13.1 14.66H18.99L5.5 3.21Z" 
-                        fill="#FF8C00" 
+                        fill="#D88A05" 
                         stroke="white"
-                        strokeWidth="0.8"
+                        strokeWidth="0.5"
                     />
                 </svg>
             </div>
         </div>
     );
-};
+}
+
 
 export default CustomCursor;
 

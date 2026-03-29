@@ -4,9 +4,9 @@
     padding: 100px 0 80px;
     display: flex;
     align-items: center;
-    background: #FDFDFB;
+    background: var(--bg-primary);
     overflow: hidden;
-    /* cursor:none removed — touch devices need default cursor */
+    transition: background 0.4s ease;
 }
 
 /* Background Atmosphere */
@@ -19,58 +19,6 @@
     opacity: 0.03;
     pointer-events: none;
     z-index: 10;
-}
-
-.cursor-glow-bubble {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(231, 111, 46, 0.08) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    transition: width 0.3s ease, height 0.3s ease;
-}
-
-.parallax-blobs .blob-1, 
-.parallax-blobs .blob-2 {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.05;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.blob-1 {
-    width: 600px;
-    height: 600px;
-    top: -10%;
-    right: -10%;
-    background: radial-gradient(circle, #FFD7BE 0%, transparent 65%);
-}
-
-.blob-2 {
-    width: 500px;
-    height: 500px;
-    bottom: -10%;
-    left: -10%;
-    background: radial-gradient(circle, #FFB088 0%, transparent 65%);
-}
-
-/* Click Ripple */
-.click-ripple {
-    position: absolute;
-    background-color: rgba(231, 111, 46, 0.15);
-    border-radius: 50%;
-    transform: scale(0);
-    animation: ripple-anim 0.8s linear;
-    pointer-events: none;
-    z-index: 20;
-}
-
-@keyframes ripple-anim {
-    to { transform: scale(4); opacity: 0; }
 }
 
 /* Luxury Layout */
@@ -120,13 +68,13 @@
     align-items: center;
     gap: 12px;
     padding: 10px 24px;
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-light);
     border-radius: 100px;
     font-size: 0.85rem;
     font-weight: 700;
     color: var(--text-primary);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    box-shadow: var(--shadow-sm);
     width: fit-content;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -171,21 +119,21 @@
     display: flex;
     align-items: center;
     padding: 24px 32px;
-    background: rgba(255, 255, 255, 0.45);
+    background: var(--card-bg);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--border-light);
     border-radius: 20px;
     text-decoration: none;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+    box-shadow: var(--shadow-sm);
 }
 
 .luxury-glass-card:hover {
-    background: rgba(255, 255, 255, 0.85);
-    border-color: #E76F2E33;
-    box-shadow: 0 30px 60px rgba(231, 111, 46, 0.1);
+    background: var(--bg-elevated);
+    border-color: rgba(216, 138, 5, 0.2);
+    box-shadow: var(--shadow-md);
 }
 
 .luxury-card-icon {
@@ -195,6 +143,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: var(--bg-primary);
     color: var(--text-primary);
     transition: transform 0.4s ease;
     margin-right: 24px;
@@ -202,7 +151,7 @@
 
 .luxury-glass-card:hover .luxury-card-icon {
     transform: scale(1.1) rotate(-5deg);
-    color: #E76F2E;
+    color: var(--accent-primary);
 }
 
 .luxury-card-info {
@@ -235,7 +184,7 @@
 
 .luxury-glass-card:hover .luxury-card-arrow {
     opacity: 1;
-    color: #E76F2E;
+    color: var(--accent-primary);
     transform: translate(3px, -3px);
 }
 
@@ -263,29 +212,23 @@
     width: 52px;
     height: 52px;
     min-width: 52px;
-    min-height: 52px; /* Well above 44px minimum */
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-primary);
     transition: all 0.4s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
+    box-shadow: var(--shadow-sm);
 }
 
 .luxury-social-icon:hover {
-    background: var(--text-primary);
+    background: var(--accent-primary);
     color: #FFFFFF;
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-}
-
-.luxury-social-icon:active {
-    transform: scale(0.93);
+    box-shadow: var(--shadow-glow);
+    border-color: var(--accent-primary);
 }
 
 /* RESPONSIVE */
@@ -299,10 +242,7 @@
         align-items: center;
     }
     .luxury-headline br { display: none; }
-    /* Disable expensive blobs on tablet/mobile */
-    .parallax-blobs { display: none; }
     .grain-overlay { display: none; }
-    .cursor-glow-bubble { display: none; }
 }
 
 @media (max-width: 767px) {
@@ -314,58 +254,13 @@
     .luxury-glass-card {
         padding: 18px 20px;
         gap: 14px;
-        /* Keep row layout on mobile for cleaner look */
         flex-direction: row;
         align-items: center;
         text-align: left;
-        /* Remove backdrop-filter to prevent iOS scroll jank */
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
     }
     .luxury-card-arrow { display: none; }
     .luxury-social-row { justify-content: center; }
     .luxury-card-value { font-size: 1rem; word-break: break-all; }
-}
-
-@media (max-width: 480px) {
-    .luxury-headline { font-size: 1.9rem; }
-    .luxury-glass-card {
-        padding: 14px 16px;
-    }
-    .luxury-card-icon {
-        width: 48px;
-        height: 48px;
-        min-width: 48px;
-        border-radius: 14px;
-        margin-right: 14px;
-    }
-    .luxury-social-footer { margin-top: 36px; }
-}
-
-/* DARK MODE OVERRIDES */
-[data-theme="dark"] .luxury-contact-section {
-    background: var(--gray-950);
-}
-
-[data-theme="dark"] .luxury-availability {
-    background: var(--gray-800);
-    border-color: var(--border-subtle);
-}
-
-[data-theme="dark"] .luxury-glass-card {
-    background: var(--gray-900);
-    border-color: var(--border-subtle);
-}
-
-[data-theme="dark"] .luxury-glass-card:hover {
-    background: var(--gray-800);
-    border-color: var(--border-strong);
-}
-
-[data-theme="dark"] .blob-1 { background: #FF8C0015; }
-[data-theme="dark"] .blob-2 { background: #FF8C000A; }
-
-[data-theme="dark"] .luxury-social-icon {
-    background: var(--gray-900);
-    border-color: var(--border-subtle);
 }

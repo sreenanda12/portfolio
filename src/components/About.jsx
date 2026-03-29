@@ -322,7 +322,7 @@ const About = () => {
                                     hidden: { opacity: 0, y: 20 },
                                     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
                                 }}
-                                whileHover={{ scale: 1.05, borderColor: '#FF5A1F' }}
+                                whileHover={{ scale: 1.05, borderColor: '#D88A05' }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => setActiveSkill(activeSkill === skill.name ? null : skill.name)}
                             >

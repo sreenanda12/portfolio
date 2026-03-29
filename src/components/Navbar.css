@@ -1,3 +1,87 @@
+/* ============================================================
+   ARROW / DISCLOSURE ICON REMOVAL — Defensive CSS Reset
+   Removes any ▲ ▼ or browser-native disclosure arrows from
+   ALL nav items, including "Contact".
+   ============================================================ */
+
+/* Strip list bullets / markers from every nav list and item */
+.desktop-nav-list,
+.nav-menu-list,
+.desktop-nav-list li,
+.nav-menu-list li,
+.nav-item {
+    list-style: none !important;
+    list-style-type: none !important;
+    list-style-image: none !important;
+}
+
+/* 6. FORCE REMOVE (SAFE OVERRIDE): */
+.contact::after,
+.contact::before,
+.nav-item::after,
+.nav-item::before {
+    content: none !important;
+    display: none !important;
+}
+
+/* Force-hide Windows/Chrome Scrollbars & HTML5 Spinners that mistake themselves for dropdowns */
+.desktop-nav-link::-webkit-scrollbar,
+.desktop-nav-list::-webkit-scrollbar,
+.nav-overlay-menu::-webkit-scrollbar,
+.top-header *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+}
+
+.desktop-nav-link, 
+.desktop-nav-list, 
+.nav-overlay-menu,
+.top-header * {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;     /* Firefox */
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove any pseudo-element content on nav links */
+.desktop-nav-link::before,
+.nav-links::before,
+.nav-item::before,
+.desktop-nav-list li::before,
+.nav-menu-list li::before {
+    content: none !important;
+    display: none !important;
+}
+
+/* Preserve the underline slide animation ::after but strip text arrow from Contact */
+.nav-links::after,
+.nav-item::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Suppress any <details> / <summary> disclosure arrow if elements exist */
+details > summary {
+    list-style: none;
+}
+details > summary::-webkit-details-marker {
+    display: none !important;
+}
+
+/* Suppress <select> dropdown arrow (if a select tag was ever used in nav) */
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: none;
+}
+
+/* ============================================================ */
+
 /* Top Header container */
 .top-header {
     position: fixed;
@@ -6,12 +90,14 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 1.5rem 3rem;
     z-index: 10001;
     transition: padding 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.4s ease;
     will-change: padding;
 }
+
+/* DESKTOP NAVBAR ALWAYS VISIBLE */
 
 .top-header.scrolled {
     padding: 0.8rem 3rem;
@@ -23,8 +109,13 @@
 }
 
 .left-controls {
+    position: absolute;
+    left: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     align-items: center;
+    z-index: 10;
 }
 
 [data-theme="dark"] .top-header.scrolled {
@@ -207,7 +298,16 @@
 }
 
 /* RESPONSIVE */
+@media screen and (min-width: 1024px) {
+    .header-controls {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 1023px) {
+    .left-controls {
+        position: static;
+    }
     .desktop-navbar {
         display: none;
     }
@@ -215,11 +315,18 @@
         display: flex;
     }
     .top-header {
+        justify-content: space-between;
         padding: 0.9rem 2rem;
+    }
+    .header-controls {
+        display: flex;
     }
 }
 
 @media screen and (max-width: 767px) {
+    .left-controls {
+        left: 1.25rem;
+    }
     .top-header {
         padding: 0.75rem 1.25rem;
     }
@@ -251,6 +358,9 @@
 }
 
 @media screen and (max-width: 380px) {
+    .left-controls {
+        left: 1rem;
+    }
     .top-header {
         padding: 0.75rem 1rem;
     }

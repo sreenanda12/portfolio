@@ -113,7 +113,7 @@ const FloatingToolsGrid = () => {
                                 >
                                     <div className="tool-shadow" style={{ '--brand': tool.color }}></div>
                                     <div
-                                        className="tool-card"
+                                        className="tool-card interactive"
                                         style={{
                                             '--brand': tool.color,
                                             '--brand-glow': tool.color + '80'

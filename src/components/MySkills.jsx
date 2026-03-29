@@ -28,7 +28,7 @@ const MySkills = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.05 }}
-                            whileHover={{ scale: 1.05, borderColor: '#FF5A1F' }}
+                            whileHover={{ scale: 1.05, borderColor: '#D88A05' }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setActiveSkill(activeSkill === skill.name ? null : skill.name)}
                         >

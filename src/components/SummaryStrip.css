@@ -1,9 +1,10 @@
 .summary-strip {
     width: 100%;
-    background: #f8f9fa;
+    background: var(--bg-secondary);
     padding: 1.5rem 0;
-    border-top: 1px solid #ebebeb;
-    border-bottom: 1px solid #ebebeb;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+    transition: background 0.4s ease;
 }
 
 .strip-container {
@@ -23,8 +24,8 @@
 .strip-icon {
     width: 40px;
     height: 40px;
-    background: #FF5A1F10;
-    color: #FF5A1F;
+    background: var(--glow-primary);
+    color: var(--accent-primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -39,12 +40,12 @@
 .strip-label {
     font-weight: 700;
     font-size: var(--text-base);
-    color: #1a1a1a;
+    color: var(--text-primary);
 }
 
 .strip-detail {
     font-size: var(--text-sm);
-    color: #666;
+    color: var(--text-secondary);
 }
 
 @media (max-width: 1023px) {
@@ -58,23 +59,4 @@
     .summary-strip {
         display: none;
     }
-}
-
-/* DARK MODE */
-[data-theme="dark"] .summary-strip {
-    background: #1A1A1A;
-    border-color: rgba(255, 255, 255, 0.05);
-}
-
-[data-theme="dark"] .strip-icon {
-    background: rgba(255, 140, 0, 0.1);
-    color: #FF8C00;
-}
-
-[data-theme="dark"] .strip-label {
-    color: #F5F5F5;
-}
-
-[data-theme="dark"] .strip-detail {
-    color: #A8A8A8;
 }
