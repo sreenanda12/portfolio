@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft, Maximize2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { allCertificates } from './Certifications';
+import { allCertificates } from './certificatesData';
 import CertificationModal from './CertificationModal';
 import './DesignStoriesPage.css'; // Inheriting the same navigation top-header styles
 import './AllCertificationsPage.css';

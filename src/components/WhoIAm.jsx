@@ -38,7 +38,6 @@ const WhoIAm = () => {
                         </div>
                     </motion.div>
 
-                    {/* RIGHT COLUMN: TEXT CONTENT */}
                     <motion.div 
                         className="intro-text"
                         initial={{ opacity: 0, x: 40 }}
