@@ -17,7 +17,17 @@ const Footer = () => {
                 </div>
 
                 <div className="footer-bottom">
-                    <p>&copy; 2025 MUHAMMED MUFLIH A. All Rights Reserved.</p>
+                    <div className="footer-copyright-info">
+                        <p>&copy; 2025 MUHAMMED MUFLIH A. All Rights Reserved.</p>
+                        <a 
+                            href="https://www.instagram.com/intellex.web?igsh=MWZyenU0bWc3M2RxOQ==" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="developer-link"
+                        >
+                            Meet the Developers
+                        </a>
+                    </div>
                     <Link to="home" smooth={true} duration={500} className="back-to-top">
                         Back to Top &uarr;
                     </Link>
