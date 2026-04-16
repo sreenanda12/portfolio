@@ -48,21 +48,27 @@
 
 .st-tool-card {
     background: var(--card-bg);
-    padding: 14px 18px;
+    padding: 16px 20px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    transition: 0.3s ease;
+    gap: 14px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(0,0,0,0.02);
     position: relative;
+    will-change: transform, opacity;
 }
 
 [data-theme="dark"] .st-tool-card {
     background: #121212;
     border-color: rgba(255, 255, 255, 0.05);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.st-tool-card:hover {
+    box-shadow: 0 10px 25px rgba(216, 138, 5, 0.1);
+    border-color: rgba(216, 138, 5, 0.2);
 }
 
 .st-tool-header {
@@ -74,21 +80,23 @@
 }
 
 .st-card-icon {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
 }
 
-.st-card-icon svg {
+.st-tool-png-icon {
     width: 100%;
     height: 100%;
+    object-fit: contain;
 }
 
 .st-tool-name {
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     color: var(--text-primary);
 }
 
@@ -107,15 +115,10 @@
     white-space: nowrap;
 }
 
-[data-theme="dark"] .st-floating-label {
-    background: rgba(255, 140, 0, 0.1);
-    border: 1px solid rgba(255, 140, 0, 0.2);
-}
-
 /* PROGRESS BAR */
 .st-progress-container {
     width: 100%;
-    height: 4px;
+    height: 6px;
     background: #eeeeee;
     border-radius: 10px;
     overflow: hidden;
@@ -257,4 +260,3 @@
         font-size: 22px;
     }
 }
-

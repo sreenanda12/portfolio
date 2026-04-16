@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { allCertificates } from './Certifications';
+import { allCertificates } from './certificatesData';
 
 const CertificateViewerPage = () => {
     const { id } = useParams();

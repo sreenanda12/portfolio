@@ -1,48 +1,46 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './CustomCursor.css';
 
 /**
- * PREMIUM CUSTOM ANIMATED CURSOR
- * Inspired by Apple (macOS) and High-End Product UI.
- * Features: Layered Lerp, Liquid Ring, Floating Depth, Magnetic Interaction, Staggered Hover.
+ * OPTIMIZED HIGH-PERFORMANCE CURSOR
+ * Focus: 60fps smoothness, zero lag, minimal DOM updates.
  */
 const CustomCursor = () => {
     const ringRef = useRef(null);
     const arrowRef = useRef(null);
     const auraRef = useRef(null);
+    const wrapperRef = useRef(null);
     
     // Animation Frame Tracking
     const requestRef = useRef();
     
-    // Physics & Motion State (Using Refs for 60fps performance)
+    // Motion State
     const mouse = useRef({ x: 0, y: 0 });
     const pos = useRef({ x: 0, y: 0 });      // Inner Arrow pos
     const ringPos = useRef({ x: 0, y: 0 });  // Outer Ring pos
-    const vel = useRef({ x: 0, y: 0 });      // For stretching
+    const vel = useRef({ x: 0, y: 0 });
     
-    // Interaction States
-    const [isHovering, setIsHovering] = useState(false);
-    const [isAnticipating, setIsAnticipating] = useState(false);
-    const [isVisible, setIsVisible] = useState(false);
-    
-    // Ref-based state for the loop
-    const isHoveringRef = useRef(false);
+    // Interaction Refs (to avoid re-attaching listeners)
+    const isVisible = useRef(false);
+    const isHovering = useRef(false);
+    const isAnticipating = useRef(false);
     const activeTarget = useRef(null);
 
     useEffect(() => {
+        // Detect touch device once
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.matchMedia("(pointer: coarse)").matches);
+        if (isTouchDevice) {
+            document.body.classList.add('touch-device');
+            return; // Exit if mobile
+        }
+
         const onMouseMove = (e) => {
             mouse.current = { x: e.clientX, y: e.clientY };
-            if (!isVisible) setIsVisible(true);
+            if (!isVisible.current) {
+                isVisible.current = true;
+                if (wrapperRef.current) wrapperRef.current.classList.add('is-visible');
+            }
         };
-
-        const onTouchStart = () => {
-            document.body.classList.add('touch-device');
-        };
-
-        // Initial detection
-        if (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.matchMedia("(pointer: coarse)").matches)) {
-            document.body.classList.add('touch-device');
-        }
 
         const createRipple = (x, y) => {
             const container = document.querySelector('.cursor-ripple-container');
@@ -50,19 +48,13 @@ const CustomCursor = () => {
 
             const ripple = document.createElement('div');
             ripple.className = 'cursor-click-ripple';
-            ripple.style.left = `${x}px`;
-            ripple.style.top = `${y}px`;
+            ripple.style.transform = `translate3d(${x}px, ${y}px, 0)`; // Performance
             
             container.appendChild(ripple);
-            
-            // Cleanup after animation
-            setTimeout(() => {
-                ripple.remove();
-            }, 800);
+            setTimeout(() => ripple.remove(), 800);
         };
 
         const onMouseDown = (e) => {
-            // Double Ripple logic: 2 rings staggered by 80ms
             createRipple(e.clientX, e.clientY);
             setTimeout(() => createRipple(e.clientX, e.clientY), 80);
         };
@@ -71,27 +63,26 @@ const CustomCursor = () => {
             const target = e.target.closest('a, button, [role="button"], .interactive');
             if (target) {
                 activeTarget.current = target;
-                if (!isHoveringRef.current) {
-                    // Step 5: Micro Anticipation before expansion
-                    setIsAnticipating(true);
+                if (!isHovering.current) {
+                    isAnticipating.current = true;
                     setTimeout(() => {
-                        setIsAnticipating(false);
-                        setIsHovering(true);
-                        isHoveringRef.current = true;
-                    }, 80); // Cinematic staggered delay
+                        isAnticipating.current = false;
+                        isHovering.current = true;
+                        if (wrapperRef.current) wrapperRef.current.classList.add('is-hovering');
+                    }, 80);
                 }
             } else {
                 activeTarget.current = null;
-                setIsHovering(false);
-                isHoveringRef.current = false;
+                isHovering.current = false;
+                if (wrapperRef.current) wrapperRef.current.classList.remove('is-hovering');
             }
         };
 
         const animate = () => {
-            // 1. MAGNETIC & FRICTION CALCULATION
+            // physics calculation
             let targetX = mouse.current.x;
             let targetY = mouse.current.y;
-            let friction = 0.15; // Smooth lag for ring
+            let friction = 0.15;
 
             if (activeTarget.current) {
                 const rect = activeTarget.current.getBoundingClientRect();
@@ -101,57 +92,46 @@ const CustomCursor = () => {
                 const distY = centerY - mouse.current.y;
                 const distance = Math.hypot(distX, distY);
 
-                // MAGNETIC PULL (Gently attract within radius)
-                const attractionRadius = 80;
-                if (distance < attractionRadius) {
-                    const pullStrength = 1 - (distance / attractionRadius);
+                if (distance < 80) {
+                    const pullStrength = 1 - (distance / 80);
                     targetX = mouse.current.x + distX * pullStrength * 0.3;
                     targetY = mouse.current.y + distY * pullStrength * 0.3;
-                    
-                    // FRICTION: Slower motion near targets for tactile feel
                     friction = 0.08;
                 }
             }
 
-            // 2. LAYERED LERP (Different speeds for depth)
-            // Arrow handles faster tracking
+            // Lerps
             pos.current.x += (targetX - pos.current.x) * 0.25;
             pos.current.y += (targetY - pos.current.y) * 0.25;
 
-            // Ring handles smooth trailing tracking
             ringPos.current.x += (targetX - ringPos.current.x) * friction;
             ringPos.current.y += (targetY - ringPos.current.y) * friction;
 
-            // 3. VELOCITY-BASED RESPONSE
+            // Velocity response
             const vx = targetX - pos.current.x;
             const vy = targetY - pos.current.y;
             const speed = Math.hypot(vx, vy);
             
-            // LIQUID RING (Stretch based on speed)
             const stretchX = Math.min(speed * 0.005, 0.1);
-            const stretchY = -stretchX; // Stretch and squash logic
+            const stretchY = -stretchX;
             const angle = Math.atan2(vy, vx) * (180 / Math.PI);
 
-            // 4. INNER ARROW FLOATING DEPTH
-            const floatX = vx * 0.15; // Arrow shifts slightly relative to movement
-            const floatY = vy * 0.15;
+            // Float depth
+            const floatX = vx * 0.12;
+            const floatY = vy * 0.12;
 
-            // 5. DOM UPDATES (Vanilla performance)
+            // DOM Updates (RequestAnimationFrame ensures sync with refresh rate)
             if (ringRef.current) {
-                // Determine scale based on state
                 let scale = 1;
-                if (isAnticipating) scale = 0.95;
-                else if (isHoveringRef.current) scale = 1.45;
+                if (isAnticipating.current) scale = 0.95;
+                else if (isHovering.current) scale = 1.45;
 
                 ringRef.current.style.transform = `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0) rotate(${angle}deg) scale(${scale + stretchX}, ${scale + stretchY})`;
             }
 
             if (arrowRef.current) {
-                const arrowScale = isHoveringRef.current ? 1.1 : 1;
-                // Move arrow relative to center based on float depth
-                const finalX = pos.current.x + floatX;
-                const finalY = pos.current.y + floatY;
-                arrowRef.current.style.transform = `translate3d(${finalX}px, ${finalY}px, 0) scale(${arrowScale})`;
+                const arrowScale = isHovering.current ? 1.1 : 1;
+                arrowRef.current.style.transform = `translate3d(${pos.current.x + floatX}px, ${pos.current.y + floatY}px, 0) scale(${arrowScale})`;
             }
 
             if (auraRef.current) {
@@ -161,12 +141,17 @@ const CustomCursor = () => {
             requestRef.current = requestAnimationFrame(animate);
         };
 
-        window.addEventListener('mousemove', onMouseMove);
-        window.addEventListener('mouseover', handleHover);
-        window.addEventListener('mousedown', onMouseDown);
-        window.addEventListener('touchstart', onTouchStart);
-        document.addEventListener('mouseleave', () => setIsVisible(false));
-        document.addEventListener('mouseenter', () => setIsVisible(true));
+        window.addEventListener('mousemove', onMouseMove, { passive: true });
+        window.addEventListener('mouseover', handleHover, { passive: true });
+        window.addEventListener('mousedown', onMouseDown, { passive: true });
+        document.addEventListener('mouseleave', () => {
+            isVisible.current = false;
+            if (wrapperRef.current) wrapperRef.current.classList.remove('is-visible');
+        });
+        document.addEventListener('mouseenter', () => {
+            isVisible.current = true;
+            if (wrapperRef.current) wrapperRef.current.classList.add('is-visible');
+        });
 
         requestRef.current = requestAnimationFrame(animate);
 
@@ -174,25 +159,17 @@ const CustomCursor = () => {
             window.removeEventListener('mousemove', onMouseMove);
             window.removeEventListener('mouseover', handleHover);
             window.removeEventListener('mousedown', onMouseDown);
-            window.removeEventListener('touchstart', onTouchStart);
             cancelAnimationFrame(requestRef.current);
         };
-    }, [isVisible, isAnticipating]);
+    }, []); // Listener is attached only ONCE
 
     return (
-        <div className={`cursor-premium-wrapper ${isHovering ? 'is-hovering' : ''} ${isVisible ? 'is-visible' : ''}`}>
-            {/* CLICK RIPPLE LAYER */}
+        <div ref={wrapperRef} className="cursor-premium-wrapper">
             <div className="cursor-ripple-container"></div>
-            
-            {/* SOFT LIGHT AURA (Radial Glow) */}
             <div ref={auraRef} className="cursor-aura"></div>
-
-            {/* OUTER CIRCULAR RING (Orange) */}
             <div ref={ringRef} className="cursor-ring-outer">
                 <div className="ring-inner-line"></div>
             </div>
-            
-            {/* INNER ARROW POINTER (Mac-style) */}
             <div ref={arrowRef} className="cursor-arrow-inner">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                     <path 
@@ -207,6 +184,4 @@ const CustomCursor = () => {
     );
 }
 
-
 export default CustomCursor;
-

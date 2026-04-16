@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import FloatingToolsGrid from './FloatingToolsGrid';
+import ToolGrid3D from './ToolGrid3D';
 import './Hero.css';
 
 const Hero = () => {
@@ -68,7 +68,7 @@ const Hero = () => {
                         visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.8, delay: 0.5 } }
                     }}
                 >
-                    <FloatingToolsGrid />
+                    <ToolGrid3D isHero={true} />
                 </motion.div>
             </motion.div>
         </section>

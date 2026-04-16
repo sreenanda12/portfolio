@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linkedin, Mail, Phone } from 'lucide-react';
+import { Linkedin, Mail, Phone, Instagram } from 'lucide-react';
 import { Link } from 'react-scroll';
 import './Footer.css';
 
@@ -25,7 +25,7 @@ const Footer = () => {
                             rel="noopener noreferrer" 
                             className="developer-link"
                         >
-                            Meet the Developers
+                            Meet the Developers <Instagram size={14} style={{ marginLeft: '6px' }} />
                         </a>
                     </div>
                     <Link to="home" smooth={true} duration={500} className="back-to-top">

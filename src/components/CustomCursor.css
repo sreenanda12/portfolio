@@ -7,16 +7,31 @@ body:not(.touch-device) * {
 }
 
 /* CURSOR WRAPPER */
+/* GLOBAL CURSOR HIDE */
+* {
+    cursor: none !important;
+}
+
+/* TOUCH DEVICE DISABLE */
+.touch-device * {
+    cursor: auto !important;
+}
+
+.touch-device .cursor-premium-wrapper {
+    display: none !important;
+}
+
 .cursor-premium-wrapper {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100dvh;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
-    z-index: 2147483647; /* MAX Z-INDEX to stay truly on top */
+    z-index: 10000;
     opacity: 0;
-    transition: opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: opacity 0.4s ease;
+    will-change: opacity;
 }
 
 .cursor-premium-wrapper.is-visible {
@@ -32,9 +47,11 @@ body:not(.touch-device) * {
     height: 200px;
     margin-left: -100px;
     margin-top: -100px;
-    background: radial-gradient(circle, rgba(216, 138, 5, 0.1) 0%, transparent 75%);
-    opacity: 0.2;
+    background: radial-gradient(circle, rgba(255, 140, 0, 0.08) 0%, transparent 70%);
     pointer-events: none;
+    transform-origin: center;
+    will-change: transform;
+    opacity: 0.2;
     transition: opacity 0.5s ease, background 0.5s ease;
 }
 
@@ -48,13 +65,18 @@ body:not(.touch-device) * {
     position: absolute;
     top: 0;
     left: 0;
-    width: 44px;
-    height: 44px;
-    margin-left: -22px;
-    margin-top: -22px;
+    width: 42px;
+    height: 42px;
+    margin-top: -21px;
+    margin-left: -21px;
+    border-radius: 50%;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    border: 1.5px solid rgba(216, 138, 5, 0.4);
+    pointer-events: none;
+    transition: width 0.3s cubic-bezier(0.19, 1, 0.22, 1), height 0.3s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.3s ease;
+    will-change: transform;
 }
 
 .ring-inner-line {
@@ -80,13 +102,16 @@ body:not(.touch-device) * {
     position: absolute;
     top: 0;
     left: 0;
-    width: 24px;
-    height: 24px;
-    margin-left: -12px;
-    margin-top: -12px;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    pointer-events: none;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    transform-origin: center;
+    will-change: transform;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
 }
 

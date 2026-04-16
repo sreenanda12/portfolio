@@ -1,183 +1,204 @@
-.floating-tools-super {
+.premium-tools-scene {
     position: relative;
-    margin: 0;
-    z-index: 1000;
-    perspective-origin: center center;
-}
-
-.floating-tools-container {
-    transform-style: preserve-3d;
-}
-
-.floating-tools-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    transform-style: preserve-3d;
-}
-
-.tool-wrapper {
-    transform: rotateX(var(--rx)) rotateY(var(--ry));
-    transform-style: preserve-3d;
-    position: relative;
+    width: 100%;
+    height: 500px;
+    perspective: 1200px;
+    overflow: visible;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
-.tool-animator {
+/* Tool Position Wrapper - Handles placement and floating animation */
+.tool-position-wrapper {
+    position: absolute;
     transform-style: preserve-3d;
-    position: relative;
-    animation: antiGravity var(--dur) ease-in-out var(--del) infinite;
     will-change: transform;
+    animation: floatingVar var(--float-dur) ease-in-out var(--float-del) infinite;
+    pointer-events: auto;
 }
 
-.tool-card {
-    width: 52px;
-    height: 52px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+/* Layer Specifics (Depth) */
+/* FRONT LAYER (0) */
+.tool-position-wrapper.layer-0 {
+    z-index: 30;
+    --layer-scale: 1.15;
+    --layer-opacity: 1;
+    --float-offset: -20px;
+}
+
+/* MIDDLE LAYER (1) */
+.tool-position-wrapper.layer-1 {
+    z-index: 20;
+    --layer-scale: 1;
+    --layer-opacity: 0.9;
+    --float-offset: -12px;
+}
+
+/* BACK LAYER (2) */
+.tool-position-wrapper.layer-2 {
+    z-index: 10;
+    --layer-scale: 0.85;
+    --layer-opacity: 0.65;
+    --float-offset: -8px;
+}
+
+/* Tool Card Styling */
+.tool-card-outer {
+    position: relative;
+    transform: scale(var(--layer-scale));
+    opacity: var(--layer-opacity);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                opacity 0.4s ease;
+    will-change: transform, opacity;
+}
+
+/* Breathing Scale Effect for Front Layer */
+.layer-0 .tool-card-outer {
+    animation: breathingScale var(--scale-dur) ease-in-out infinite;
+}
+
+.tool-card-inner {
+    width: 56px;
+    height: 56px;
+    background: #FFFFFF;
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--brand);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Soft premium shadow */
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+                0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.04);
     position: relative;
-    transform-style: preserve-3d;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    overflow: hidden;
 }
 
-[data-theme="dark"] .tool-card {
-    background: rgba(34, 34, 34, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 140, 0, 0.05);
+[data-theme="dark"] .tool-card-inner {
+    background: #1A1A1B;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
 }
 
 @media (min-width: 1024px) {
-    .tool-card {
-        width: 68px;
-        height: 68px;
+    .tool-card-inner {
+        width: 72px;
+        height: 72px;
         border-radius: 18px;
     }
 }
 
-.tool-icon-wrapper {
+/* Hover Interaction */
+.tool-card-outer:hover .tool-card-inner {
+    transform: scale(1.08);
+    box-shadow: 0 15px 35px -8px rgba(0, 0, 0, 0.15);
+    border-color: var(--tool-color);
+}
+
+[data-theme="dark"] .tool-card-outer:hover .tool-card-inner {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    background: #222223;
+}
+
+/* Icons and Text labels */
+.svg-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--tool-color);
+}
+
+@media (min-width: 1024px) {
+    .svg-icon {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.icon-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--tool-color);
+    font-family: 'Inter', sans-serif;
+}
+
+@media (min-width: 1024px) {
+    .icon-text {
+        font-size: 26px;
+    }
+}
+
+/* Tool Hint on Hover */
+.tool-name-hint {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    opacity: 0;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.tool-card-outer:hover .tool-name-hint {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Animations */
+@keyframes floatingVar {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+        transform: translateY(var(--float-offset)) rotate(calc(var(--rot-deg) * 0.3));
+    }
+    66% {
+        transform: translateY(calc(var(--float-offset) * 0.5)) rotate(calc(var(--rot-deg) * -0.2));
+    }
+}
+
+@keyframes breathingScale {
+    0%, 100% {
+        transform: scale(var(--layer-scale));
+    }
+    50% {
+        transform: scale(calc(var(--layer-scale) * 1.04));
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .premium-tools-scene {
+        height: 400px;
+        transform: scale(0.8);
+    }
+    
+    /* Hide some icons on mobile for performance and cleanliness */
+    .layer-2 {
+        display: none;
+    }
+
+    .tool-position-wrapper {
+        animation-duration: calc(var(--float-dur) * 1.5); /* Slower on mobile */
+    }
+}
+
+/* Special styling for 'Unreal' logo circle if needed */
+.icon-label-u {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
-    transform: translateZ(15px);
 }
 
-.tool-icon-wrapper svg {
-    width: 22px;
-    height: 22px;
-    color: var(--brand);
-    filter: drop-shadow(0 0 10px var(--brand));
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@media (min-width: 1024px) {
-    .tool-icon-wrapper svg {
-        width: 30px;
-        height: 30px;
-    }
-}
-
-/* Base Shadow */
-.tool-shadow {
-    position: absolute;
-    bottom: -10px;
-    left: 10%;
-    width: 80%;
-    height: 6px;
-    background: var(--brand);
-    border-radius: 50%;
-    filter: blur(8px);
-    opacity: 0.3;
-    animation: shadowPulse var(--dur) ease-in-out var(--del) infinite;
-    pointer-events: none;
-    transform: translateZ(calc(var(--tz) - 10px));
-}
-
-@keyframes antiGravity {
-    0%, 100% { transform: translateY(0px) translateZ(var(--tz)); }
-    50% { transform: translateY(-12px) translateZ(calc(var(--tz) + 12px)); }
-}
-
-@keyframes shadowPulse {
-    0%, 100% { opacity: 0.25; transform: scale(0.85) translateZ(calc(var(--tz) - 10px)); }
-    50% { opacity: 0.5; transform: scale(1.1) translateZ(calc(var(--tz) - 10px)); }
-}
-
-/* Hover & Active Interactions */
-.tool-animator:hover {
-    animation-play-state: paused;
-}
-
-.tool-card:hover,
-.tool-card:active {
-    transform: scale(1.15) translateZ(25px);
-    box-shadow: 0 0 35px var(--brand-glow), 0 15px 40px rgba(0,0,0,0.4);
-    border-color: var(--brand);
-    z-index: 100;
-}
-
-/* Premium Tooltip / Label Styles */
-.tool-tooltip {
-    position: absolute;
-    top: -42px;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    background: rgba(15, 15, 15, 0.9);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    color: #FFFFFF;
-    padding: 6px 14px;
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: 
-        opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
-        transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 1000;
-}
-
-[data-theme="light"] .tool-tooltip {
-    background: rgba(255, 255, 255, 0.95);
-    color: #1A1A1A;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.tool-card:hover .tool-tooltip,
-.tool-card:active .tool-tooltip {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
-/* On touch devices: Enable Tapping for Tooltips */
-@media (hover: none) and (pointer: coarse) {
-    .tool-wrapper { transform: none !important; }
-    .tool-animator { animation-duration: 6s; }
-    
-    /* Reveal tooltip on tap (using :active) */
-    .tool-card:active .tool-tooltip {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-        transition-duration: 0.2s; /* Snappier on tap */
-    }
-
-    .tool-card:active {
-        transform: scale(1.1) translateZ(15px);
-    }
+/* Performance optimization */
+.premium-tools-scene * {
+    -webkit-font-smoothing: antialiased;
+    backface-visibility: hidden;
 }
