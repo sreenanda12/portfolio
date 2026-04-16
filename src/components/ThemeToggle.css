@@ -25,11 +25,11 @@
 }
 
 .theme-toggle:hover {
-    background: #D88A05; /* Required download button orange */
+    background: #F45A0B; /* Required download button orange */
     color: #fff;
-    border-color: #D88A05;
+    border-color: #F45A0B;
     transform: scale(1.08);
-    box-shadow: 0 8px 20px rgba(216, 138, 5, 0.35); /* Glow matches orange */
+    box-shadow: 0 8px 20px rgba(244, 90, 11, 0.35); /* Glow matches orange */
 }
 
 [data-theme="dark"] .theme-toggle:hover {

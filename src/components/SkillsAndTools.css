@@ -35,7 +35,7 @@
     left: 0;
     width: 40px;
     height: 4px;
-    background: #ff8c00;
+    background: #F45A0B;
     border-radius: 4px;
 }
 
@@ -110,7 +110,7 @@
     color: var(--accent-primary);
     padding: 3px 6px;
     border-radius: 100px;
-    box-shadow: 0 2px 8px rgba(255, 140, 0, 0.15);
+    box-shadow: 0 2px 8px rgba(244, 90, 11, 0.15);
     pointer-events: none;
     white-space: nowrap;
 }
@@ -131,7 +131,7 @@
 
 .st-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #ff8c00, #ffa733);
+    background: linear-gradient(90deg, #F45A0B, #FF6A1A);
     border-radius: 10px;
     position: relative;
     box-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
@@ -211,8 +211,8 @@
 
 .st-chip-premium:hover {
     transform: translateY(-5px) scale(1.05) !important;
-    box-shadow: 0 10px 20px rgba(255, 140, 0, 0.2), 0 0 12px rgba(255, 140, 0, 0.4);
-    border-color: #ff8c00;
+    box-shadow: 0 10px 20px rgba(244, 90, 11, 0.2), 0 0 12px rgba(244, 90, 11, 0.4);
+    border-color: #F45A0B;
 }
 
 .st-chip-premium:hover::before {

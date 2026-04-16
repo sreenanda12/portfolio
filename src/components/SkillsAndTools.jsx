@@ -46,7 +46,7 @@ const ToolCard = ({ name, level, icon, color, status, index }) => {
             transition={{ duration: 0.4, delay: index * 0.05 }}
         >
             <div className="st-tool-header">
-                <div className="st-card-icon">
+                <div className="st-card-icon premium-icon-hover">
                     <img src={icon} alt={name} className="st-tool-png-icon" draggable="false" />
                 </div>
                 <span className="st-tool-name">{name}</span>

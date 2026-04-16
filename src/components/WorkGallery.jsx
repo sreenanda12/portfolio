@@ -7,7 +7,7 @@ export const projects = [
     // UI Designs
     { id: 1, title: 'VR Nexus Interface', category: 'UI Designs', tint: 'yellow', img: 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?auto=format&fit=crop&q=80&w=800' },
     { id: 2, title: 'Fintech Dashboard', category: 'UI Designs', tint: 'green', img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800' },
-    { id: 3, title: 'Health Tracking App', category: 'UI Designs', tint: 'purple', img: 'https://images.unsplash.com/photo-1576091160550-217359f4ecf8?auto=format&fit=crop&q=80&w=800' },
+    { id: 3, title: 'Health Tracking App', category: 'UI Designs', tint: 'purple', img: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=800' },
     { id: 4, title: 'Smart Home Hub', category: 'UI Designs', tint: 'pink', img: 'https://images.unsplash.com/photo-1558002038-103790319658?auto=format&fit=crop&q=80&w=800' },
     
     // Web Designs

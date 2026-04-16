@@ -47,7 +47,7 @@ body:not(.touch-device) * {
     height: 200px;
     margin-left: -100px;
     margin-top: -100px;
-    background: radial-gradient(circle, rgba(255, 140, 0, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(244, 90, 11, 0.08) 0%, transparent 70%);
     pointer-events: none;
     transform-origin: center;
     will-change: transform;
@@ -57,7 +57,7 @@ body:not(.touch-device) * {
 
 .is-hovering .cursor-aura {
     opacity: 0.5;
-    background: radial-gradient(circle, rgba(216, 138, 5, 0.15) 0%, transparent 75%);
+    background: radial-gradient(circle, rgba(244, 90, 11, 0.15) 0%, transparent 75%);
 }
 
 /* OUTER CIRCULAR RING (Orange Theme) */
@@ -73,7 +73,7 @@ body:not(.touch-device) * {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1.5px solid rgba(216, 138, 5, 0.4);
+    border: 1.5px solid rgba(244, 90, 11, 0.4);
     pointer-events: none;
     transition: width 0.3s cubic-bezier(0.19, 1, 0.22, 1), height 0.3s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.3s ease;
     will-change: transform;
@@ -84,7 +84,7 @@ body:not(.touch-device) * {
     height: 100%;
     border-radius: 50%;
     border: 1.5px solid var(--accent-primary);
-    box-shadow: 0 0 10px rgba(216, 138, 5, 0.15);
+    box-shadow: 0 0 10px rgba(244, 90, 11, 0.15);
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     animation: cursorBreathe 3s infinite ease-in-out;
 }
@@ -92,8 +92,8 @@ body:not(.touch-device) * {
 .is-hovering .ring-inner-line {
     border-width: 2px;
     border-color: var(--accent-hover);
-    background-color: rgba(216, 138, 5, 0.05);
-    box-shadow: 0 0 25px rgba(216, 138, 5, 0.25);
+    background-color: rgba(244, 90, 11, 0.05);
+    box-shadow: 0 0 25px rgba(244, 90, 11, 0.25);
     transform: scale(1.1);
 }
 
@@ -133,7 +133,7 @@ body:not(.touch-device) * {
     border-radius: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    box-shadow: 0 0 15px rgba(216, 138, 5, 0.4);
+    box-shadow: 0 0 15px rgba(244, 90, 11, 0.4);
     animation: clickRippleExpand 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 

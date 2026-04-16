@@ -65,7 +65,7 @@
 .tool-3d-glow {
     position: absolute;
     inset: 15%;
-    background: radial-gradient(circle, rgba(216, 138, 5, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(244, 90, 11, 0.15) 0%, transparent 70%);
     filter: blur(10px);
     opacity: 0.6;
     z-index: -1;
@@ -108,7 +108,7 @@
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    box-shadow: 0 15px 40px rgba(216, 138, 5, 0.15);
+    box-shadow: 0 15px 40px rgba(244, 90, 11, 0.15);
     opacity: 0;
     transition: opacity 0.4s ease;
     z-index: -1;
@@ -119,12 +119,21 @@
 }
 
 .tool-3d-card-wrapper:hover .tool-3d-card {
-    transform: scale(1.05) translateY(-8px) translateZ(20px) !important;
+    transform: translateY(-8px) scale(1.08) rotateX(6deg) rotateY(6deg) translateZ(25px) !important;
     border-color: rgba(216, 138, 5, 0.4);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.18);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .tool-3d-card-wrapper:hover .tool-3d-glow {
-    opacity: 1;
+    opacity: 0.8;
+}
+
+/* Reduced intensity for Mobile/Tablet */
+@media (max-width: 1024px) {
+    .tool-3d-card-wrapper:hover .tool-3d-card {
+        transform: translateY(-4px) scale(1.04) !important;
+    }
 }
 
 /* Responsive Scaling */

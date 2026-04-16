@@ -1,6 +1,6 @@
 /* MODERN ABOUT PAGE STYLES */
 :root {
-    --accent-orange: #D88A05; /* Download button orange */
+    --accent-orange: #F45A0B; /* New Vibrant Orange */
     --transition-smooth: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -24,13 +24,13 @@
 /* Redesigned Who I Am Section — Precision Styling */
 #who-i-am.about-section.intro-section {
     padding: 60px 0 !important;
-    background: rgba(216, 138, 5, 0.03) !important; /* Premium subtle accent tint */
+    background: rgba(244, 90, 11, 0.03) !important; /* Premium subtle accent tint */
     border-radius: 40px !important;
     position: relative;
     overflow: hidden;
     margin-top: 2rem !important;
     margin-bottom: 80px !important;
-    border: 1px solid rgba(216, 138, 5, 0.05) !important;
+    border: 1px solid rgba(244, 90, 11, 0.05) !important;
 }
 
 [data-theme="dark"] #who-i-am.about-section.intro-section {
@@ -157,7 +157,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--accent-orange), #F2A93B);
+    background: linear-gradient(135deg, var(--accent-orange), #FF6A1A);
     border-radius: 8px;
     padding: 6px;
     color: white;
@@ -248,7 +248,7 @@
     background: var(--accent-orange);
     color: #fff;
     border-color: var(--accent-orange);
-    box-shadow: 0 10px 25px rgba(216, 138, 5, 0.4);
+    box-shadow: 0 10px 25px rgba(244, 90, 11, 0.4);
     animation: skillPulse 2s infinite;
 }
 
@@ -257,9 +257,9 @@
 }
 
 @keyframes skillPulse {
-    0% { box-shadow: 0 0 0 0 rgba(216, 138, 5, 0.4); }
-    70% { box-shadow: 0 0 0 15px rgba(216, 138, 5, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(216, 138, 5, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(244, 90, 11, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(244, 90, 11, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(244, 90, 11, 0); }
 }
 
 .skill-ripple {
@@ -337,7 +337,7 @@
     font-size: 0.9rem;
     font-weight: 700;
     color: var(--accent-orange);
-    background: rgba(216, 138, 5, 0.1);
+    background: rgba(244, 90, 11, 0.1);
     padding: 4px 12px;
     border-radius: 100px;
 }
@@ -474,7 +474,7 @@
     right: -50px;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(216, 138, 5, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(244, 90, 11, 0.05) 0%, transparent 70%);
     z-index: 0;
     pointer-events: none;
 }
@@ -538,7 +538,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: rgba(216, 138, 5, 0.2);
+    background: rgba(244, 90, 11, 0.2);
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -693,7 +693,7 @@
         position: absolute;
         top: 10px;
         left: 10px;
-        background: rgba(216, 138, 5, 0.9); /* D88A05 / DOWNLOAD ORANGE */
+        background: rgba(244, 90, 11, 0.9); /* D88A05 / DOWNLOAD ORANGE */
         color: #fff;
         padding: 4px 8px;
         border-radius: 4px;
@@ -740,6 +740,6 @@
     .mi-dot.active {
         width: 20px;
         border-radius: 10px;
-        background: rgba(216, 138, 5, 0.8);
+        background: rgba(244, 90, 11, 0.8);
     }
 }
