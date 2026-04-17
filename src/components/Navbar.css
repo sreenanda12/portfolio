@@ -166,7 +166,7 @@ select {
     font-weight: 600;
     color: var(--text-primary);
     text-decoration: none;
-    cursor: pointer;
+    cursor: pointer !important; /* Ensure pointer shows */
     position: relative;
     padding: 8px 0;
     text-transform: uppercase;

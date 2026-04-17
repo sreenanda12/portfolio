@@ -1,15 +1,7 @@
-/* GLOBAL CURSOR HIDING — TOTAL DISABLE */
-html:not(.touch-device),
-body:not(.touch-device),
-html:not(.touch-device) *,
-body:not(.touch-device) * {
-    cursor: none !important;
-}
-
-/* CURSOR WRAPPER */
-/* GLOBAL CURSOR HIDE */
-* {
-    cursor: none !important;
+/* REDUCED AGGRESSION CURSOR HIDING */
+html:not(.touch-device), 
+body:not(.touch-device) {
+    cursor: none; /* Allow overrides */
 }
 
 /* TOUCH DEVICE DISABLE */

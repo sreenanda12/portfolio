@@ -116,10 +116,16 @@ const WorkGallery = ({ fullView = false, title = "Portfolio" }) => {
                                     {cat}
                                     {activeFilter === cat && (
                                         <motion.div 
-                                            layoutId="activeUnderline"
-                                            className="active-underline-orange"
-                                            initial={false}
-                                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                                            layoutId="activeDot"
+                                            className="active-dot-indicator"
+                                            initial={{ scale: 0, opacity: 0 }}
+                                            animate={{ scale: 1, opacity: 1 }}
+                                            transition={{ 
+                                                type: "spring", 
+                                                stiffness: 500, 
+                                                damping: 30,
+                                                mass: 0.8
+                                            }}
                                         />
                                     )}
                                 </button>

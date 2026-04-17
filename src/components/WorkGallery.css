@@ -98,9 +98,30 @@
 
 .gallery-filters-scroll-wrap {
     position: relative;
+    overflow-y: hidden !important; /* Killer fix for vertical arrows */
+    scrollbar-width: none;
+}
+
+.gallery-filters-scroll-wrap::-webkit-scrollbar {
+    display: none !important;
 }
 
 /* Fade Edges for Scroll Indication */
+.gallery-filters-area, 
+.gallery-filters-area *, 
+.gallery-filters-area *::before, 
+.gallery-filters-area *::after {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.gallery-filters-area::-webkit-scrollbar,
+.gallery-filters-area *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
 .gallery-filters-mask {
     position: absolute;
     top: 0;
@@ -155,16 +176,17 @@
     font-weight: 700;
 }
 
-/* ANIMATED GRADIENT UNDERLINE */
-.active-underline-orange {
+/* PREMIUM DOT INDICATOR */
+.active-dot-indicator {
     position: absolute;
-    bottom: -5px;
-    left: 10%;
-    right: 10%;
-    height: 3px;
-    background: #F45A0B; /* Specific user requested orange or var-accent */
-    border-radius: 999px;
-    box-shadow: 0 4px 12px rgba(244, 90, 11, 0.25);
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: #FF8C42; /* Premium Orange */
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 140, 66, 0.4);
 }
 
 /* VISIBILITY TOGGLES */

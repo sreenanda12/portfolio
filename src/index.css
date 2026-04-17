@@ -157,8 +157,6 @@ body {
   color: var(--text-primary);
   transition: background 0.6s ease, color 0.3s ease;
   overflow-x: hidden;
-  overflow-y: auto !important; /* Force scrollable */
-  min-height: 101vh; /* Ensure there is always a scroll track */
   width: 100%;
   position: relative;
   text-rendering: optimizeLegibility;
@@ -166,6 +164,22 @@ body {
   touch-action: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide scrollbar globally but keep scroll functionality */
+html, body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Hide custom indicators if any were added by libraries */
+.scroll-gps, .scroll-dots, .side-nav-dots {
+  display: none !important;
 }
 
 /* GPU Acceleration Utility */

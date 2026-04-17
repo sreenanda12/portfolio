@@ -136,49 +136,7 @@
     will-change: transform, opacity;
 }
 
-/* SCROLL INDICATOR */
-.scroll-indicator {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    z-index: 20;
-}
-
-.mouse {
-    width: 26px;
-    height: 42px;
-    border: 2px solid var(--accent-primary);
-    border-radius: 20px;
-    position: relative;
-}
-
-.wheel {
-    width: 4px;
-    height: 8px;
-    background: var(--accent-primary);
-    border-radius: 2px;
-    position: absolute;
-    top: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: scrollWheel 2s linear infinite;
-}
-
-@keyframes scrollWheel {
-    0% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(15px);
-    }
-}
+/* Removed unused scroll-indicator per user request */
 
 @media screen and (max-width: 1023px) {
     .hero-section {
