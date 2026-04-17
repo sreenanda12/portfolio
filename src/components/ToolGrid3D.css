@@ -44,13 +44,13 @@
     height: 65px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.15));
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 18px;
+    border: 2px solid rgba(255, 140, 66, 0.4); /* Premium Orange Border */
+    border-radius: 20px; /* Slightly more rounded as requested */
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     transform-style: preserve-3d;
     animation: floatingVar 5s ease-in-out infinite;
     animation-delay: var(--float-delay);
@@ -58,75 +58,91 @@
 }
 
 [data-theme="dark"] .tool-3d-card {
-    background: linear-gradient(135deg, rgba(34, 34, 34, 0.5), rgba(18, 18, 18, 0.35));
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(135deg, rgba(34, 34, 34, 0.6), rgba(18, 18, 18, 0.45));
+    border: 2px solid rgba(255, 140, 66, 0.5); /* Glowing Orange border in dark mode */
+    box-shadow: 0 0 15px rgba(255, 140, 66, 0.1);
 }
 
 .tool-3d-glow {
     position: absolute;
     inset: 15%;
-    background: radial-gradient(circle, rgba(244, 90, 11, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 140, 66, 0.2) 0%, transparent 70%);
     filter: blur(10px);
-    opacity: 0.6;
+    opacity: 0.5;
     z-index: -1;
     transition: opacity 0.4s ease;
 }
 
-/* Icon Resizing */
+/* Icon Resizing & Specific Clarity Improvements */
 .tool-3d-icon {
-    width: 60%;
-    height: 60%;
+    width: 62%;
+    height: 62%;
     object-fit: contain;
-    transform: translateZ(10px);
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+    transform: translateZ(12px);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15)) contrast(1.05);
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+/* Specific Enhancement for Unity Logo (Brand Improvement) */
+/* Using selectors that target the Unity logo specifically in various contexts */
+.tool-3d-card-wrapper[title*="Logo"] .tool-3d-icon,
+.tool-3d-card-wrapper[title*="Unity"] .tool-3d-icon,
+img[alt*="Unity Logo"],
+img[alt*="Unity"],
+img[src*="unitylogo.png"] {
+    filter: brightness(1.4) drop-shadow(0 0 15px rgba(0, 163, 255, 0.45)); /* Specific values from request */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+/* Hover Enhancement for the Logo */
+.tool-3d-card-wrapper:hover img[src*="unitylogo.png"],
+img[src*="unitylogo.png"]:hover {
+    filter: brightness(1.6) drop-shadow(0 0 20px rgba(0, 163, 255, 0.6));
 }
 
 /* Name/Tooltip Styling */
 .tool-3d-name {
     position: absolute;
-    bottom: -28px;
+    bottom: -32px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 11px;
-    font-weight: 600;
-    color: var(--text-secondary);
+    font-weight: 700;
+    color: var(--accent-primary);
     white-space: nowrap;
     pointer-events: none;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.05em;
     z-index: 10;
+    text-shadow: 0 0 10px rgba(255, 140, 66, 0.2);
 }
 
 /* Floating Motion */
 @keyframes floatingVar {
     0%, 100% { transform: translateY(0) rotateX(2deg) rotateY(-2deg); }
-    50% { transform: translateY(-8px) rotateX(-2deg) rotateY(2deg); }
+    50% { transform: translateY(-10px) rotateX(-2deg) rotateY(2deg); }
 }
 
-/* Hover Effects - Optimized by using opacity on shadow instead of animating shadow property */
+/* Hover Effects */
 .tool-3d-card::after {
     content: '';
     position: absolute;
-    inset: 0;
+    inset: -3px;
     border-radius: inherit;
-    box-shadow: 0 15px 40px rgba(244, 90, 11, 0.15);
+    border: 2px solid rgba(255, 140, 66, 0.8);
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.4s ease, transform 0.4s ease;
     z-index: -1;
 }
 
-.tool-3d-card-wrapper:hover .tool-3d-card::after {
-    opacity: 1;
-}
-
 .tool-3d-card-wrapper:hover .tool-3d-card {
-    transform: translateY(-8px) scale(1.08) rotateX(6deg) rotateY(6deg) translateZ(25px) !important;
-    border-color: rgba(216, 138, 5, 0.4);
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.18);
-    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+    transform: translateY(-12px) scale(1.1) rotateX(8deg) rotateY(8deg) translateZ(30px) !important;
+    border-color: rgba(255, 140, 66, 0.9);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25), 0 0 30px rgba(255, 140, 66, 0.3);
 }
 
 .tool-3d-card-wrapper:hover .tool-3d-glow {
-    opacity: 0.8;
+    opacity: 1;
+    background: radial-gradient(circle, rgba(255, 140, 66, 0.4) 0%, transparent 70%);
 }
 
 /* Reduced intensity for Mobile/Tablet */

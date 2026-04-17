@@ -35,7 +35,7 @@
     left: 0;
     width: 40px;
     height: 4px;
-    background: #F45A0B;
+    background: #FF8C42; /* Updated to Premium Orange */
     border-radius: 4px;
 }
 
@@ -49,26 +49,27 @@
 .st-tool-card {
     background: var(--card-bg);
     padding: 16px 20px;
-    border-radius: 12px;
+    border-radius: 16px; /* Slightly more rounded */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
     display: flex;
     flex-direction: column;
     gap: 14px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(0,0,0,0.02);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(255, 140, 66, 0.2); /* Premium Orange Border */
     position: relative;
     will-change: transform, opacity;
 }
 
 [data-theme="dark"] .st-tool-card {
     background: #121212;
-    border-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 140, 66, 0.3); /* Subtle glow border */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .st-tool-card:hover {
-    box-shadow: 0 10px 25px rgba(216, 138, 5, 0.1);
-    border-color: rgba(216, 138, 5, 0.2);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(255, 140, 66, 0.15);
+    border-color: #FF8C42; /* Stronger orange on hover */
 }
 
 .st-tool-header {
@@ -85,13 +86,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+    filter: drop-shadow(0 4px 8px rgba(255, 140, 66, 0.2));
 }
 
 .st-tool-png-icon {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+/* Specific Enhancement for Unity Logo (Brand Improvement) */
+img[src*="unitylogo.png"],
+img[alt*="Unity Logo"] {
+    filter: brightness(1.4) drop-shadow(0 0 12px rgba(0, 163, 255, 0.4));
+}
+
+.st-tool-card:hover img[src*="unitylogo.png"] {
+    filter: brightness(1.6) drop-shadow(0 0 18px rgba(0, 163, 255, 0.55));
 }
 
 .st-tool-name {
@@ -106,11 +118,11 @@
     top: -8px;
     font-size: 11px;
     font-weight: 700;
-    background: var(--glow-primary);
-    color: var(--accent-primary);
-    padding: 3px 6px;
+    background: rgba(255, 140, 66, 0.1);
+    color: #FF8C42;
+    padding: 3px 8px;
     border-radius: 100px;
-    box-shadow: 0 2px 8px rgba(244, 90, 11, 0.15);
+    box-shadow: 0 2px 8px rgba(255, 140, 66, 0.2);
     pointer-events: none;
     white-space: nowrap;
 }
@@ -131,10 +143,10 @@
 
 .st-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #F45A0B, #FF6A1A);
+    background: linear-gradient(90deg, #FF8C42, #FFA566);
     border-radius: 10px;
     position: relative;
-    box-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
+    box-shadow: 0 0 10px rgba(255, 140, 66, 0.4);
 }
 
 /* SHIMMER EFFECT */
@@ -147,7 +159,7 @@
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(255, 255, 255, 0.4),
+        rgba(255, 255, 255, 0.6),
         transparent
     );
     animation: shimmerFlow 2.5s infinite;
@@ -178,16 +190,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 140, 66, 0.2);
     z-index: 1;
 }
 
 [data-theme="dark"] .st-chip-premium {
     background: #121212;
-    border-color: rgba(255, 255, 255, 0.1);
-    color: #aeaeae;
+    border-color: rgba(255, 140, 66, 0.3);
+    color: #f5f5f7;
 }
 
 .st-chip-premium::before {
@@ -197,7 +209,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: #ff8c00;
+    background: #FF8C42;
     transform: translateX(-101%);
     transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
     z-index: -1;
@@ -210,9 +222,9 @@
 }
 
 .st-chip-premium:hover {
-    transform: translateY(-5px) scale(1.05) !important;
-    box-shadow: 0 10px 20px rgba(244, 90, 11, 0.2), 0 0 12px rgba(244, 90, 11, 0.4);
-    border-color: #F45A0B;
+    transform: translateY(-8px) scale(1.08) !important;
+    box-shadow: 0 15px 30px rgba(255, 140, 66, 0.25), 0 0 15px rgba(255, 140, 66, 0.4);
+    border-color: #FF8C42;
 }
 
 .st-chip-premium:hover::before {

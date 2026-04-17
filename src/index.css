@@ -20,8 +20,8 @@
   --text-secondary: #8E8A83; /* Soft Earth Gray */
 
   /* New Vibrant Orange Accents */
-  --accent-primary: #F45A0B;
-  --accent-hover: #FF6A1A;
+  --accent-primary: #FF8C42;
+  --accent-hover: #FFA566;
 
   --accent-indigo: var(--accent-primary);
   --accent-pink: var(--accent-hover);
@@ -39,8 +39,8 @@
   
   --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --gradient-btn-cv: linear-gradient(135deg, #F45A0B, #FF6A1A);
-  --gradient-btn-portfolio: linear-gradient(135deg, #F45A0B, #FF6A1A);
+  --gradient-btn-cv: linear-gradient(135deg, #FF8C42, #FFA566);
+  --gradient-btn-portfolio: linear-gradient(135deg, #FF8C42, #FFA566);
   --card-bg: rgba(255, 255, 255, 0.7);
   
   /* Background Elements */
@@ -76,8 +76,8 @@
   --gray-500: #444444;
 
   /* BRAND ACCENT: New Vibrant Orange */
-  --accent-primary: #F45A0B;
-  --accent-hover: #FF6A1A;
+  --accent-primary: #FF8C42;
+  --accent-hover: #FFA566;
 
   /* NAVIGATION: Frosted Dark Glass */
   --nav-bg: rgba(11, 11, 12, 0.82);
@@ -113,8 +113,8 @@
   --glass-border: rgba(255, 255, 255, 0.06);
 
   /* BUTTONS */
-  --gradient-btn-cv: linear-gradient(135deg, #F45A0B, #FF6A1A);
-  --gradient-btn-portfolio: linear-gradient(135deg, #F45A0B, #FF6A1A);
+  --gradient-btn-cv: linear-gradient(135deg, #FF8C42, #FFA566);
+  --gradient-btn-portfolio: linear-gradient(135deg, #FF8C42, #FFA566);
 }
 
 html {

@@ -115,7 +115,31 @@ select {
     transform: translateY(-50%);
     display: flex;
     align-items: center;
+    gap: 1.5rem; /* Space for logo if added */
     z-index: 10;
+}
+
+/* ═══════════════════════════════════════════════════════
+   PREMIUM LOGO ENHANCEMENT (Dark Mode Ready)
+   ═══════════════════════════════════════════════════════ */
+
+.navbar-logo, .brand-logo {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    transition: all 0.4s ease;
+    filter: brightness(1); /* Default */
+}
+
+[data-theme="dark"] .navbar-logo,
+[data-theme="dark"] .brand-logo {
+    filter: brightness(1.1) drop-shadow(0 0 10px rgba(0, 150, 255, 0.4)); /* Bluish Premium Glow */
+    transition: filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navbar-logo:hover, .brand-logo:hover {
+    filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 140, 66, 0.5)); /* Orange Hover Glow */
+    transform: scale(1.05);
 }
 
 [data-theme="dark"] .top-header.scrolled {

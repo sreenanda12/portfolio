@@ -42,21 +42,36 @@ const CustomCursor = () => {
             }
         };
 
-        const createRipple = (x, y) => {
-            const container = document.querySelector('.cursor-ripple-container');
-            if (!container) return;
-
-            const ripple = document.createElement('div');
-            ripple.className = 'cursor-click-ripple';
-            ripple.style.transform = `translate3d(${x}px, ${y}px, 0)`; // Performance
+        const createRipple = (x, y, target) => {
+            const container = document.body; // Append to body for fixed positioning visibility
             
+            // Determine interaction type
+            const isClickable = target.closest('a, button, [role="button"], .interactive, .btn, .card');
+            const isEmptyArea = !isClickable && !target.closest('.app-container > *');
+
+            // 1. Create Glass Ripple (Primary Premium Effect)
+            const ripple = document.createElement('div');
+            ripple.className = `ripple-base ${isClickable ? 'ripple-button' : isEmptyArea ? 'ripple-background' : 'ripple-normal'}`;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
             container.appendChild(ripple);
+            
+            // 2. Create Shockwave (Secondary Layered Effect for buttons)
+            if (isClickable) {
+                const shock = document.createElement('div');
+                shock.className = 'shockwave';
+                shock.style.left = `${x}px`;
+                shock.style.top = `${y}px`;
+                container.appendChild(shock);
+                setTimeout(() => shock.remove(), 600);
+            }
+            
+            // Cleanup
             setTimeout(() => ripple.remove(), 800);
         };
 
         const onMouseDown = (e) => {
-            createRipple(e.clientX, e.clientY);
-            setTimeout(() => createRipple(e.clientX, e.clientY), 80);
+            createRipple(e.clientX, e.clientY, e.target);
         };
 
         const handleHover = (e) => {

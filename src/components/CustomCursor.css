@@ -47,7 +47,7 @@ body:not(.touch-device) * {
     height: 200px;
     margin-left: -100px;
     margin-top: -100px;
-    background: radial-gradient(circle, rgba(244, 90, 11, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 140, 66, 0.08) 0%, transparent 70%);
     pointer-events: none;
     transform-origin: center;
     will-change: transform;
@@ -56,8 +56,8 @@ body:not(.touch-device) * {
 }
 
 .is-hovering .cursor-aura {
-    opacity: 0.5;
-    background: radial-gradient(circle, rgba(244, 90, 11, 0.15) 0%, transparent 75%);
+    opacity: 0.6;
+    background: radial-gradient(circle, rgba(255, 140, 66, 0.18) 0%, transparent 75%);
 }
 
 /* OUTER CIRCULAR RING (Orange Theme) */
@@ -73,10 +73,11 @@ body:not(.touch-device) * {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1.5px solid rgba(244, 90, 11, 0.4);
+    border: 1.5px solid rgba(255, 140, 66, 0.4);
     pointer-events: none;
     transition: width 0.3s cubic-bezier(0.19, 1, 0.22, 1), height 0.3s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.3s ease;
     will-change: transform;
+    box-shadow: 0 0 10px rgba(255, 140, 66, 0.05); /* Subtle constant glow */
 }
 
 .ring-inner-line {
@@ -84,7 +85,7 @@ body:not(.touch-device) * {
     height: 100%;
     border-radius: 50%;
     border: 1.5px solid var(--accent-primary);
-    box-shadow: 0 0 10px rgba(244, 90, 11, 0.15);
+    box-shadow: 0 0 12px rgba(255, 140, 66, 0.2);
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     animation: cursorBreathe 3s infinite ease-in-out;
 }
@@ -92,69 +93,110 @@ body:not(.touch-device) * {
 .is-hovering .ring-inner-line {
     border-width: 2px;
     border-color: var(--accent-hover);
-    background-color: rgba(244, 90, 11, 0.05);
-    box-shadow: 0 0 25px rgba(244, 90, 11, 0.25);
-    transform: scale(1.1);
+    background-color: rgba(255, 140, 66, 0.08); /* Slightly more visible glow */
+    box-shadow: 0 0 30px rgba(255, 140, 66, 0.35);
+    transform: scale(1.15);
 }
 
-/* INNER ARROW POINTER (Mac White Style) */
-.cursor-arrow-inner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 20px;
-    height: 20px;
-    margin-top: -10px;
-    margin-left: -10px;
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform-origin: center;
-    will-change: transform;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
+/* INNER ARROW POINTER (Updating Arrow Color) */
+.cursor-arrow-inner svg path {
+    fill: #FF8C42; /* Premium Orange */
 }
 
-.cursor-arrow-inner svg {
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
-}
+/* ═══════════════════════════════════════════════════════
+   PREMIUM CLICK ANIMATION SYSTEM (Glass Ripple + Variations)
+   ═══════════════════════════════════════════════════════ */
 
-/* CLICK RIPPLE STYLES */
 .cursor-ripple-container {
     position: absolute;
     inset: 0;
+    z-index: -1;
 }
 
-.cursor-click-ripple {
+.ripple-base {
     position: fixed;
-    width: 30px;
-    height: 30px;
-    border: 3px solid var(--accent-primary);
     border-radius: 50%;
-    transform: translate(-50%, -50%);
     pointer-events: none;
-    box-shadow: 0 0 15px rgba(244, 90, 11, 0.4);
-    animation: clickRippleExpand 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    transform: translate(-50%, -50%);
+    z-index: 10001;
+}
+
+/* Variant 1: Normal Click */
+.ripple-normal {
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid rgba(255, 140, 66, 0.4);
+    background: rgba(255, 140, 66, 0.05);
+    animation: glassRippleAnimation 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Variant 2: Button / Interactive Click */
+.ripple-button {
+    width: 25px;
+    height: 25px;
+    border: 2px solid rgba(255, 140, 66, 0.6);
+    background: rgba(255, 140, 66, 0.1);
+    box-shadow: 0 0 20px rgba(255, 140, 66, 0.3);
+    animation: glassRippleAnimation 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Variant 3: Background / Empty Area Click */
+.ripple-background {
+    width: 15px;
+    height: 15px;
+    border: 1px solid rgba(255, 140, 66, 0.25);
+    background: rgba(255, 140, 66, 0.02);
+    animation: glassRippleAnimation 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* GLASS RIPPLE CORE ANIMATION */
+@keyframes glassRippleAnimation {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0.8;
+        backdrop-filter: blur(0px);
+        box-shadow: inset 0 0 5px rgba(255, 140, 66, 0.2);
+    }
+    50% {
+        opacity: 0.4;
+        backdrop-filter: blur(2px);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(5);
+        opacity: 0;
+        backdrop-filter: blur(5px);
+        box-shadow: inset 0 0 15px rgba(255, 140, 66, 0);
+    }
+}
+
+/* SHOCKWAVE EFFECT (Used for Button clicks) */
+.shockwave {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border: 1px solid rgba(255, 140, 66, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    animation: shockwaveAnimation 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes shockwaveAnimation {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(10);
+        opacity: 0;
+    }
 }
 
 /* ANIMATIONS */
 @keyframes cursorBreathe {
     0% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.03); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 1; }
     100% { transform: scale(1); opacity: 0.8; }
-}
-
-@keyframes clickRippleExpand {
-    0% {
-        transform: translate(-50%, -50%) scale(0.3);
-        opacity: 0.6;
-        filter: blur(0px);
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(2.8);
-        opacity: 0;
-        filter: blur(2px);
-    }
 }
 
 
