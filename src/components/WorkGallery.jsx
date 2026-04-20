@@ -163,7 +163,17 @@ const WorkGallery = ({ fullView = false, title = "Portfolio" }) => {
                                         >
                                             <span className="cat-text">{label}</span>
                                             {activeFilter === functionalCat && (
-                                                <div className="active-dot"></div>
+                                                <motion.div 
+                                                    layoutId="activeDotMobile"
+                                                    className="active-dot-indicator"
+                                                    initial={{ scale: 0, opacity: 0 }}
+                                                    animate={{ scale: 1, opacity: 1 }}
+                                                    transition={{ 
+                                                        type: "spring", 
+                                                        stiffness: 500, 
+                                                        damping: 30
+                                                    }}
+                                                />
                                             )}
                                         </button>
                                     );

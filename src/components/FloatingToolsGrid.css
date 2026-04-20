@@ -61,15 +61,17 @@
 .tool-card-inner {
     width: 56px;
     height: 56px;
-    background: #FFFFFF;
+    background: #161616;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     /* Soft premium shadow */
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
-                0 8px 10px -6px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
     transition: all 0.4s ease;
     cursor: pointer;
@@ -77,9 +79,68 @@
 }
 
 [data-theme="dark"] .tool-card-inner {
-    background: #1A1A1B;
-    border-color: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03); /* Subtle Dark Glass */
+    border-color: rgba(255, 255, 255, 0.06);
     box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
+}
+
+/* ═══════════════════════════════════════════════════════
+   PREMIUM OVERRIDE FOR FIGMA, WORDPRESS, MICROSOFT
+   ═══════════════════════════════════════════════════════ */
+
+/* Match padding and border-radius to Ai/Xd icons */
+.logo-container-figma .tool-card-inner,
+.logo-container-wp .tool-card-inner,
+.logo-container-office .tool-card-inner {
+    background: transparent !important; /* Force complete transparency */
+    background-color: transparent !important;
+    border-color: rgba(255, 255, 255, 0.15); /* Subtle glass border */
+    box-shadow: none !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 0;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: visible !important; /* Prevent clipping */
+}
+
+/* Ensure no checkerboard artifacts or lingering boxes */
+.logo-container-wp .tool-card-inner::before,
+.logo-container-office .tool-card-inner::before {
+    display: none !important;
+}
+
+/* WordPress Visibility Logic & Vibrancy Glow */
+.logo-container-wp .svg-logo,
+.logo-container-office .svg-logo {
+    width: 100% !important;
+    height: 100% !important;
+    filter: drop-shadow(0 0 5px rgba(33, 117, 155, 0.2));
+    transition: filter 0.4s ease;
+}
+
+[data-theme="dark"] .logo-container-wp .svg-logo {
+    filter: drop-shadow(0 0 12px rgba(33, 117, 155, 0.6)) brightness(1.1); /* Vibrant Blue Glow */
+}
+
+/* Microsoft Office Legibility */
+.logo-container-office .svg-icon {
+    /* No white clipping mask - handled by transparent background */
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+}
+
+/* Consistency with Ai/Xd: they use labels, so we ensure the cards look unified */
+.tool-card-inner {
+    border-radius: 14px; /* Default for all */
+}
+
+/* Accessibility and legibility for SVGs */
+.svg-icon {
+    width: 36px;
+    height: 36px;
+    color: var(--tool-color);
+    transition: all 0.3s ease;
 }
 
 @media (min-width: 1024px) {

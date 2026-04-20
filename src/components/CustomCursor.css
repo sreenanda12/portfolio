@@ -1,7 +1,97 @@
-/* REDUCED AGGRESSION CURSOR HIDING */
+/* UNIFIED PREMIUM CURSOR SYSTEM */
 html:not(.touch-device), 
-body:not(.touch-device) {
-    cursor: none; /* Allow overrides */
+body:not(.touch-device),
+html:not(.touch-device) *,
+body:not(.touch-device) * {
+    cursor: none !important;
+}
+
+/* Base Wrapper - Fixed positioning handles current mouse coordinate */
+.cursor-unified-unit {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    margin-top: -30px;
+    margin-left: -30px;
+    pointer-events: none;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
+    will-change: transform;
+}
+
+.cursor-unified-unit.is-visible {
+    opacity: 1;
+}
+
+/* The Subtle Ring */
+.cursor-ring {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid var(--accent-primary);
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    box-shadow: 0 0 10px rgba(244, 90, 11, 0.1);
+}
+
+/* Hover Scaling */
+.cursor-unified-unit.is-hovering .cursor-ring {
+    width: 55px;
+    height: 55px;
+    border-color: var(--accent-hover);
+    background: rgba(244, 90, 11, 0.05);
+    box-shadow: 0 0 20px rgba(244, 90, 11, 0.2);
+}
+
+/* Inner Arrow - Always Centered */
+.cursor-arrow {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.cursor-unified-unit.is-hovering .cursor-arrow {
+    transform: scale(1.15);
+}
+
+/* Click Animation Rule 1: Ring Scale Down */
+.cursor-unified-unit.is-clicking .cursor-ring {
+    transform: scale(0.85);
+    border-width: 2.5px;
+}
+
+/* Click Animation Rule 2: Glow Burst */
+.cursor-glow-burst {
+    position: absolute;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.cursor-unified-unit.is-clicking .cursor-glow-burst {
+    animation: clickBurstEffect 0.4s ease-out forwards;
+}
+
+@keyframes clickBurstEffect {
+    0% {
+        width: 10px;
+        height: 10px;
+        opacity: 0.8;
+    }
+    100% {
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+    }
 }
 
 /* TOUCH DEVICE DISABLE */
@@ -9,197 +99,15 @@ body:not(.touch-device) {
     cursor: auto !important;
 }
 
-.touch-device .cursor-premium-wrapper {
+.touch-device .cursor-unified-unit {
     display: none !important;
 }
 
-.cursor-premium-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 10000;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    will-change: opacity;
-}
-
-.cursor-premium-wrapper.is-visible {
-    opacity: 1;
-}
-
-/* SOFT LIGHT AURA (Radial Glow) */
-.cursor-aura {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 200px;
-    height: 200px;
-    margin-left: -100px;
-    margin-top: -100px;
-    background: radial-gradient(circle, rgba(255, 140, 66, 0.08) 0%, transparent 70%);
-    pointer-events: none;
-    transform-origin: center;
-    will-change: transform;
-    opacity: 0.2;
-    transition: opacity 0.5s ease, background 0.5s ease;
-}
-
-.is-hovering .cursor-aura {
-    opacity: 0.6;
-    background: radial-gradient(circle, rgba(255, 140, 66, 0.18) 0%, transparent 75%);
-}
-
-/* OUTER CIRCULAR RING (Orange Theme) */
-.cursor-ring-outer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 42px;
-    height: 42px;
-    margin-top: -21px;
-    margin-left: -21px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1.5px solid rgba(255, 140, 66, 0.4);
-    pointer-events: none;
-    transition: width 0.3s cubic-bezier(0.19, 1, 0.22, 1), height 0.3s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.3s ease;
-    will-change: transform;
-    box-shadow: 0 0 10px rgba(255, 140, 66, 0.05); /* Subtle constant glow */
-}
-
-.ring-inner-line {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 1.5px solid var(--accent-primary);
-    box-shadow: 0 0 12px rgba(255, 140, 66, 0.2);
-    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-    animation: cursorBreathe 3s infinite ease-in-out;
-}
-
-.is-hovering .ring-inner-line {
-    border-width: 2px;
-    border-color: var(--accent-hover);
-    background-color: rgba(255, 140, 66, 0.08); /* Slightly more visible glow */
-    box-shadow: 0 0 30px rgba(255, 140, 66, 0.35);
-    transform: scale(1.15);
-}
-
-/* INNER ARROW POINTER (Updating Arrow Color) */
-.cursor-arrow-inner svg path {
-    fill: #FF8C42; /* Premium Orange */
-}
-
-/* ═══════════════════════════════════════════════════════
-   PREMIUM CLICK ANIMATION SYSTEM (Glass Ripple + Variations)
-   ═══════════════════════════════════════════════════════ */
-
-.cursor-ripple-container {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-}
-
-.ripple-base {
-    position: fixed;
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    z-index: 10001;
-}
-
-/* Variant 1: Normal Click */
-.ripple-normal {
-    width: 20px;
-    height: 20px;
-    border: 1.5px solid rgba(255, 140, 66, 0.4);
-    background: rgba(255, 140, 66, 0.05);
-    animation: glassRippleAnimation 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-
-/* Variant 2: Button / Interactive Click */
-.ripple-button {
-    width: 25px;
-    height: 25px;
-    border: 2px solid rgba(255, 140, 66, 0.6);
-    background: rgba(255, 140, 66, 0.1);
-    box-shadow: 0 0 20px rgba(255, 140, 66, 0.3);
-    animation: glassRippleAnimation 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Variant 3: Background / Empty Area Click */
-.ripple-background {
-    width: 15px;
-    height: 15px;
-    border: 1px solid rgba(255, 140, 66, 0.25);
-    background: rgba(255, 140, 66, 0.02);
-    animation: glassRippleAnimation 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-
-/* GLASS RIPPLE CORE ANIMATION */
-@keyframes glassRippleAnimation {
-    0% {
-        transform: translate(-50%, -50%) scale(0.5);
-        opacity: 0.8;
-        backdrop-filter: blur(0px);
-        box-shadow: inset 0 0 5px rgba(255, 140, 66, 0.2);
-    }
-    50% {
-        opacity: 0.4;
-        backdrop-filter: blur(2px);
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(5);
-        opacity: 0;
-        backdrop-filter: blur(5px);
-        box-shadow: inset 0 0 15px rgba(255, 140, 66, 0);
-    }
-}
-
-/* SHOCKWAVE EFFECT (Used for Button clicks) */
-.shockwave {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    border: 1px solid rgba(255, 140, 66, 0.8);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    animation: shockwaveAnimation 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes shockwaveAnimation {
-    0% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(10);
-        opacity: 0;
-    }
-}
-
-/* ANIMATIONS */
-@keyframes cursorBreathe {
-    0% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(1); opacity: 0.8; }
-}
-
-
-
-/* MOBILE/TOUCH HIDDEN PER USER REQUEST */
-body.touch-device .cursor-premium-wrapper {
-    display: none !important;
-}
-
-@media (max-width: 768px), (hover: none) and (pointer: coarse) {
-    .cursor-premium-wrapper {
+@media (max-width: 768px) {
+    .cursor-unified-unit {
         display: none !important;
+    }
+    * {
+        cursor: auto !important;
     }
 }

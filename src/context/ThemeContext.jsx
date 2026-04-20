@@ -6,13 +6,13 @@ export const ThemeProvider = ({ children }) => {
     const [theme, setTheme] = useState('light');
 
     useEffect(() => {
-        // Check local storage or use light as default
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            setTheme(savedTheme);
-            document.body.setAttribute('data-theme', savedTheme);
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme);
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark');
+            document.body.setAttribute('data-theme', 'dark');
         } else {
-            setTheme('light');
+            document.body.classList.remove('dark');
             document.body.setAttribute('data-theme', 'light');
         }
     }, []);
@@ -21,7 +21,14 @@ export const ThemeProvider = ({ children }) => {
         const newTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
         localStorage.setItem('theme', newTheme);
-        document.body.setAttribute('data-theme', newTheme);
+        
+        if (newTheme === 'dark') {
+            document.body.classList.add('dark');
+            document.body.setAttribute('data-theme', 'dark');
+        } else {
+            document.body.classList.remove('dark');
+            document.body.setAttribute('data-theme', 'light');
+        }
     };
 
     return (

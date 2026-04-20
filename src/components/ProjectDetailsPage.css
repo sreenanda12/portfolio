@@ -12,8 +12,9 @@
     left: 0;
     right: 0;
     padding: 2rem 0;
-    background: var(--nav-bg);
-    backdrop-filter: blur(15px);
+    background: var(--bg-secondary);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     z-index: 1000;
 }
 

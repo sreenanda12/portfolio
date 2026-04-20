@@ -30,7 +30,7 @@
 .portfolio-btn {
     bottom: 110px;
     right: 30px;
-    background: var(--gradient-btn-portfolio);
+    background: var(--accent-primary);
     color: #fff;
     padding: 0.6rem 1.2rem;
     border-radius: 9999px;
@@ -39,11 +39,12 @@
     font-size: 0.9rem;
     opacity: 0;
     animation: slideInRight 0.5s ease 1s forwards;
+    border: none;
 }
 
 .portfolio-btn:hover {
     transform: scale(1.05);
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 0 20px rgba(244, 90, 11, 0.4);
 }
 
 .portfolio-btn:active {
@@ -58,7 +59,7 @@
     left: 30px;
     /* Respect device safe-area for bottom nav bar */
     bottom: calc(30px + env(safe-area-inset-bottom, 0px));
-    background: var(--gradient-btn-cv);
+    background: var(--accent-primary);
     color: #fff;
     padding: 0.8rem 1.5rem;
     min-height: 48px;
@@ -66,11 +67,12 @@
     gap: 0.5rem;
     font-weight: 500;
     font-size: 0.95rem;
+    border: none;
 }
 
 .cv-btn:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(244, 90, 11, 0.5);
+    box-shadow: 0 0 20px rgba(244, 90, 11, 0.4);
 }
 
 /* WhatsApp Button (Bottom Right) */
@@ -103,26 +105,26 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.95);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 2000;
-    backdrop-filter: blur(5px);
     animation: fadeIn 0.3s ease;
 }
 
 .cv-modal-content {
-    background: var(--card-bg);
+    background: #161616;
     width: 90%;
     max-width: 400px;
-    border-radius: 16px;
+    border-radius: 20px;
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 2rem;
+    padding: 2.5rem;
     animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .close-modal-btn {
@@ -183,7 +185,7 @@
 }
 
 .download-cv-btn {
-    background: var(--gradient-btn-cv);
+    background: var(--accent-primary);
     color: #fff;
     border: none;
 }

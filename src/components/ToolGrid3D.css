@@ -42,10 +42,9 @@
     position: relative;
     width: 65px;
     height: 65px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.15));
-    backdrop-filter: blur(15px);
-    border: 2px solid rgba(255, 140, 66, 0.4); /* Premium Orange Border */
-    border-radius: 20px; /* Slightly more rounded as requested */
+    background: #FFFFFF; /* Pure white in light mode */
+    border: 2px solid rgba(255, 140, 66, 0.4); 
+    border-radius: 20px; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -57,10 +56,56 @@
     z-index: 1;
 }
 
-[data-theme="dark"] .tool-3d-card {
-    background: linear-gradient(135deg, rgba(34, 34, 34, 0.6), rgba(18, 18, 18, 0.45));
-    border: 2px solid rgba(255, 140, 66, 0.5); /* Glowing Orange border in dark mode */
+.dark .tool-3d-card {
+    background: var(--bg-elevated);
+    border: 2px solid rgba(255, 140, 66, 0.5); 
     box-shadow: 0 0 15px rgba(255, 140, 66, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════
+   PREMIUM LOGO REFINEMENT (Figma, WordPress, Microsoft)
+   ═══════════════════════════════════════════════════════ */
+
+/* Ensure the cards for these specific logos show the underlying section background */
+/* Ensure the cards for these specific logos show the underlying section background */
+.hero-3d-grid-container:not(.about-grid) .tool-3d-card:has(.logo-wordpress),
+.hero-3d-grid-container:not(.about-grid) .tool-3d-card:has(.logo-microsoft-office),
+.hero-3d-grid-container:not(.about-grid) .tool-3d-card:has(.logo-figma),
+.hero-3d-grid-container:not(.about-grid) .tool-3d-card:has(img[alt*="Figma"]),
+.hero-3d-grid-container:not(.about-grid) .tool-3d-card:has(img[alt*="WordPress"]),
+.hero-3d-grid-container:not(.about-grid) .tool-3d-card:has(img[alt*="Microsoft Office"]) {
+    background: transparent !important;
+    background-color: transparent !important;
+    border-color: rgba(255, 140, 66, 0.3) !important;
+    box-shadow: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: visible !important; /* Prevent clipping */
+}
+
+/* Match Illustrator/XD padding and identity */
+.tool-3d-card:has(.svg-logo),
+.tool-3d-card:has(img[alt*="Figma"]),
+.tool-3d-card:has(img[alt*="WordPress"]),
+.tool-3d-card:has(img[alt*="Microsoft Office"]) {
+    padding: 0 !important; /* Remove all padding as requested */
+}
+
+/* WordPresslegibility across light/dark */
+img[alt*="WordPress"] {
+    filter: brightness(1.1) contrast(1.1);
+}
+
+[data-theme="dark"] img[alt*="WordPress"] {
+    filter: brightness(1.3) contrast(1.2);
+}
+
+/* Microsoft multi-color identity (no clipping mask) */
+img[alt*="Microsoft"] {
+    width: 65% !important; /* Slightly larger to fill square better like Ai */
+    height: 65% !important;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
 }
 
 .tool-3d-glow {
@@ -98,6 +143,48 @@ img[src*="unitylogo.png"] {
 .tool-3d-card-wrapper:hover img[src*="unitylogo.png"],
 img[src*="unitylogo.png"]:hover {
     filter: brightness(1.6) drop-shadow(0 0 20px rgba(0, 163, 255, 0.6));
+}
+
+/* ═══════════════════════════════════════════════════════
+   ADAPTIVE SVG LOGO STYLING
+   ═══════════════════════════════════════════════════════ */
+
+/* FIGMA: Preserve multi-color vibrancy */
+.svg-logo {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+/* WORDPRESS: POP in Dark Mode */
+.wp-logo-adjust {
+    transition: filter 0.4s ease;
+}
+
+[data-theme="dark"] .wp-logo-adjust {
+    filter: brightness(1.2) drop-shadow(0 0 15px rgba(33, 117, 155, 0.4));
+}
+
+/* MICROSOFT: Handle Light Mode borders for legibility */
+[data-theme="light"] .microsoft-logo-adjust path {
+    stroke: rgba(0, 0, 0, 0.05); /* Subtle border for squares in Light Mode */
+    stroke-width: 0.5px; /* Slightly thicker for the new complex paths */
+}
+
+[data-theme="dark"] .microsoft-logo-adjust {
+    filter: brightness(1.1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.05));
+}
+
+/* Ensure SVG logos match Ai/Xd spatial balance */
+.tool-3d-card .svg-logo {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+}
+
+/* Set specific width for WordPress and Microsoft SVGs as requested */
+.tool-3d-card .logo-wordpress,
+.tool-3d-card .logo-microsoft-office {
+    width: 100% !important;
+    height: 100% !important;
 }
 
 /* Name/Tooltip Styling */

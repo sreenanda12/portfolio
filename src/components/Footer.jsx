@@ -18,7 +18,7 @@ const Footer = () => {
 
                 <div className="footer-bottom">
                     <div className="footer-copyright-info">
-                        <p>&copy; 2025 MUHAMMED MUFLIH A. All Rights Reserved.</p>
+                        <p>&copy; 2025 MUHAMMAD MUFLIH. All Rights Reserved.</p>
                         <a 
                             href="https://www.instagram.com/intellex.web?igsh=MWZyenU0bWc3M2RxOQ==" 
                             target="_blank" 

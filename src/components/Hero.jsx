@@ -45,7 +45,7 @@ const Hero = () => {
                 {/* CONTENT */}
                 <div className="hero-content">
                     <motion.h1 className="hero-title" variants={itemVariants}>
-                        MUHAMMED <br /> MUFLIH A
+                        MUHAMMAD <br /> MUFLIH
                     </motion.h1>
 
                     <motion.div className="keyword-rotator" variants={itemVariants}>

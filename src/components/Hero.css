@@ -14,33 +14,7 @@
     inset: 0;
     pointer-events: none;
     z-index: 5;
-    background: radial-gradient(ellipse at center, transparent 30%, rgba(11, 11, 12, 0.95) 100%);
-    mask-image: radial-gradient(ellipse at center, transparent 40%, black 90%);
-    -webkit-mask-image: radial-gradient(ellipse at center, transparent 40%, black 90%);
-}
-
-[data-theme="dark"] .hero-section::before {
-    content: '';
-    position: absolute;
-    top: -10%;
-    right: -10%;
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle, rgba(244, 90, 11, 0.08) 0%, transparent 60%);
-    z-index: 1;
-    pointer-events: none;
-}
-
-[data-theme="dark"] .hero-section::after {
-    content: '';
-    position: absolute;
-    bottom: -10%;
-    left: -10%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(244, 90, 11, 0.04) 0%, transparent 60%);
-    z-index: 1;
-    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 30%, #050505 100%);
 }
 
 

@@ -29,7 +29,7 @@ const WhoIAm = () => {
                         <div className="portrait-container">
                             <motion.img 
                                 src="/who.jpeg" 
-                                alt="Muhammed Muflih A - Creative Designer" 
+                                alt="Muhammad Muflih - Creative Designer" 
                                 className="portrait-img" 
                                 loading="lazy" 
                                 decoding="async"

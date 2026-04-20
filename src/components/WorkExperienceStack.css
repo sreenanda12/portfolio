@@ -5,62 +5,65 @@
     position: relative;
     padding: 2rem 0;
     width: 100%;
+    overflow: visible !important;
 }
 
 .we-card-wrapper {
     position: relative;
     width: 100%;
     margin-top: -30px;
-    /* Slight overlap */
     transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
     cursor: pointer;
     perspective: 1000px;
-    transform: translateZ(0);
-    will-change: transform;
+    overflow: visible !important;
 }
 
-/* First item doesn't need negative margin */
 .we-card-wrapper:first-child {
     margin-top: 0;
 }
 
 .we-card-inner {
+    position: relative;
     background: var(--card-bg);
-    border: 1px solid var(--border-light);
     border-radius: 16px;
     padding: 2.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-    transform-style: preserve-3d;
-    transform: translateZ(0);
-    will-change: transform, box-shadow;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+    overflow: visible !important;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
 }
 
-/* Scroll Animation states */
-.we-card-wrapper.we-active {
-    z-index: 10;
+/* PREMIUM BORDER FIX */
+.we-card-inner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1.5px;
+    background: var(--accent-primary);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
 }
 
+.we-card-wrapper:hover .we-card-inner::before,
+.we-card-wrapper:active .we-card-inner::before,
+.we-card-wrapper.we-active .we-card-inner::before {
+    opacity: 1;
+}
+
+.we-card-wrapper:hover .we-card-inner,
+.we-card-wrapper:active .we-card-inner,
 .we-card-wrapper.we-active .we-card-inner {
-    transform: scale(1.05) translateY(-5px);
-    box-shadow: 0 20px 40px rgba(231, 111, 46, 0.2);
-    border-color: var(--accent-indigo);
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 10px 30px rgba(255, 140, 66, 0.15);
 }
 
-.we-card-wrapper.we-blur .we-card-inner {
-    filter: blur(3px) brightness(0.8);
-    transform: scale(0.95);
-    z-index: 1;
-}
-
-.we-card-wrapper:hover .we-card-inner {
-    transform: translateY(-8px) scale(1.06);
-    box-shadow: 0 25px 50px rgba(231, 111, 46, 0.3);
-    filter: none;
-    /* remove blur on hover even if not active */
-}
-
-/* Card Content typography */
 .we-company {
     font-size: 1.4rem;
     color: var(--text-primary);
@@ -73,35 +76,23 @@
     margin-bottom: 1.5rem;
 }
 
-.we-role-preview h5 {
-    color: var(--accent-indigo);
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-}
-
-.we-click-text {
-    display: block;
-    margin-top: 1.5rem;
-    font-size: 0.85rem;
-    color: var(--accent-primary);
-    opacity: 0.8;
-}
-
-/* Expansion Modal */
+/* Modal UI Cleanup */
 .we-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.85);
-    /* Changed from black to white transparent */
-    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.98);
     z-index: 99999;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 2rem;
+}
+
+.dark .we-modal-overlay {
+    background: rgba(11, 31, 58, 0.98);
 }
 
 .we-modal-content {
@@ -110,39 +101,19 @@
     max-width: 800px;
     height: 100dvh;
     padding: 3rem;
-    border-radius: 0px !important;
-    /* as requested: expands to full screen detailed view, border radius reduces to 0 */
-    overflow-y: auto;
+    border-radius: 0 !important;
     position: relative;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--shadow-md);
     border: 1px solid var(--border-light);
-    animation: slideUpFade 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-@keyframes slideUpFade {
-    0% {
-        opacity: 0;
-        transform: translateY(50px) scale(0.95);
-        border-radius: 30px;
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        border-radius: 0px;
-    }
-}
-
-/* Same close button logic */
 .we-modal-close {
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
     background: rgba(0, 0, 0, 0.05);
-    /* Grey instead of white */
     border: none;
     color: var(--text-primary);
-    /* Changed to primary for contrast */
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -150,46 +121,22 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-.we-modal-close:hover {
-    background: var(--accent-hover);
-    color: white;
-    transform: rotate(90deg);
+[data-theme="dark"] .we-modal-close {
+    background: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
 }
 
 .we-modal-company {
     font-size: 2rem;
-    background: linear-gradient(90deg, var(--accent-primary), var(--accent-hover));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--accent-primary);
     margin-bottom: 0.5rem;
-}
-
-.we-modal-date {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    margin-bottom: 2.5rem;
-    border-bottom: 1px solid var(--border-light);
-    padding-bottom: 1.5rem;
+    font-weight: 800;
 }
 
 .we-modal-role {
     margin-bottom: 2.5rem;
-}
-
-.we-role-title {
-    font-size: 1.4rem;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-}
-
-.we-role-tasks {
-    list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
 .we-role-tasks li {
@@ -204,19 +151,11 @@
     content: '→';
     position: absolute;
     left: 0;
-    color: var(--accent-indigo);
+    color: var(--accent-primary);
 }
 
 @media screen and (max-width: 767px) {
-    .we-card-wrapper.we-blur .we-card-inner {
-        filter: none;
-        opacity: 0.8;
-    }
     .we-card-inner {
         padding: 1.5rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    }
-    .we-card-wrapper.we-active .we-card-inner {
-        box-shadow: 0 10px 20px rgba(231, 111, 46, 0.15);
     }
 }

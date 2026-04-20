@@ -101,9 +101,9 @@ select {
 
 .top-header.scrolled {
     padding: 0.8rem 3rem;
-    background: rgba(var(--bg-primary-rgb, 245, 245, 242), 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: var(--bg-primary);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
     border-bottom: 1px solid rgba(0, 0, 0, 0.03);
 }
@@ -143,9 +143,11 @@ select {
 }
 
 [data-theme="dark"] .top-header.scrolled {
-    background: rgba(14, 14, 14, 0.88);
+    background: #0D0D0D;
     border-bottom-color: rgba(255, 255, 255, 0.05);
     box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
 /* DESKTOP NAVBAR */
@@ -249,9 +251,9 @@ select {
     max-height: calc(100dvh - 7rem);
     overflow-y: auto;
     overscroll-behavior: contain;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
+    background: var(--bg-secondary);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     border: 1px solid var(--border-light);
     border-radius: 28px;
     padding: 2rem;
@@ -267,9 +269,11 @@ select {
 }
 
 [data-theme="dark"] .nav-overlay-menu {
-    background: rgba(26, 26, 26, 0.98);
-    border-color: rgba(244, 90, 11, 0.1);
+    background: #161616;
+    border-color: rgba(255, 255, 255, 0.05);
     box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.8);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
 .nav-overlay-menu.active {
@@ -366,10 +370,9 @@ select {
         background: rgba(245, 245, 242, 0.98);
     }
     [data-theme="dark"] .top-header.scrolled {
+        background: #0D0D0D;
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        background: rgba(14, 14, 14, 0.98);
     }
     .nav-overlay-menu {
         width: calc(100% - 2.5rem);
@@ -382,7 +385,9 @@ select {
         border-radius: 20px;
     }
     [data-theme="dark"] .nav-overlay-menu {
-        background: rgba(26, 26, 26, 0.99);
+        background: #161616;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
     }
 }
 

@@ -2,6 +2,7 @@
     padding: 80px 0;
     background-color: var(--bg-primary);
     position: relative;
+    overflow: visible !important;
 }
 
 .exp-grid-layout {
@@ -11,39 +12,55 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
+    overflow: visible !important;
 }
 
 .exp-card-wrapper {
     perspective: 1200px;
     display: flex;
     width: 100%;
+    overflow: visible !important; /* Fix clipping for children */
 }
 
 .exp-glass-card {
     position: relative;
     width: 100%;
     background: var(--card-bg);
-    border-radius: 24px;
-    border: 1px solid var(--border-light);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-    padding: 2.5rem; /* Improved spacing */
-    overflow: hidden;
-    will-change: transform, box-shadow;
-    transform: translate3d(0, 0, 0);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    border-radius: 16px; /* Adjusted to match border fix request */
+    padding: 2.5rem;
+    overflow: visible !important; /* CRITICAL: Fix for border clipping */
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
     cursor: default;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
 }
 
-[data-theme="dark"] .exp-glass-card {
-    background: #1a1a1a;
-    border-color: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+/* THE PREMIUM BORDER FIX */
+.exp-glass-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1.5px;
+    background: var(--accent-primary);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
 }
 
-.exp-glass-card:hover {
-    transform: translate3d(0, -8px, 0);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-    border-color: var(--accent-primary);
+.exp-glass-card:hover::before,
+.exp-glass-card:active::before {
+    opacity: 1;
+}
+
+.exp-glass-card:hover,
+.exp-glass-card:active {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 10px 30px rgba(255, 140, 66, 0.15);
 }
 
 .exp-card-glow {
@@ -52,7 +69,7 @@
     right: -50px;
     width: 200px;
     height: 200px;
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(244, 90, 11, 0.05) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -184,15 +201,16 @@
     font-size: 0.75rem;
     font-weight: 500;
     text-transform: none;
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(0, 0, 0, 0.05); /* Slightly darker for better visibility */
     color: var(--text-primary);
     padding: 6px 14px;
     border-radius: 100px;
     border: 1px solid var(--border-light);
 }
 
-[data-theme="dark"] .exp-tag {
-    background: var(--gray-900);
+.dark .exp-tag {
+    background: var(--bg-elevated);
+    border-color: var(--border-light);
 }
 
 .exp-tag.more {
@@ -267,26 +285,11 @@
     }
 
     .exp-glass-card {
-        padding: 2.5rem;
-    }
-}
-
-@media (max-width: 767px) {
-    .modern-exp-section {
-        padding: 60px 0;
-    }
-
-    .exp-grid-layout {
-        padding: 0 1rem;
-        gap: 2rem;
-    }
-
-    .exp-glass-card {
         padding: 1.5rem;
         border-radius: 20px;
-        /* Remove backdrop-filter on mobile to prevent scroll jank */
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
+        background: var(--bg-secondary);
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
     }
 
     .exp-company-name {

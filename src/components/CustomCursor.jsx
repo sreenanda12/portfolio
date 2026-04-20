@@ -1,202 +1,100 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './CustomCursor.css';
 
 /**
- * OPTIMIZED HIGH-PERFORMANCE CURSOR
- * Focus: 60fps smoothness, zero lag, minimal DOM updates.
+ * UNIFIED PREMIUM CURSOR
+ * Fixes: Double-cursor effect, movement lag, and detached ring.
+ * Features: Single-unit movement, centered arrow, premium click pulse.
  */
 const CustomCursor = () => {
-    const ringRef = useRef(null);
-    const arrowRef = useRef(null);
-    const auraRef = useRef(null);
-    const wrapperRef = useRef(null);
-    
-    // Animation Frame Tracking
-    const requestRef = useRef();
-    
-    // Motion State
+    const cursorRef = useRef(null);
     const mouse = useRef({ x: 0, y: 0 });
-    const pos = useRef({ x: 0, y: 0 });      // Inner Arrow pos
-    const ringPos = useRef({ x: 0, y: 0 });  // Outer Ring pos
-    const vel = useRef({ x: 0, y: 0 });
-    
-    // Interaction Refs (to avoid re-attaching listeners)
-    const isVisible = useRef(false);
-    const isHovering = useRef(false);
-    const isAnticipating = useRef(false);
-    const activeTarget = useRef(null);
+    const pos = useRef({ x: 0, y: 0 });
+    const [isClicking, setIsClicking] = useState(false);
+    const [isHovering, setIsHovering] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        // Detect touch device once
+        // 1. Desktop Check & Global Cursor Hide
         const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.matchMedia("(pointer: coarse)").matches);
         if (isTouchDevice) {
             document.body.classList.add('touch-device');
-            return; // Exit if mobile
+            return;
         }
+
+        // Apply cursor: none globally to everything
+        const style = document.createElement('style');
+        style.innerHTML = `
+            * { cursor: none !important; }
+            html, body { cursor: none !important; }
+        `;
+        document.head.appendChild(style);
 
         const onMouseMove = (e) => {
             mouse.current = { x: e.clientX, y: e.clientY };
-            if (!isVisible.current) {
-                isVisible.current = true;
-                if (wrapperRef.current) wrapperRef.current.classList.add('is-visible');
-            }
+            if (!isVisible) setIsVisible(true);
         };
 
-        const createRipple = (x, y, target) => {
-            const container = document.body; // Append to body for fixed positioning visibility
-            
-            // Determine interaction type
-            const isClickable = target.closest('a, button, [role="button"], .interactive, .btn, .card');
-            const isEmptyArea = !isClickable && !target.closest('.app-container > *');
+        const onMouseDown = () => setIsClicking(true);
+        const onMouseUp = () => setIsClicking(false);
 
-            // 1. Create Glass Ripple (Primary Premium Effect)
-            const ripple = document.createElement('div');
-            ripple.className = `ripple-base ${isClickable ? 'ripple-button' : isEmptyArea ? 'ripple-background' : 'ripple-normal'}`;
-            ripple.style.left = `${x}px`;
-            ripple.style.top = `${y}px`;
-            container.appendChild(ripple);
-            
-            // 2. Create Shockwave (Secondary Layered Effect for buttons)
-            if (isClickable) {
-                const shock = document.createElement('div');
-                shock.className = 'shockwave';
-                shock.style.left = `${x}px`;
-                shock.style.top = `${y}px`;
-                container.appendChild(shock);
-                setTimeout(() => shock.remove(), 600);
-            }
-            
-            // Cleanup
-            setTimeout(() => ripple.remove(), 800);
-        };
-
-        const onMouseDown = (e) => {
-            createRipple(e.clientX, e.clientY, e.target);
-        };
-
-        const handleHover = (e) => {
-            const target = e.target.closest('a, button, [role="button"], .interactive');
-            if (target) {
-                activeTarget.current = target;
-                if (!isHovering.current) {
-                    isAnticipating.current = true;
-                    setTimeout(() => {
-                        isAnticipating.current = false;
-                        isHovering.current = true;
-                        if (wrapperRef.current) wrapperRef.current.classList.add('is-hovering');
-                    }, 80);
-                }
-            } else {
-                activeTarget.current = null;
-                isHovering.current = false;
-                if (wrapperRef.current) wrapperRef.current.classList.remove('is-hovering');
-            }
+        const onMouseOver = (e) => {
+            const target = e.target.closest('a, button, [role="button"], .interactive, .st-tool-card, .premium-card, .cert-card, .filter-marquee-pill, .nav-links');
+            if (target) setIsHovering(true);
+            else setIsHovering(false);
         };
 
         const animate = () => {
-            // physics calculation
-            let targetX = mouse.current.x;
-            let targetY = mouse.current.y;
-            let friction = 0.15;
+            // Smooth unified lerp for the entire unit
+            pos.current.x += (mouse.current.x - pos.current.x) * 0.25;
+            pos.current.y += (mouse.current.y - pos.current.y) * 0.25;
 
-            if (activeTarget.current) {
-                const rect = activeTarget.current.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                const distX = centerX - mouse.current.x;
-                const distY = centerY - mouse.current.y;
-                const distance = Math.hypot(distX, distY);
-
-                if (distance < 80) {
-                    const pullStrength = 1 - (distance / 80);
-                    targetX = mouse.current.x + distX * pullStrength * 0.3;
-                    targetY = mouse.current.y + distY * pullStrength * 0.3;
-                    friction = 0.08;
-                }
+            if (cursorRef.current) {
+                cursorRef.current.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0)`;
             }
-
-            // Lerps
-            pos.current.x += (targetX - pos.current.x) * 0.25;
-            pos.current.y += (targetY - pos.current.y) * 0.25;
-
-            ringPos.current.x += (targetX - ringPos.current.x) * friction;
-            ringPos.current.y += (targetY - ringPos.current.y) * friction;
-
-            // Velocity response
-            const vx = targetX - pos.current.x;
-            const vy = targetY - pos.current.y;
-            const speed = Math.hypot(vx, vy);
-            
-            const stretchX = Math.min(speed * 0.005, 0.1);
-            const stretchY = -stretchX;
-            const angle = Math.atan2(vy, vx) * (180 / Math.PI);
-
-            // Float depth
-            const floatX = vx * 0.12;
-            const floatY = vy * 0.12;
-
-            // DOM Updates (RequestAnimationFrame ensures sync with refresh rate)
-            if (ringRef.current) {
-                let scale = 1;
-                if (isAnticipating.current) scale = 0.95;
-                else if (isHovering.current) scale = 1.45;
-
-                ringRef.current.style.transform = `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0) rotate(${angle}deg) scale(${scale + stretchX}, ${scale + stretchY})`;
-            }
-
-            if (arrowRef.current) {
-                const arrowScale = isHovering.current ? 1.1 : 1;
-                arrowRef.current.style.transform = `translate3d(${pos.current.x + floatX}px, ${pos.current.y + floatY}px, 0) scale(${arrowScale})`;
-            }
-
-            if (auraRef.current) {
-                auraRef.current.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0)`;
-            }
-
-            requestRef.current = requestAnimationFrame(animate);
+            requestAnimationFrame(animate);
         };
 
         window.addEventListener('mousemove', onMouseMove, { passive: true });
-        window.addEventListener('mouseover', handleHover, { passive: true });
-        window.addEventListener('mousedown', onMouseDown, { passive: true });
-        document.addEventListener('mouseleave', () => {
-            isVisible.current = false;
-            if (wrapperRef.current) wrapperRef.current.classList.remove('is-visible');
-        });
-        document.addEventListener('mouseenter', () => {
-            isVisible.current = true;
-            if (wrapperRef.current) wrapperRef.current.classList.add('is-visible');
-        });
+        window.addEventListener('mousedown', onMouseDown);
+        window.addEventListener('mouseup', onMouseUp);
+        window.addEventListener('mouseover', onMouseOver);
+        document.addEventListener('mouseenter', () => setIsVisible(true));
+        document.addEventListener('mouseleave', () => setIsVisible(false));
 
-        requestRef.current = requestAnimationFrame(animate);
+        const animId = requestAnimationFrame(animate);
 
         return () => {
             window.removeEventListener('mousemove', onMouseMove);
-            window.removeEventListener('mouseover', handleHover);
             window.removeEventListener('mousedown', onMouseDown);
-            cancelAnimationFrame(requestRef.current);
+            window.removeEventListener('mouseup', onMouseUp);
+            window.removeEventListener('mouseover', onMouseOver);
+            cancelAnimationFrame(animId);
+            document.head.removeChild(style);
         };
-    }, []); // Listener is attached only ONCE
+    }, []);
+
+    if (typeof window !== 'undefined' && (('ontouchstart' in window) || (navigator.maxTouchPoints > 0))) return null;
 
     return (
-        <div ref={wrapperRef} className="cursor-premium-wrapper">
-            <div className="cursor-ripple-container"></div>
-            <div ref={auraRef} className="cursor-aura"></div>
-            <div ref={ringRef} className="cursor-ring-outer">
-                <div className="ring-inner-line"></div>
-            </div>
-            <div ref={arrowRef} className="cursor-arrow-inner">
+        <div 
+            ref={cursorRef} 
+            className={`cursor-unified-unit ${isVisible ? 'is-visible' : ''} ${isHovering ? 'is-hovering' : ''} ${isClicking ? 'is-clicking' : ''}`}
+        >
+            <div className="cursor-ring"></div>
+            <div className="cursor-arrow">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                     <path 
                         d="M5.5 3.21V20.8L10.18 16.12L13.3 22.39L16.22 20.93L13.1 14.66H18.99L5.5 3.21Z" 
-                        fill="#FF8C42" 
+                        fill="#F45A0B" 
                         stroke="white"
                         strokeWidth="0.5"
                     />
                 </svg>
             </div>
+            <div className="cursor-glow-burst"></div>
         </div>
     );
-}
+};
 
 export default CustomCursor;

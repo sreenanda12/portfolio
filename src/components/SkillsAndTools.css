@@ -23,10 +23,12 @@
 
 .st-title-text {
     font-family: var(--font-primary, sans-serif);
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 26px;
+    font-weight: 800;
     color: var(--text-primary);
     margin: 0;
+    letter-spacing: -0.5px;
+    text-transform: capitalize;
 }
 
 .st-title-underline {
@@ -35,7 +37,7 @@
     left: 0;
     width: 40px;
     height: 4px;
-    background: #FF8C42; /* Updated to Premium Orange */
+    background: #F45A0B; 
     border-radius: 4px;
 }
 
@@ -49,27 +51,26 @@
 .st-tool-card {
     background: var(--card-bg);
     padding: 16px 20px;
-    border-radius: 16px; /* Slightly more rounded */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border-radius: 16px; 
+    box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
     gap: 14px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 2px solid rgba(255, 140, 66, 0.2); /* Premium Orange Border */
+    border: 1px solid var(--border-light);
     position: relative;
-    will-change: transform, opacity;
 }
 
 [data-theme="dark"] .st-tool-card {
-    background: #121212;
-    border-color: rgba(255, 140, 66, 0.3); /* Subtle glow border */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    background: var(--bg-elevated);
+    border-color: var(--border-light);
+    box-shadow: var(--shadow-md);
 }
 
 .st-tool-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 10px 30px rgba(255, 140, 66, 0.15);
-    border-color: #FF8C42; /* Stronger orange on hover */
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-glow);
+    border-color: var(--accent-primary); 
 }
 
 .st-tool-header {
@@ -86,24 +87,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(0 4px 8px rgba(255, 140, 66, 0.2));
-}
-
-.st-tool-png-icon {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: all 0.3s ease;
-}
-
-/* Specific Enhancement for Unity Logo (Brand Improvement) */
-img[src*="unitylogo.png"],
-img[alt*="Unity Logo"] {
-    filter: brightness(1.4) drop-shadow(0 0 12px rgba(0, 163, 255, 0.4));
-}
-
-.st-tool-card:hover img[src*="unitylogo.png"] {
-    filter: brightness(1.6) drop-shadow(0 0 18px rgba(0, 163, 255, 0.55));
 }
 
 .st-tool-name {
@@ -112,26 +95,11 @@ img[alt*="Unity Logo"] {
     color: var(--text-primary);
 }
 
-.st-floating-label {
-    position: absolute;
-    right: 0;
-    top: -8px;
-    font-size: 11px;
-    font-weight: 700;
-    background: rgba(255, 140, 66, 0.1);
-    color: #FF8C42;
-    padding: 3px 8px;
-    border-radius: 100px;
-    box-shadow: 0 2px 8px rgba(255, 140, 66, 0.2);
-    pointer-events: none;
-    white-space: nowrap;
-}
-
 /* PROGRESS BAR */
 .st-progress-container {
     width: 100%;
-    height: 6px;
-    background: #eeeeee;
+    height: 4.5px;
+    background: var(--border-light);
     border-radius: 10px;
     overflow: hidden;
     position: relative;
@@ -143,34 +111,13 @@ img[alt*="Unity Logo"] {
 
 .st-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #FF8C42, #FFA566);
+    background: #F45A0B;
     border-radius: 10px;
     position: relative;
-    box-shadow: 0 0 10px rgba(255, 140, 66, 0.4);
 }
 
-/* SHIMMER EFFECT */
-.st-shimmer {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.6),
-        transparent
-    );
-    animation: shimmerFlow 2.5s infinite;
-}
-
-@keyframes shimmerFlow {
-    0% { left: -100%; }
-    100% { left: 200%; }
-}
-
-/* CHIPS (SKILLS & LANGUAGES) */
+/* CHIPS */
+/* CHIPS (PILLS) SYSTEM */
 .st-chips-container {
     display: flex;
     flex-wrap: wrap;
@@ -191,57 +138,145 @@ img[alt*="Unity Logo"] {
     align-items: center;
     justify-content: center;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(255, 140, 66, 0.2);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
     z-index: 1;
 }
 
 [data-theme="dark"] .st-chip-premium {
-    background: #121212;
-    border-color: rgba(255, 140, 66, 0.3);
-    color: #f5f5f7;
+    background: var(--bg-elevated);
+    border-color: var(--border-light);
+    color: #FFFFFF;
 }
 
-.st-chip-premium::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #FF8C42;
-    transform: translateX(-101%);
-    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-    z-index: -1;
+.st-chip-premium:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow);
+    border-color: var(--accent-primary);
+    background: var(--accent-primary);
+    color: #FFFFFF;
 }
 
 .st-chip-text {
     position: relative;
     z-index: 2;
-    transition: color 0.3s ease;
 }
 
-.st-chip-premium:hover {
-    transform: translateY(-8px) scale(1.08) !important;
-    box-shadow: 0 15px 30px rgba(255, 140, 66, 0.25), 0 0 15px rgba(255, 140, 66, 0.4);
-    border-color: #FF8C42;
+.st-languages-block {
+    margin-top: 3.5rem;
 }
 
-.st-chip-premium:hover::before {
-    transform: translateX(0);
+.st-languages-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
 }
 
-.st-chip-premium:hover .st-chip-text {
-    color: #ffffff;
+.st-lang-card {
+    background: var(--card-bg);
+    padding: 14px 20px;
+    border-radius: 14px;
+    border: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    width: 100%;
+    position: relative;
 }
 
-/* MOBILE TOUCH GESTURE */
-.st-chip-premium:active {
-    transform: scale(0.97) !important;
+[data-theme="dark"] .st-lang-card {
+    background: #161616; /* Level 2 */
+    border-color: rgba(255, 255, 255, 0.05);
 }
 
-.st-skills-block {
-    margin-bottom: 40px;
+.st-lang-card:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    border-color: var(--accent-primary);
+}
+
+[data-theme="dark"] .st-lang-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.st-lang-header {
+    display: flex;
+    align-items: center;
+}
+
+.st-lang-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+}
+
+.st-lang-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.st-lang-percent {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--accent-primary);
+}
+
+.st-lang-progress-container {
+    width: 100%;
+    height: 3px;
+    background: var(--border-light);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 2px;
+    position: relative;
+}
+
+[data-theme="dark"] .st-lang-progress-container {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.st-lang-progress-fill {
+    height: 100%;
+    background: #F45A0B; 
+    border-radius: 6px;
+    position: relative;
+}
+
+.st-bar-glow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 100%;
+    background: #F45A0B;
+    filter: blur(4px);
+    opacity: 0.6;
+}
+
+.st-bar-shimmer {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.1), 
+        transparent
+    );
+    animation: barShimmer 4s infinite linear;
+}
+
+@keyframes barShimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.st-lang-card:hover .st-lang-progress-fill {
+    box-shadow: 0 0 12px rgba(244, 90, 11, 0.4);
 }
 
 /* RESPONSIVENESS */
@@ -255,14 +290,21 @@ img[alt*="Unity Logo"] {
     .st-main-section {
         padding: 60px 0;
     }
+    
+    .st-languages-grid {
+        grid-template-columns: 1fr;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .st-languages-block {
+        margin-top: 2rem;
+    }
 
     .st-layout {
         grid-template-columns: 1fr;
         gap: 40px;
     }
-
-    .st-left-col { order: 1; }
-    .st-right-col { order: 2; }
 
     .st-tools-grid {
         grid-template-columns: 1fr;

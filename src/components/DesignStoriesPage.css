@@ -13,13 +13,14 @@
     left: 0;
     right: 0;
     padding: 2rem 0;
-    background: var(--nav-bg);
-    backdrop-filter: blur(20px);
+    background: var(--bg-secondary);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     z-index: 1000;
 }
 
 [data-theme="dark"] .stories-nav-header {
-    background: rgba(14, 14, 14, 0.88);
+    background: #0D0D0D; 
 }
 
 .stories-back-link {

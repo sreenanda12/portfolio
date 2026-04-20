@@ -47,11 +47,11 @@
 }
 
 .amazing-gradient {
-    background: linear-gradient(90deg, #F45A0B, #FF6A1A);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    -webkit-text-fill-color: initial;
+    color: var(--accent-primary);
     display: inline-block;
 }
 
@@ -103,7 +103,7 @@
     100% { transform: scale(2.5); opacity: 0; }
 }
 
-/* RIGHT SIDE: GLASS CARDS */
+/* RIGHT SIDE: CARDS */
 .luxury-right {
     display: flex;
     flex-direction: column;
@@ -120,14 +120,14 @@
     align-items: center;
     padding: 24px 32px;
     background: var(--card-bg);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
     border: 1px solid var(--border-light);
     border-radius: 20px;
     text-decoration: none;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     box-shadow: var(--shadow-sm);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
 }
 
 .luxury-glass-card:hover {

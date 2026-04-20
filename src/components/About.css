@@ -33,9 +33,9 @@
     border: 1px solid rgba(244, 90, 11, 0.05) !important;
 }
 
-[data-theme="dark"] #who-i-am.about-section.intro-section {
-    background: rgba(255, 255, 255, 0.02) !important;
-    border-color: rgba(255, 255, 255, 0.03) !important;
+.dark #who-i-am.about-section.intro-section {
+    background: var(--bg-elevated) !important;
+    border-color: var(--border-light) !important;
 }
 
 #who-i-am .intro-grid {
@@ -159,13 +159,25 @@
     justify-content: center;
     background: linear-gradient(135deg, var(--accent-orange), #FF6A1A);
     border-radius: 8px;
-    padding: 6px;
+    padding: 0;
     color: white;
 }
 
 .tool-icon-box svg {
     width: 100%;
     height: 100%;
+}
+
+/* WordPress specific override for transparency and 100% sizing */
+.tool-item-compact:has(.about-wp-logo) .tool-icon-box {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important; /* Remove all padding */
+}
+
+.about-wp-logo {
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .tool-details-compact {
@@ -462,10 +474,11 @@
     background: rgba(216, 138, 5, 0.02);
     border-radius: 40px;
     margin-top: 50px;
+    overflow: visible !important;
 }
 
-[data-theme="dark"] .certifications-section {
-    background: rgba(216, 138, 5, 0.02);
+.dark .certifications-section {
+    background: var(--bg-secondary);
 }
 
 .cert-bg-decoration {
@@ -549,6 +562,14 @@
     background: var(--accent-orange);
     width: 30px;
     border-radius: 10px;
+}
+
+.dark .indicator-dot {
+    background: #333;
+}
+
+.dark .indicator-dot.active {
+    background: var(--accent-orange);
 }
 
 .cert-image-container {
@@ -726,20 +747,81 @@
         display: flex;
         justify-content: center;
         gap: 8px;
-        margin-top: 10px;
+        margin-top: 15px;
     }
 
     .mi-dot {
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
+        background: #444; /* Darker grey */
         transition: all 0.3s ease;
     }
 
     .mi-dot.active {
-        width: 20px;
-        border-radius: 10px;
-        background: rgba(244, 90, 11, 0.8);
+        background: var(--accent-orange);
+        transform: scale(1.2);
     }
+
+    /* MOBILE ARROWS */
+    .cert-mobile-arrow {
+        position: absolute;
+        top: 40%;
+        transform: translateY(-50%);
+        z-index: 20;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        border: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .cert-mobile-arrow:active {
+        transform: translateY(-50%) scale(0.9);
+        background: var(--accent-orange);
+    }
+
+    .cert-mobile-arrow.left { left: 5px; }
+    .cert-mobile-arrow.right { right: 5px; }
+}
+
+/* DARK MODE CLEANUP — NO SILVER, NO BLUR */
+.dark .about-page,
+.dark .modern-exp-section,
+.dark .certifications-section {
+    background: #050505 !important;
+    background-image: none !important;
+}
+
+.dark .edu-card,
+.dark .exp-glass-card,
+.dark .we-card-inner,
+.dark .cert-card.active-slide,
+.dark .cert-mobile-card {
+    background: #161616 !important; /* Ebonite - Level 2 */
+    border-color: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+.dark .section-header {
+    color: #FFFFFF !important;
+    text-shadow: none !important;
+}
+
+.dark .indicator-dot,
+.dark .mi-dot {
+    background: #333 !important;
+}
+
+.dark .indicator-dot.active,
+.dark .mi-dot.active {
+    background: var(--accent-orange) !important;
 }
