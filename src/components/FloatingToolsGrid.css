@@ -61,7 +61,7 @@
 .tool-card-inner {
     width: 56px;
     height: 56px;
-    background: #161616;
+    background: var(--bg-secondary);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     border-radius: 14px;
@@ -79,9 +79,9 @@
 }
 
 [data-theme="dark"] .tool-card-inner {
-    background: rgba(255, 255, 255, 0.03); /* Subtle Dark Glass */
+    background: var(--bg-elevated);
     border-color: rgba(255, 255, 255, 0.06);
-    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -92,12 +92,7 @@
 .logo-container-figma .tool-card-inner,
 .logo-container-wp .tool-card-inner,
 .logo-container-office .tool-card-inner {
-    background: transparent !important; /* Force complete transparency */
-    background-color: transparent !important;
     border-color: rgba(255, 255, 255, 0.15); /* Subtle glass border */
-    box-shadow: none !important;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
     padding: 0;
     display: flex !important;
     align-items: center !important;
@@ -112,22 +107,37 @@
 }
 
 /* WordPress Visibility Logic & Vibrancy Glow */
+.logo-container-wp img,
 .logo-container-wp .svg-logo,
+.logo-container-office img,
 .logo-container-office .svg-logo {
     width: 100% !important;
     height: 100% !important;
     filter: drop-shadow(0 0 5px rgba(33, 117, 155, 0.2));
-    transition: filter 0.4s ease;
+    transition: all 0.4s ease;
 }
 
+[data-theme="light"] .logo-container-wp img,
+[data-theme="light"] .logo-container-office img {
+    mix-blend-mode: multiply;
+    filter: contrast(1.1) brightness(1.05);
+}
+
+[data-theme="dark"] .logo-container-wp img,
 [data-theme="dark"] .logo-container-wp .svg-logo {
     filter: drop-shadow(0 0 12px rgba(33, 117, 155, 0.6)) brightness(1.1); /* Vibrant Blue Glow */
 }
 
 /* Microsoft Office Legibility */
+.logo-container-office img,
 .logo-container-office .svg-icon {
-    /* No white clipping mask - handled by transparent background */
+    /* No white clipping mask - handled by transparent background or blend mode */
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+}
+
+[data-theme="dark"] .logo-container-office img {
+    filter: invert(1) brightness(1.2) contrast(1.1);
+    mix-blend-mode: screen;
 }
 
 /* Consistency with Ai/Xd: they use labels, so we ensure the cards look unified */

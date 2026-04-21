@@ -26,13 +26,7 @@ const ToolIcon = ({ tool }) => {
         switch (tool.id) {
             case 'figma':
                 return (
-                    <svg width="40" height="40" viewBox="0 0 38 57" className="svg-icon svg-logo">
-                        <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/>
-                        <path d="M0 47.5a9.5 9.5 0 0 1 9.5-9.5H19v9.5a9.5 9.5 0 1 1-19 0z" fill="#0ACF83"/>
-                        <path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z" fill="#FF7262"/>
-                        <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/>
-                        <path d="M0 28.5a9.5 9.5 0 0 0 9.5 9.5H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/>
-                    </svg>
+                    <img src="/icons/figma.png" alt="Figma" className="svg-icon" />
                 );
             case 'unity':
                 return (
@@ -48,18 +42,11 @@ const ToolIcon = ({ tool }) => {
                 );
             case 'office':
                 return (
-                    <svg viewBox="-30 -30 320 320" className="svg-icon svg-logo microsoft-logo-adjust logo-microsoft-office" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M208.5 31.3L111.4 0L42.5 31.3V186.7L111.4 218L208.5 186.7V31.3Z" fill="#EB3C00"/>
-                        <path d="M111.4 53.6L42.5 84.9V186.7L111.4 218V53.6Z" fill="#FF4B00"/>
-                        <path d="M208.5 31.3L111.4 53.6V218L208.5 186.7V31.3Z" fill="#C43100"/>
-                        <path d="M256 71.4L111.4 53.6V218L256 256.4V71.4Z" fill="#F35325"/>
-                    </svg>
+                    <img src="/icons/microsoft.png" alt="Microsoft Office" className="svg-icon" />
                 );
             case 'wp':
                 return (
-                    <svg viewBox="-20 -20 300 300" className="svg-icon svg-logo wp-logo-adjust logo-wordpress" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="#21759B" d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zm0 245.5c-23.7 0-46-7.1-64.8-19.3l52.3-151.6 37.8 103.4c11.9-5.1 22.1-13.4 29.8-23.9L128 245.5zm-83-18.7c-33.1-19.2-57.1-51.4-65.7-89.2l62.2-17.1L61 226.8zm219.7-89.2c-8.6 37.8-32.6 70-65.7 89.2l19.5-106.3 46.2 17.1z"/>
-                    </svg>
+                    <img src="/icons/wordpress.png" alt="WordPress" className="svg-icon" />
                 );
             case 'unreal':
                 return (
