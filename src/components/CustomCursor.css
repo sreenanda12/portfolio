@@ -21,7 +21,7 @@ body:not(.touch-device) * {
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
+    transition: opacity 0.4s ease;
     will-change: transform;
 }
 
@@ -29,68 +29,115 @@ body:not(.touch-device) * {
     opacity: 1;
 }
 
+/* Breathing Glow Effect */
+.cursor-glow-bg {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #FF8C42;
+    opacity: 0.15;
+    filter: blur(15px);
+    animation: cursorBreathing 3s ease-in-out infinite;
+    transition: all 0.3s ease;
+    z-index: 0;
+}
+
+@keyframes cursorBreathing {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.15;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.25;
+    }
+}
+
+.cursor-unified-unit.is-hovering .cursor-glow-bg {
+    width: 60px;
+    height: 60px;
+    opacity: 0.3;
+    filter: blur(20px);
+}
+
+/* Velocity Container - Handles rotation and stretch from JS */
+.cursor-velocity-ring {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    /* Transform is injected via JS */
+}
+
 /* The Subtle Ring */
 .cursor-ring {
     position: absolute;
     width: 40px;
     height: 40px;
-    border: 1.5px solid var(--accent-primary);
+    border: 1.5px solid #FF8C42;
     border-radius: 50%;
-    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-    box-shadow: 0 0 10px rgba(244, 90, 11, 0.1);
+    transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+    box-shadow: 0 0 10px rgba(255, 140, 66, 0.15);
 }
 
 /* Hover Scaling */
 .cursor-unified-unit.is-hovering .cursor-ring {
-    width: 55px;
-    height: 55px;
-    border-color: var(--accent-hover);
-    background: rgba(244, 90, 11, 0.05);
-    box-shadow: 0 0 20px rgba(244, 90, 11, 0.2);
+    width: 46px; /* 40 * 1.15 = 46 */
+    height: 46px;
+    border-color: #FFA266;
+    background: rgba(255, 140, 66, 0.05);
+    box-shadow: 0 0 20px rgba(255, 140, 66, 0.25);
 }
 
 /* Inner Arrow - Always Centered */
 .cursor-arrow {
     position: relative;
     z-index: 2;
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
 .cursor-unified-unit.is-hovering .cursor-arrow {
     transform: scale(1.15);
 }
 
-/* Click Animation Rule 1: Ring Scale Down */
+/* Click Animation: Quick Scale Down on Ring */
 .cursor-unified-unit.is-clicking .cursor-ring {
-    transform: scale(0.85);
+    transform: scale(0.9);
     border-width: 2.5px;
 }
 
-/* Click Animation Rule 2: Glow Burst */
-.cursor-glow-burst {
-    position: absolute;
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
+.cursor-unified-unit.is-clicking .cursor-arrow {
+    transform: scale(0.9);
+}
+
+/* Water Ripple Click Effect */
+.cursor-water-ripple {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    margin-top: -5px;
+    margin-left: -5px;
+    border: 1.5px solid #FF8C42;
     border-radius: 50%;
-    opacity: 0;
     pointer-events: none;
+    z-index: 999998;
+    animation: waterRipple 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-.cursor-unified-unit.is-clicking .cursor-glow-burst {
-    animation: clickBurstEffect 0.4s ease-out forwards;
-}
-
-@keyframes clickBurstEffect {
+@keyframes waterRipple {
     0% {
-        width: 10px;
-        height: 10px;
+        transform: scale(1);
         opacity: 0.8;
+        border-width: 2px;
     }
     100% {
-        width: 100px;
-        height: 100px;
+        transform: scale(8);
         opacity: 0;
+        border-width: 0px;
     }
 }
 
@@ -99,12 +146,14 @@ body:not(.touch-device) * {
     cursor: auto !important;
 }
 
-.touch-device .cursor-unified-unit {
+.touch-device .cursor-unified-unit,
+.touch-device .cursor-water-ripple {
     display: none !important;
 }
 
 @media (max-width: 768px) {
-    .cursor-unified-unit {
+    .cursor-unified-unit,
+    .cursor-water-ripple {
         display: none !important;
     }
     * {

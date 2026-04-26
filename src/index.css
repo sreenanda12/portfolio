@@ -446,19 +446,24 @@ button,
 }
 
 .card {
+  position: relative;
+  z-index: 1;
   background-color: var(--card-bg);
   border-radius: 16px;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
+  transition: all 0.3s ease;
+  overflow: visible;
+  /* Prevent clipping */
   border: 1px solid var(--border-light);
-  will-change: transform, box-shadow;
-  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-hover);
+  transform: scale(1.015);
+  z-index: 20;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] .card {
@@ -469,7 +474,7 @@ button,
 }
 
 [data-theme="dark"] .card:hover {
-  box-shadow: var(--shadow-hover), var(--shadow-glow-hover);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), var(--shadow-glow-hover);
   border-color: rgba(216, 138, 5, 0.2);
 }
 

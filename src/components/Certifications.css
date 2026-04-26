@@ -101,18 +101,29 @@
     max-width: 600px;
     background: #161616; /* Ebonite - Level 2 */
     border-radius: 20px;
-    overflow: hidden;
+    overflow: visible;
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
 }
 
-/* IMAGE AREA */
+.cert-premium-card:hover {
+    transform: scale(1.015);
+    z-index: 20;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
 .cert-premium-image-wrap {
     position: relative;
     aspect-ratio: 4 / 3;
     overflow: hidden;
     background: #0a0a0a;
+    border-radius: inherit;
 }
 
 .cert-premium-image-wrap img {
@@ -170,6 +181,7 @@
     background: #1D1D1F;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     text-align: center;
+    border-radius: 0 0 20px 20px;
 }
 
 .cert-premium-issuer {

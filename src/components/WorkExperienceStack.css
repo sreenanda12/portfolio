@@ -3,7 +3,8 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    padding: 2rem 0;
+    padding: 30px;
+    gap: 32px;
     width: 100%;
     overflow: visible !important;
 }
@@ -11,11 +12,16 @@
 .we-card-wrapper {
     position: relative;
     width: 100%;
-    margin-top: -30px;
     transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
     cursor: pointer;
     perspective: 1000px;
     overflow: visible !important;
+    z-index: 1;
+}
+
+.we-card-wrapper:hover,
+.we-card-wrapper.we-active {
+    z-index: 20;
 }
 
 .we-card-wrapper:first-child {
@@ -26,12 +32,20 @@
     position: relative;
     background: var(--card-bg);
     border-radius: 16px;
-    padding: 2.5rem;
+    padding: 0;
     box-shadow: var(--shadow-sm);
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
-    overflow: visible !important;
-    will-change: transform, opacity;
+    transition: all 0.3s ease;
+    overflow: visible;
+    will-change: transform;
     backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.we-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 2.5rem;
+    border-radius: inherit;
 }
 
 /* PREMIUM BORDER FIX */
@@ -39,7 +53,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    border-radius: 16px;
+    border-radius: inherit;
     padding: 1.5px;
     background: var(--accent-primary);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -48,7 +62,7 @@
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s ease;
-    z-index: 2;
+    z-index: 1;
 }
 
 .we-card-wrapper:hover .we-card-inner::before,
@@ -60,8 +74,8 @@
 .we-card-wrapper:hover .we-card-inner,
 .we-card-wrapper:active .we-card-inner,
 .we-card-wrapper.we-active .we-card-inner {
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 10px 30px rgba(255, 140, 66, 0.15);
+    transform: scale(1.015);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
 .we-company {
@@ -155,7 +169,7 @@
 }
 
 @media screen and (max-width: 767px) {
-    .we-card-inner {
+    .we-card-content {
         padding: 1.5rem;
     }
 }

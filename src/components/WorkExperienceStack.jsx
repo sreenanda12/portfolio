@@ -62,17 +62,19 @@ const WorkExperienceStack = ({ experiences }) => {
                         style={{ '--idx': idx }}
                     >
                         <div className="we-card-inner card">
-                            <h4 className="we-company">{exp.company}</h4>
-                            <p className="we-date">{exp.date}</p>
+                            <div className="we-card-content">
+                                <h4 className="we-company">{exp.company}</h4>
+                                <p className="we-date">{exp.date}</p>
 
-                            <div className="we-preview">
-                                {exp.roles.map((role, rIdx) => (
-                                    <div key={rIdx} className="we-role-preview">
-                                        <h5>{role.title}</h5>
-                                    </div>
-                                ))}
+                                <div className="we-preview">
+                                    {exp.roles.map((role, rIdx) => (
+                                        <div key={rIdx} className="we-role-preview">
+                                            <h5>{role.title}</h5>
+                                        </div>
+                                    ))}
+                                </div>
+                                <span className="we-click-text">Click to view details</span>
                             </div>
-                            <span className="we-click-text">Click to view details</span>
                         </div>
                     </div>
                 )

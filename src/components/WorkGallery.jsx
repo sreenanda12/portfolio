@@ -116,16 +116,11 @@ const WorkGallery = ({ fullView = false, title = "Portfolio" }) => {
                                     {cat}
                                     {activeFilter === cat && (
                                         <motion.div 
-                                            layoutId="activeDot"
-                                            className="active-dot-indicator"
-                                            initial={{ scale: 0, opacity: 0 }}
-                                            animate={{ scale: 1, opacity: 1 }}
-                                            transition={{ 
-                                                type: "spring", 
-                                                stiffness: 500, 
-                                                damping: 30,
-                                                mass: 0.8
-                                            }}
+                                            layoutId="activeUnderline"
+                                            className="active-underline-indicator"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            transition={{ duration: 0.35, ease: "circOut" }}
                                         />
                                     )}
                                 </button>
@@ -161,20 +156,18 @@ const WorkGallery = ({ fullView = false, title = "Portfolio" }) => {
                                             className={`filter-marquee-pill ${activeFilter === functionalCat ? 'active' : ''}`}
                                             onClick={() => handleFilterClick(functionalCat, false)}
                                         >
-                                            <span className="cat-text">{label}</span>
-                                            {activeFilter === functionalCat && (
-                                                <motion.div 
-                                                    layoutId="activeDotMobile"
-                                                    className="active-dot-indicator"
-                                                    initial={{ scale: 0, opacity: 0 }}
-                                                    animate={{ scale: 1, opacity: 1 }}
-                                                    transition={{ 
-                                                        type: "spring", 
-                                                        stiffness: 500, 
-                                                        damping: 30
-                                                    }}
-                                                />
-                                            )}
+                                            <span className="cat-text">
+                                                {label}
+                                                {activeFilter === functionalCat && (
+                                                    <motion.div 
+                                                        layoutId="activeUnderlineMobile"
+                                                        className="active-underline-indicator-mobile"
+                                                        initial={{ opacity: 0 }}
+                                                        animate={{ opacity: 1 }}
+                                                        transition={{ duration: 0.35, ease: "circOut" }}
+                                                    />
+                                                )}
+                                            </span>
                                         </button>
                                     );
                                 })}
@@ -184,7 +177,7 @@ const WorkGallery = ({ fullView = false, title = "Portfolio" }) => {
                 </div>
             </div>
 
-            <div className="container" style={{ marginTop: '4rem' }}>
+            <div className="container" style={{ marginTop: '1rem' }}>
                 <div className="gallery-grid-wrapper">
                     <motion.div 
                         className="gallery-responsive-grid-premium"

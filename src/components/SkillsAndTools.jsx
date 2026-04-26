@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useSpring, animate } from 'framer-motion';
 import './SkillsAndTools.css';
 
 const toolsList = [
@@ -27,10 +27,10 @@ const skillsChips = [
 ];
 
 const languagesList = [
-    { name: 'English', level: 98 },
-    { name: 'Malayalam', level: 95 },
-    { name: 'Hindi', level: 90 },
-    { name: 'Arabic', level: 94 }
+    { name: 'English', level: 90 },
+    { name: 'Malayalam', level: 100 },
+    { name: 'Hindi', level: 80 },
+    { name: 'Arabic', level: 50 }
 ];
 
 const SectionTitle = ({ children }) => (
@@ -41,33 +41,48 @@ const SectionTitle = ({ children }) => (
 );
 
 const LanguageCard = ({ name, level, index }) => {
+    const [isHovered, setIsHovered] = useState(false);
+    const [count, setCount] = useState(0);
+    const [isInView, setIsInView] = useState(false);
+
+    // Counting effect
+    useEffect(() => {
+        if (isInView) {
+            const controls = animate(0, level, {
+                duration: 1.5,
+                delay: 0.1 + (index * 0.15),
+                ease: "easeOut",
+                onUpdate: (value) => setCount(Math.round(value))
+            });
+            return () => controls.stop();
+        }
+    }, [isInView, level, index]);
+
     return (
         <motion.div 
-            className="st-lang-card interactive"
-            initial={{ opacity: 0, y: 15 }}
+            className="st-lang-card-wrapper"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -5 }}
-            transition={{ duration: 0.6, delay: index * 0.1, ease: [0.2, 0.8, 0.2, 1] }}
-            style={{ willChange: 'transform' }}
+            viewport={{ once: true, amount: 0.5 }}
+            onViewportEnter={() => setIsInView(true)}
+            transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
         >
-            <div className="st-lang-header">
-                <div className="st-lang-info">
+            <div className={`st-lang-card ${isHovered ? 'hovered' : ''}`}>
+                <div className="st-lang-header">
                     <span className="st-lang-name">{name}</span>
-                    <span className="st-lang-percent">{level}%</span>
+                    <span className="st-lang-percent">{count}%</span>
                 </div>
-            </div>
-            <div className="st-lang-progress-container">
-                <motion.div 
-                    className="st-lang-progress-fill"
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${level}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.5, delay: 0.2, ease: [0.2, 0.8, 0.2, 1] }}
-                >
-                    <div className="st-bar-glow"></div>
-                    <div className="st-bar-shimmer"></div>
-                </motion.div>
+                
+                <div className="st-lang-progress-container">
+                    <motion.div 
+                        className={`st-lang-progress-fill ${isHovered ? 'hover-highlight' : ''}`}
+                        initial={{ width: 0 }}
+                        animate={isInView ? { width: `${level}%` } : {}}
+                        transition={{ duration: 1.5, delay: 0.1 + (index * 0.15), ease: "easeOut" }}
+                    />
+                </div>
             </div>
         </motion.div>
     );

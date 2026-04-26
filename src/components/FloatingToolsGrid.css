@@ -48,9 +48,13 @@
     position: relative;
     transform: scale(var(--layer-scale));
     opacity: var(--layer-opacity);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                opacity 0.4s ease;
+    transition: transform 0.3s ease, opacity 0.4s ease;
     will-change: transform, opacity;
+    z-index: 1;
+}
+
+.tool-card-outer:hover {
+    z-index: 20;
 }
 
 /* Breathing Scale Effect for Front Layer */
@@ -73,9 +77,12 @@
                 inset 0 1px 1px rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
-    overflow: hidden;
+    overflow: visible;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 [data-theme="dark"] .tool-card-inner {
@@ -97,7 +104,8 @@
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    overflow: visible !important; /* Prevent clipping */
+    overflow: hidden !important; /* Fix clipping */
+    border-radius: inherit;
 }
 
 /* Ensure no checkerboard artifacts or lingering boxes */
@@ -163,8 +171,8 @@
 
 /* Hover Interaction */
 .tool-card-outer:hover .tool-card-inner {
-    transform: scale(1.08);
-    box-shadow: 0 15px 35px -8px rgba(0, 0, 0, 0.15);
+    transform: scale(1.015);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     border-color: var(--tool-color);
 }
 
