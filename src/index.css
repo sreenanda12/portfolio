@@ -72,7 +72,7 @@ body {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   touch-action: auto;
-  overflow-x: hidden;
+  overflow: visible !important;
   width: 100%;
   -webkit-font-smoothing: antialiased;
   scrollbar-width: none !important;
@@ -99,12 +99,17 @@ body {
   color: var(--text-primary);
   transition: background 0.3s ease, color 0.3s ease;
   /* 0.3s transition as requested */
-  overflow-x: hidden;
+  overflow: visible !important;
   width: 100%;
   text-rendering: optimizeLegibility;
 }
 
 /* GPU Acceleration for animated elements */
+#root,
+.app-container {
+    overflow: visible !important;
+}
+
 .gallery-section,
 .premium-card,
 .we-card-inner,
