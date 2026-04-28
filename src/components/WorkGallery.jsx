@@ -84,7 +84,7 @@ export const projects = [
         tag: 'Web Development', 
         description: 'Corporate website for a global management group in UAE.', 
         tint: 'pink', 
-        img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800',
+        img: '/phoenix.jpeg',
         url: 'https://phoenixgmuae.com/'
     },
     { 
@@ -94,7 +94,7 @@ export const projects = [
         tag: 'Web Development', 
         description: 'E-commerce and portfolio site for interior decor services.', 
         tint: 'yellow', 
-        img: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=800',
+        img: '/saaline.jpeg',
         url: 'https://saalinedecor.ae/home/'
     },
     { 
@@ -104,7 +104,7 @@ export const projects = [
         tag: 'Web Development', 
         description: 'Online store for luxury gifts and traditional products.', 
         tint: 'green', 
-        img: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=800',
+        img: '/saadal.jpeg',
         url: 'https://saadalbarakat.com/home/'
     },
     { 
@@ -114,7 +114,7 @@ export const projects = [
         tag: 'Web Development', 
         description: 'Professional cleaning services platform in the UAE.', 
         tint: 'purple', 
-        img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
+        img: '/mazreen.jpeg',
         url: 'https://mazreencgm.com/'
     },
     { 
@@ -124,7 +124,7 @@ export const projects = [
         tag: 'Web Development', 
         description: 'Educational portal for Indo-Arab academic services.', 
         tint: 'pink', 
-        img: 'https://images.unsplash.com/photo-1558002038-103790319658?auto=format&fit=crop&q=80&w=800',
+        img: '/indoarab.jpeg',
         url: 'https://indoarabschool.com/'
     },
     { 
@@ -134,7 +134,7 @@ export const projects = [
         tag: 'Web Development', 
         description: 'Technology and data management solutions website.', 
         tint: 'yellow', 
-        img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800',
+        img: '/hyzindata.jpeg',
         url: 'https://hyzindatasystems.com/'
     },
     { 
@@ -144,7 +144,7 @@ export const projects = [
         tag: 'Web Development', 
         description: 'Multi-vertical business group corporate platform.', 
         tint: 'green', 
-        img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800',
+        img: '/multysense.jpeg',
         url: 'https://multysensegroup.com/'
     },
     { 
@@ -154,7 +154,7 @@ export const projects = [
         tag: 'Web Development', 
         description: 'Non-profit organization platform for social initiatives.', 
         tint: 'purple', 
-        img: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=800',
+        img: '/multysense.jpeg',
         url: 'https://multysense.org/'
     },
 ];
