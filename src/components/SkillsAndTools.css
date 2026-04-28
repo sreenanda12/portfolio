@@ -100,10 +100,6 @@
     color: var(--text-primary);
 }
 
-/* ═══════════════════════════════════════════════════════
-   PREMIUM LOGO REFINEMENT (WordPress, Microsoft)
-   ═══════════════════════════════════════════════════════ */
-
 /* Remove white backgrounds and match theme colors */
 .st-tool-png-icon[alt*="WordPress"],
 .st-tool-png-icon[alt*="Microsoft"] {
@@ -111,20 +107,6 @@
     height: 100%;
     object-fit: contain;
     transition: all 0.4s ease;
-}
-
-/* Light Mode: Use multiply to remove white backgrounds from PNGs */
-[data-theme="light"] .st-tool-png-icon[alt*="WordPress"],
-[data-theme="light"] .st-tool-png-icon[alt*="Microsoft"] {
-    mix-blend-mode: multiply;
-    filter: contrast(1.1) brightness(1.05);
-}
-
-/* Dark Mode: Invert and screen to remove white backgrounds on dark matte */
-[data-theme="dark"] .st-tool-png-icon[alt*="WordPress"],
-[data-theme="dark"] .st-tool-png-icon[alt*="Microsoft"] {
-    filter: invert(1) brightness(1.2) contrast(1.1);
-    mix-blend-mode: screen;
 }
 
 /* PROGRESS BAR */

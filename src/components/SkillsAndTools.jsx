@@ -23,7 +23,8 @@ const toolsList = [
 ];
 
 const skillsChips = [
-    "Designing", "✏️ Sketching", "🧠 Learning", "🤝 Teamwork", "🧩 Problem Solving", "💡 Creativity", "🖌 Logo Designing", "📈 Digital Marketing"
+    "Designing", "✏️ Sketching", "🧠 Learning", "🤝 Teamwork", "🧩 Problem Solving", "💡 Creativity", "🖌 Logo Designing", "📈 Digital Marketing",
+    "🧩 Wireframing", "⚡ Prototyping", "📱 Responsive Design", "🔍 User Research"
 ];
 
 const languagesList = [

@@ -541,3 +541,28 @@ button,
     transform: translateY(-3px);
   }
 }
+
+/* ═══════════════════════════════════════════════════════
+   LOGO COLOR CONSISTENCY (Global)
+   ═══════════════════════════════════════════════════════ */
+/* Ensure all tool icons/logos retain original brand colors in all modes */
+.st-tool-card img,
+.st-tool-card svg,
+.tool-card-inner img,
+.tool-card-inner svg,
+.hero-icons img,
+.hero-icons svg,
+.tools img,
+.tools svg {
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+}
+
+/* Explicit mode exclusion to prevent any color shifts */
+[data-theme="dark"] .st-tool-card img,
+[data-theme="light"] .st-tool-card img,
+.dark .tools img,
+.light .tools img {
+  filter: none !important;
+}

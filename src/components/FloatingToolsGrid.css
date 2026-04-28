@@ -114,38 +114,23 @@
     display: none !important;
 }
 
-/* WordPress Visibility Logic & Vibrancy Glow */
+/* WordPress and Office Icon sizing */
 .logo-container-wp img,
 .logo-container-wp .svg-logo,
 .logo-container-office img,
 .logo-container-office .svg-logo {
     width: 100% !important;
     height: 100% !important;
-    filter: drop-shadow(0 0 5px rgba(33, 117, 155, 0.2));
     transition: all 0.4s ease;
-}
-
-[data-theme="light"] .logo-container-wp img,
-[data-theme="light"] .logo-container-office img {
-    mix-blend-mode: multiply;
-    filter: contrast(1.1) brightness(1.05);
-}
-
-[data-theme="dark"] .logo-container-wp img,
-[data-theme="dark"] .logo-container-wp .svg-logo {
-    filter: drop-shadow(0 0 12px rgba(33, 117, 155, 0.6)) brightness(1.1); /* Vibrant Blue Glow */
+    filter: none !important;
+    mix-blend-mode: normal !important;
 }
 
 /* Microsoft Office Legibility */
 .logo-container-office img,
 .logo-container-office .svg-icon {
     /* No white clipping mask - handled by transparent background or blend mode */
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
-}
-
-[data-theme="dark"] .logo-container-office img {
-    filter: invert(1) brightness(1.2) contrast(1.1);
-    mix-blend-mode: screen;
+    filter: none !important;
 }
 
 /* Consistency with Ai/Xd: they use labels, so we ensure the cards look unified */
