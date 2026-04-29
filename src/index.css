@@ -72,8 +72,10 @@ body {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   touch-action: auto;
-  overflow: visible !important;
+  overflow-x: clip; /* Prevent horizontal movement without breaking sticky */
   width: 100%;
+  max-width: 100%;
+  position: relative;
   -webkit-font-smoothing: antialiased;
   scrollbar-width: none !important;
   /* Firefox */
@@ -93,21 +95,34 @@ body {
   scrollbar-width: none !important;
 }
 
+section, 
+div, 
+main, 
+header, 
+footer, 
+nav {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 body {
   font-family: var(--font-primary);
   background: var(--app-bg);
   color: var(--text-primary);
   transition: background 0.3s ease, color 0.3s ease;
-  /* 0.3s transition as requested */
-  overflow: visible !important;
+  overflow-x: clip;
   width: 100%;
+  margin: 0;
+  padding: 0;
   text-rendering: optimizeLegibility;
 }
 
 /* GPU Acceleration for animated elements */
 #root,
 .app-container {
-    overflow: visible !important;
+    overflow-x: clip;
+    width: 100%;
+    position: relative;
 }
 
 .gallery-section,
@@ -117,9 +132,22 @@ body {
 .st-tool-card,
 .cert-mobile-card,
 .hero-content,
-.section-header-component {
+.section-header-component,
+.floating-icons,
+.hero-icons,
+.cursor-effect {
   backface-visibility: hidden;
   will-change: transform, opacity;
+  max-width: 100%;
+  overflow: visible; /* Changed from hidden to allow sticky children */
+}
+
+img, 
+video, 
+canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 h1,
@@ -545,7 +573,9 @@ button,
 /* ═══════════════════════════════════════════════════════
    LOGO COLOR CONSISTENCY (Global)
    ═══════════════════════════════════════════════════════ */
-/* Ensure all tool icons/logos retain original brand colors in all modes */
+/* 1. Remove all filters/mix-blend-modes from images globally to preserve brand colors */
+img, 
+svg,
 .st-tool-card img,
 .st-tool-card svg,
 .tool-card-inner img,
@@ -559,10 +589,29 @@ button,
   opacity: 1 !important;
 }
 
-/* Explicit mode exclusion to prevent any color shifts */
+/* 2. Explicitly override dark mode styles to prevent any color distortion */
+.dark img,
+.dark svg,
+[data-theme="dark"] img,
+[data-theme="dark"] svg,
 [data-theme="dark"] .st-tool-card img,
 [data-theme="light"] .st-tool-card img,
 .dark .tools img,
 .light .tools img {
   filter: none !important;
-}
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+}
+
+/* 3. Tool icon box styling (keep premium dark UI look while preserving logo colors) */
+.tools .icon-box,
+.st-card-icon {
+  background: rgba(255, 255, 255, 0.05) !important; 
+  border: 1px solid rgba(255, 122, 24, 0.4) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 12px !important;
+  padding: 8px !important;
+}
+

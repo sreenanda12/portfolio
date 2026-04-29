@@ -20,11 +20,11 @@ const ToolIcon = ({ name }) => {
         case 'Figma':
             return (
                 <svg width="40" height="40" viewBox="0 0 38 57" className="tool-3d-icon svg-logo">
-                    <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/>
-                    <path d="M0 47.5a9.5 9.5 0 0 1 9.5-9.5H19v9.5a9.5 9.5 0 1 1-19 0z" fill="#0ACF83"/>
-                    <path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z" fill="#FF7262"/>
-                    <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/>
-                    <path d="M0 28.5a9.5 9.5 0 0 0 9.5 9.5H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/>
+                    <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE" />
+                    <path d="M0 47.5a9.5 9.5 0 0 1 9.5-9.5H19v9.5a9.5 9.5 0 1 1-19 0z" fill="#0ACF83" />
+                    <path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z" fill="#FF7262" />
+                    <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E" />
+                    <path d="M0 28.5a9.5 9.5 0 0 0 9.5 9.5H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF" />
                 </svg>
             );
         default:
@@ -32,25 +32,25 @@ const ToolIcon = ({ name }) => {
     }
 };
 
-const ToolCard = ({ tool, index }) => {
+const ToolCard = ({ tool, index, isFirstRow }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     const cardVariants = {
         hidden: { opacity: 0, y: 40, scale: 0.9 },
-        visible: { 
-            opacity: 1, 
-            y: 0, 
+        visible: {
+            opacity: 1,
+            y: 0,
             scale: 1,
-            transition: { 
-                duration: 0.6, 
+            transition: {
+                duration: 0.6,
                 ease: "easeOut",
-                delay: index * 0.05 
+                delay: index * 0.05
             }
         }
     };
 
     return (
-        <motion.div 
+        <motion.div
             className="tool-3d-card-wrapper"
             initial="hidden"
             whileInView="visible"
@@ -69,15 +69,15 @@ const ToolCard = ({ tool, index }) => {
                 )}
                 <div className="tool-3d-glow"></div>
             </div>
-            
+
             <AnimatePresence>
                 {isHovered && (
-                    <motion.span 
-                        className="tool-3d-name"
-                        initial={{ opacity: 0, y: 5 }}
+                    <motion.span
+                        className={`tool-3d-name ${isFirstRow ? 'first-row-label' : ''}`}
+                        initial={{ opacity: 0, y: isFirstRow ? 10 : 5 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 5 }}
-                        transition={{ duration: 0.2 }}
+                        exit={{ opacity: 0, y: isFirstRow ? 10 : 5 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
                     >
                         {tool.name}
                     </motion.span>
@@ -140,10 +140,11 @@ const ToolGrid3D = ({ isHero = false }) => {
                 {rows.map((row, rowIndex) => (
                     <div className="hero-3d-grid-row" key={rowIndex}>
                         {row.map((tool, i) => (
-                            <ToolCard 
-                                key={tool.name} 
-                                tool={tool} 
-                                index={rowIndex * 5 + i} 
+                            <ToolCard
+                                key={tool.name}
+                                tool={tool}
+                                index={rowIndex * 5 + i}
+                                isFirstRow={rowIndex === 0}
                             />
                         ))}
                     </div>

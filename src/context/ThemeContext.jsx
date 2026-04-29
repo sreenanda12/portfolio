@@ -10,9 +10,11 @@ export const ThemeProvider = ({ children }) => {
         setTheme(savedTheme);
         if (savedTheme === 'dark') {
             document.body.classList.add('dark');
+            document.body.classList.remove('light');
             document.body.setAttribute('data-theme', 'dark');
         } else {
             document.body.classList.remove('dark');
+            document.body.classList.add('light');
             document.body.setAttribute('data-theme', 'light');
         }
     }, []);
@@ -24,9 +26,11 @@ export const ThemeProvider = ({ children }) => {
         
         if (newTheme === 'dark') {
             document.body.classList.add('dark');
+            document.body.classList.remove('light');
             document.body.setAttribute('data-theme', 'dark');
         } else {
             document.body.classList.remove('dark');
+            document.body.classList.add('light');
             document.body.setAttribute('data-theme', 'light');
         }
     };

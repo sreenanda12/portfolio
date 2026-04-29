@@ -29,8 +29,8 @@
 }
 
 .hero-content {
-    flex: 1;
-    max-width: 700px;
+    flex: 1.2;
+    max-width: 800px;
 }
 
 .hero-title {
@@ -102,11 +102,11 @@
     z-index: 100;
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Align grid to the right */
+    justify-content: center; /* Balanced centering */
     padding: 20px;
-    margin-top: 180px; /* Moved significantly lower */
+    margin-top: 180px; 
     align-self: center; 
-    overflow: visible;
+    overflow: hidden; 
     will-change: transform, opacity;
 }
 

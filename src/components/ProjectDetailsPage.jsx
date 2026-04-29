@@ -65,7 +65,8 @@ const ProjectDetailsPage = () => {
                         transition={{ duration: 0.8, delay: 0.4 }}
                     >
                         <h3>Project Overview</h3>
-                        <p>This project showcases a deep immersion into the world of creative problem-solving. Through iterative design cycles and user-centric focus, I transformed complex requirements into a visual narrative that resonates with the target audience. The goal was to elevate brand presence while ensuring a seamless, intuitive experience across all touchpoints.</p>
+                        <p>{project.description}</p>
+                        <p>Through iterative design cycles and user-centric focus, I transformed complex requirements into a visual narrative that resonates with the target audience. The goal was to elevate brand presence while ensuring a seamless, intuitive experience across all touchpoints.</p>
                         <p>Leveraging modern tools and a minimalist aesthetic, we focused on high-density details and refined typography to deliver a product that feels both premium and timeless.</p>
                     </motion.div>
 
@@ -96,13 +97,22 @@ const ProjectDetailsPage = () => {
                                 <strong>Innovative Digital Solutions</strong>
                             </div>
                         </div>
-                        <div className="spec-item">
-                            <ExternalLink size={20} className="spec-icon" />
-                            <div className="spec-text">
-                                <span>Live Demo</span>
-                                <a href="#" target="_blank" rel="noopener noreferrer">Visit Website</a>
+                        {(project.url || project.pdf) && (
+                            <div className="spec-item">
+                                <ExternalLink size={20} className="spec-icon" />
+                                <div className="spec-text">
+                                    <span>{project.url ? 'Live Demo' : 'Download'}</span>
+                                    <a 
+                                        href={project.url || project.pdf} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        download={project.pdf ? true : undefined}
+                                    >
+                                        {project.url ? 'Visit Website' : 'Download Work'}
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </motion.div>
                 </div>
             </main>

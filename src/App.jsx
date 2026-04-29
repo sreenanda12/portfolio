@@ -19,6 +19,7 @@ import ProjectDetailsPage from './components/ProjectDetailsPage';
 import SectionHeader from './components/SectionHeader';
 import AllCertificationsPage from './components/AllCertificationsPage';
 import CertificateViewerPage from './components/CertificateViewerPage';
+import WorkViewerPage from './components/WorkViewerPage';
 
 function PortfolioMain() {
     return (
@@ -66,6 +67,8 @@ function App() {
                     <Route path="/project/:id" element={<ProjectDetailsPage />} />
                     <Route path="/certifications" element={<AllCertificationsPage />} />
                     <Route path="/certificate-view/:id" element={<CertificateViewerPage />} />
+                    <Route path="/view-work/:id" element={<WorkViewerPage />} />
+                    <Route path="/cv-viewer" element={<WorkViewerPage customUrl="/cv.pdf" customTitle="My Resume" />} />
                 </Routes>
             </HashRouter>
         </ThemeProvider>

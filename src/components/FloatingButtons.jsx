@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Download, Eye } from 'lucide-react';
 import { Link } from 'react-scroll';
+import { Link as RouterLink } from 'react-router-dom';
 import './FloatingButtons.css';
 
 const FloatingButtons = () => {
@@ -56,10 +57,10 @@ const FloatingButtons = () => {
                         <h3 className="modal-title">My Resume</h3>
 
                         <div className="pdf-actions">
-                            <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" className="btn view-cv-btn">
+                            <RouterLink to="/cv-viewer" className="btn view-cv-btn" onClick={() => setShowModal(false)}>
                                 <Eye size={18} />
                                 View CV
-                            </a>
+                            </RouterLink>
                             <a href="/cv.pdf" download className="btn download-cv-btn">
                                 <Download size={18} />
                                 Download PDF

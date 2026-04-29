@@ -1,6 +1,6 @@
 /* PREMIUM MINIMAL PORTFOLIO GALLERY - V5 LUXURY */
 .gallery-section {
-    padding: 20px 5%;
+    padding: 20px 0; /* Vertical padding only */
     margin: 0;
     background: var(--bg-primary);
     width: 100%;
@@ -10,7 +10,7 @@
 
 @media screen and (max-width: 767px) {
     .gallery-section {
-        padding: 15px 8%; 
+        padding: 15px 0; /* Vertical padding only */
         margin: 0;
     }
 }
@@ -74,17 +74,23 @@
 
 .gallery-filters-area {
     background: var(--bg-secondary);
-    padding: 10px 0;
-    position: sticky;
-    top: 65px; /* Accounts for the main fixed navbar */
-    z-index: 100;
-    transition: box-shadow 0.3s ease;
+    padding: 8px 0; /* Reduced padding for compact look */
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 80px; /* Sits below desktop navbar */
+    z-index: 9995;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid var(--border-light);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
 }
 
 [data-theme="dark"] .gallery-filters-area {
-    background: #1f1f1f !important;
-    border-bottom: 1px solid #2a2a2a !important;
-    border-top: 1px solid #2a2a2a !important;
+    background: #0f172a !important; /* Specific dark mode background as requested */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
 .gallery-filters-scroll-wrap {
@@ -100,11 +106,13 @@
 .gallery-filters {
     display: flex;
     justify-content: center;
-    gap: 3.5rem;
+    gap: 12px; /* Reduced gap as requested (8px-12px) */
     flex-wrap: wrap;
     position: relative;
     z-index: 1;
     transition: all 0.3s ease;
+    width: 100%;
+    padding: 0 1rem;
 }
 
 .filter-btn-premium {
@@ -184,34 +192,10 @@
 
 @media screen and (max-width: 768px) {
     .gallery-filters-area {
-        position: -webkit-sticky !important;
-        position: sticky !important;
-        top: 60px !important;
-        z-index: 9995 !important;
-        background: rgba(255, 255, 255, 0.85) !important;
-        backdrop-filter: blur(10px) !important;
-        -webkit-backdrop-filter: blur(10px) !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 12px 0 !important;
-        display: flex !important;
-        justify-content: center !important;
-        border-bottom: 1px solid var(--border-light) !important;
-        transition: all 0.3s ease;
+        top: 70px !important; /* Sits below mobile navbar */
+        padding: 6px 0 !important; /* Even more compact on mobile */
     }
     
-    [data-theme="dark"] .gallery-filters-area {
-        background: rgba(31, 31, 31, 0.9) !important;
-        border-bottom-color: #2a2a2a !important;
-    }
-
-    .gallery-filters-area .container {
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
-
     .gallery-filters-scroll-wrap {
         background: transparent;
         backdrop-filter: none;
@@ -219,10 +203,10 @@
         padding: 0;
         border-radius: 0;
         box-shadow: none;
-        width: auto;
-        max-width: 100vw;
+        width: 100%;
         display: flex;
         align-items: center;
+        justify-content: center;
     }
 }
 
@@ -244,9 +228,9 @@
 
 .marquee-track {
     display: flex;
-    gap: 0.8rem;
+    gap: 8px; /* Small gap as requested */
     width: max-content;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
     pointer-events: auto;
     overflow: visible;
 }
@@ -424,6 +408,9 @@
 .reveal-description { font-size: 0.85rem; color: #FFFFFF; opacity: 0.85; margin: 0 0 1.2rem; max-width: 320px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: 500; }
 .reveal-view-btn { margin-top: 0; padding: 0.7rem 2rem; background: #FFFFFF; color: #111827; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; border-radius: 999px; border: none; cursor: pointer; transition: all 0.4s ease; text-decoration: none; display: inline-block; }
 .reveal-view-btn:hover { transform: translateY(-3px); background: var(--accent-primary); color: #FFFFFF; box-shadow: 0 10px 20px rgba(244, 90, 11, 0.4); }
+.reveal-actions { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.download-btn { background: var(--accent-primary) !important; color: #FFFFFF !important; }
+.download-btn:hover { background: #FFFFFF !important; color: var(--accent-primary) !important; }
 
 .gallery-minimal-footer { 
     margin-top: 50px; 
@@ -460,6 +447,41 @@
 
 .view-more-btn-premium:hover .arrow { 
     transform: translateX(5px); 
+}
+
+/* LIGHT MODE ADAPTATION - VISIBILITY FIX */
+[data-theme="light"] .premium-reveal-overlay-hover,
+.light .premium-reveal-overlay-hover {
+    background: rgba(0, 0, 0, 0.75) !important; /* Darker overlay for better contrast */
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+}
+
+[data-theme="light"] .reveal-title,
+.light .reveal-title,
+[data-theme="light"] .reveal-description,
+.light .reveal-description {
+    color: #ffffff !important;
+}
+
+[data-theme="light"] .reveal-view-btn,
+.light .reveal-view-btn {
+    background: #ff7a18 !important; /* Orange Accent */
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(255, 122, 24, 0.4) !important;
+}
+
+/* MOBILE TAP SUPPORT (Overlay visibility on touch) */
+.premium-card:active .premium-reveal-overlay-hover,
+.premium-card:focus .premium-reveal-overlay-hover {
+    opacity: 1 !important;
+}
+
+.premium-card:active .reveal-content,
+.premium-card:focus .reveal-content {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
 }
 
 /* DARK MODE ADAPTATION */

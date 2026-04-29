@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import './WorkGallery.css';
 
 export const projects = [
-    // UI DESIGNS & BRANDING (The 7 works with PDF downloads)
+    // UI DESIGNS
     { 
         id: 1, 
         title: 'PAWMIGO', 
         category: 'UI DESIGNS', 
-        tag: 'UI/UX Case Study', 
-        description: 'Complete pet adoption platform design focusing on user flow and clarity.', 
+        tag: 'UI/UX', 
+        description: 'Pet adoption UX case study improving request clarity and user flow', 
         tint: 'yellow', 
         img: '/pawmigo th.png',
         pdf: '/work-1-11.pdf'
@@ -19,18 +19,20 @@ export const projects = [
         id: 2, 
         title: 'VYAPARIONLINE', 
         category: 'UI DESIGNS', 
-        tag: 'UI/UX Case Study', 
-        description: 'B2B/B2C hybrid e-commerce platform with dual shopping modes.', 
+        tag: 'UI/UX', 
+        description: 'Hybrid e-commerce platform with dual shopping modes', 
         tint: 'green', 
         img: '/vyaparionline th.png',
         pdf: '/work-12-23.pdf'
     },
+    
+    // BRANDING
     { 
         id: 3, 
         title: 'Home Remedy', 
         category: 'BRANDING', 
-        tag: 'Brand Identity', 
-        description: 'Complete brand identity and visual language for a wellness clinic.', 
+        tag: 'Branding', 
+        description: 'Logo and brand identity design', 
         tint: 'purple', 
         img: '/hoome remedy.jpeg',
         pdf: '/work-24-27.pdf'
@@ -39,8 +41,8 @@ export const projects = [
         id: 4, 
         title: 'BFEC', 
         category: 'BRANDING', 
-        tag: 'Brand Identity', 
-        description: 'Corporate branding and marketing collateral for educational consultants.', 
+        tag: 'Branding', 
+        description: 'Logo and brand identity design', 
         tint: 'pink', 
         img: '/bfec 2 th.png',
         pdf: '/work-28-33.pdf'
@@ -49,8 +51,8 @@ export const projects = [
         id: 5, 
         title: 'SAALINE DECOR', 
         category: 'BRANDING', 
-        tag: 'Brand Identity', 
-        description: 'Luxury interior design brand identity and promotional materials.', 
+        tag: 'Branding', 
+        description: 'Logo and brand identity design', 
         tint: 'yellow', 
         img: '/saaline decore th.png',
         pdf: '/work-34-36.pdf'
@@ -59,8 +61,8 @@ export const projects = [
         id: 6, 
         title: 'WARE PULSE', 
         category: 'BRANDING', 
-        tag: 'Brand Identity', 
-        description: 'Modern logistics and warehousing management brand identity.', 
+        tag: 'Branding', 
+        description: 'Logo and brand identity design', 
         tint: 'green', 
         img: '/warepulse th.png',
         pdf: '/work-37-38.pdf'
@@ -69,20 +71,20 @@ export const projects = [
         id: 7, 
         title: 'ARABIC VALLEY', 
         category: 'BRANDING', 
-        tag: 'Brand Identity', 
-        description: 'Traditional products branding reflecting cultural heritage.', 
+        tag: 'Branding', 
+        description: 'Logo and brand identity design', 
         tint: 'purple', 
         img: '/arabic vally mt.png',
         pdf: '/work-39-41.pdf'
     },
 
-    // WEB DESIGNS (Live Sites)
+    // WEB DESIGNS
     { 
         id: 8, 
         title: 'Phoenix GM UAE', 
         category: 'WEB DESIGNS', 
-        tag: 'Web Development', 
-        description: 'Corporate website for a global management group in UAE.', 
+        tag: 'Web', 
+        description: 'Live website project', 
         tint: 'pink', 
         img: '/phoenix.jpeg',
         url: 'https://phoenixgmuae.com/'
@@ -91,8 +93,8 @@ export const projects = [
         id: 9, 
         title: 'Saaline Decor', 
         category: 'WEB DESIGNS', 
-        tag: 'Web Development', 
-        description: 'E-commerce and portfolio site for interior decor services.', 
+        tag: 'Web', 
+        description: 'Live website project', 
         tint: 'yellow', 
         img: '/saaline.jpeg',
         url: 'https://saalinedecor.ae/home/'
@@ -101,8 +103,8 @@ export const projects = [
         id: 10, 
         title: 'Saad Al Barakat', 
         category: 'WEB DESIGNS', 
-        tag: 'Web Development', 
-        description: 'Online store for luxury gifts and traditional products.', 
+        tag: 'Web', 
+        description: 'Live website project', 
         tint: 'green', 
         img: '/saadal.jpeg',
         url: 'https://saadalbarakat.com/home/'
@@ -111,8 +113,8 @@ export const projects = [
         id: 11, 
         title: 'Mazreen CGM', 
         category: 'WEB DESIGNS', 
-        tag: 'Web Development', 
-        description: 'Professional cleaning services platform in the UAE.', 
+        tag: 'Web', 
+        description: 'Live website project', 
         tint: 'purple', 
         img: '/mazreen.jpeg',
         url: 'https://mazreencgm.com/'
@@ -121,8 +123,8 @@ export const projects = [
         id: 12, 
         title: 'Indo Arab School', 
         category: 'WEB DESIGNS', 
-        tag: 'Web Development', 
-        description: 'Educational portal for Indo-Arab academic services.', 
+        tag: 'Web', 
+        description: 'Live website project', 
         tint: 'pink', 
         img: '/indoarab.jpeg',
         url: 'https://indoarabschool.com/'
@@ -131,8 +133,8 @@ export const projects = [
         id: 13, 
         title: 'Hyzin Data Systems', 
         category: 'WEB DESIGNS', 
-        tag: 'Web Development', 
-        description: 'Technology and data management solutions website.', 
+        tag: 'Web', 
+        description: 'Live website project', 
         tint: 'yellow', 
         img: '/hyzindata.jpeg',
         url: 'https://hyzindatasystems.com/'
@@ -141,8 +143,8 @@ export const projects = [
         id: 14, 
         title: 'Multysense Group', 
         category: 'WEB DESIGNS', 
-        tag: 'Web Development', 
-        description: 'Multi-vertical business group corporate platform.', 
+        tag: 'Web', 
+        description: 'Live website project', 
         tint: 'green', 
         img: '/multysense.jpeg',
         url: 'https://multysensegroup.com/'
@@ -151,7 +153,7 @@ export const projects = [
         id: 15, 
         title: 'Multysense Org', 
         category: 'WEB DESIGNS', 
-        tag: 'Web Development', 
+        tag: 'Web', 
         description: 'Non-profit organization platform for social initiatives.', 
         tint: 'purple', 
         img: '/multysense.jpeg',
@@ -229,79 +231,77 @@ const WorkGallery = ({ fullView = false, title = "Portfolio" }) => {
             </div>
 
             <div className="gallery-filters-area">
-                <div className="container">
-                    <div className="gallery-filters-scroll-wrap">
-                        <div className="gallery-filters-mask left"></div>
-                        <div className="gallery-filters-mask right"></div>
-                        
-                        {/* Desktop Static View - Show on Laptop/Desktop */}
-                        <div className="gallery-filters desktop-only">
-                            {categories.map((cat) => (
-                                <button
-                                    key={cat}
-                                    ref={el => filterRefs.current[cat] = el}
-                                    className={`filter-btn-premium ${activeFilter === cat ? 'active' : ''}`}
-                                    onClick={() => handleFilterClick(cat)}
-                                >
-                                    {cat}
-                                    {activeFilter === cat && (
-                                        <motion.div 
-                                            layoutId="activeUnderline"
-                                            className="active-underline-indicator"
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            transition={{ duration: 0.35, ease: "circOut" }}
-                                        />
-                                    )}
-                                </button>
-                            ))}
-                        </div>
+                <div className="gallery-filters-scroll-wrap">
+                    <div className="gallery-filters-mask left"></div>
+                    <div className="gallery-filters-mask right"></div>
+                    
+                    {/* Desktop Static View - Show on Laptop/Desktop */}
+                    <div className="gallery-filters desktop-only">
+                        {categories.map((cat) => (
+                            <button
+                                key={cat}
+                                ref={el => filterRefs.current[cat] = el}
+                                className={`filter-btn-premium ${activeFilter === cat ? 'active' : ''}`}
+                                onClick={() => handleFilterClick(cat)}
+                            >
+                                {cat}
+                                {activeFilter === cat && (
+                                    <motion.div 
+                                        layoutId="activeUnderline"
+                                        className="active-underline-indicator"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.35, ease: "circOut" }}
+                                    />
+                                )}
+                            </button>
+                        ))}
+                    </div>
 
-                        {/* Mobile Infinite Marquee View - Show on Mobile Only */}
-                        <div 
-                            className="gallery-filters-marquee-mobile mobile-only"
-                            ref={marqueeRef}
-                            onScroll={() => {
-                                // Basic loop logic on manual scroll
-                                const container = marqueeRef.current;
-                                if (container) {
-                                    if (container.scrollLeft <= 0) container.scrollLeft = container.scrollWidth / 3;
-                                    if (container.scrollLeft >= (container.scrollWidth / 3) * 2) container.scrollLeft = container.scrollWidth / 3;
-                                }
-                            }}
-                            onTouchStart={() => setIsSwiping(true)}
-                            onTouchEnd={() => setIsSwiping(false)}
-                            onTouchCancel={() => setIsSwiping(false)}
-                            onMouseDown={() => setIsSwiping(true)}
-                            onMouseUp={() => setIsSwiping(false)}
-                            onMouseLeave={() => setIsSwiping(false)}
-                        >
-                            <div className="marquee-track">
-                                {[...['ALL', 'UI DESIGN', 'BRANDING', 'WEB DESIGN'], ...['ALL', 'UI DESIGN', 'BRANDING', 'WEB DESIGN'], ...['ALL', 'UI DESIGN', 'BRANDING', 'WEB DESIGN']].map((label, idx) => {
-                                    // Map label back to original functional category
-                                    const functionalCat = label === 'UI DESIGN' ? 'UI DESIGNS' : label === 'WEB DESIGN' ? 'WEB DESIGNS' : label;
-                                    return (
-                                        <button
-                                            key={`${label}-${idx}`}
-                                            className={`filter-marquee-pill ${activeFilter === functionalCat ? 'active' : ''}`}
-                                            onClick={() => handleFilterClick(functionalCat, false)}
-                                        >
-                                            <span className="cat-text">
-                                                {label}
-                                                {activeFilter === functionalCat && (
-                                                    <motion.div 
-                                                        layoutId="activeUnderlineMobile"
-                                                        className="active-underline-indicator-mobile"
-                                                        initial={{ opacity: 0 }}
-                                                        animate={{ opacity: 1 }}
-                                                        transition={{ duration: 0.35, ease: "circOut" }}
-                                                    />
-                                                )}
-                                            </span>
-                                        </button>
-                                    );
-                                })}
-                            </div>
+                    {/* Mobile Infinite Marquee View - Show on Mobile Only */}
+                    <div 
+                        className="gallery-filters-marquee-mobile mobile-only"
+                        ref={marqueeRef}
+                        onScroll={() => {
+                            // Basic loop logic on manual scroll
+                            const container = marqueeRef.current;
+                            if (container) {
+                                if (container.scrollLeft <= 0) container.scrollLeft = container.scrollWidth / 3;
+                                if (container.scrollLeft >= (container.scrollWidth / 3) * 2) container.scrollLeft = container.scrollWidth / 3;
+                            }
+                        }}
+                        onTouchStart={() => setIsSwiping(true)}
+                        onTouchEnd={() => setIsSwiping(false)}
+                        onTouchCancel={() => setIsSwiping(false)}
+                        onMouseDown={() => setIsSwiping(true)}
+                        onMouseUp={() => setIsSwiping(false)}
+                        onMouseLeave={() => setIsSwiping(false)}
+                    >
+                        <div className="marquee-track">
+                            {[...['ALL', 'UI DESIGN', 'BRANDING', 'WEB DESIGN'], ...['ALL', 'UI DESIGN', 'BRANDING', 'WEB DESIGN'], ...['ALL', 'UI DESIGN', 'BRANDING', 'WEB DESIGN']].map((label, idx) => {
+                                // Map label back to original functional category
+                                const functionalCat = label === 'UI DESIGN' ? 'UI DESIGNS' : label === 'WEB DESIGN' ? 'WEB DESIGNS' : label;
+                                return (
+                                    <button
+                                        key={`${label}-${idx}`}
+                                        className={`filter-marquee-pill ${activeFilter === functionalCat ? 'active' : ''}`}
+                                        onClick={() => handleFilterClick(functionalCat, false)}
+                                    >
+                                        <span className="cat-text">
+                                            {label}
+                                            {activeFilter === functionalCat && (
+                                                <motion.div 
+                                                    layoutId="activeUnderlineMobile"
+                                                    className="active-underline-indicator-mobile"
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 1 }}
+                                                    transition={{ duration: 0.35, ease: "circOut" }}
+                                                />
+                                            )}
+                                        </span>
+                                    </button>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
@@ -326,6 +326,20 @@ const WorkGallery = ({ fullView = false, title = "Portfolio" }) => {
                                     layout
                                 >
                                     <div className="premium-card-inner">
+                                        {/* Main card link (covers entire card) */}
+                                        <Link 
+                                            to={`/view-work/${project.id}`} 
+                                            className="card-main-click-area"
+                                            style={{ 
+                                                position: 'absolute', 
+                                                inset: 0, 
+                                                zIndex: 5,
+                                                textDecoration: 'none'
+                                            }}
+                                        >
+                                            <span className="sr-only">View {project.title}</span>
+                                        </Link>
+
                                         <div className="premium-card-image">
                                             <img src={project.img} alt={project.title} loading="lazy" decoding="async" />
                                             <div className="premium-tint-overlay"></div>
@@ -339,33 +353,27 @@ const WorkGallery = ({ fullView = false, title = "Portfolio" }) => {
                                                 <h3 className="reveal-title">{project.title}</h3>
                                                 <p className="reveal-description">{project.description}</p>
                                                 
-                                                {project.pdf ? (
-                                                    <a 
-                                                        href={project.pdf} 
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="reveal-view-btn"
-                                                    >
-                                                        View Project
-                                                    </a>
-                                                ) : project.url ? (
-                                                    <a 
-                                                        href={project.url} 
-                                                        target="_blank" 
-                                                        rel="noopener noreferrer" 
-                                                        className="reveal-view-btn"
-                                                    >
-                                                        View Project
-                                                    </a>
-                                                ) : (
+                                                {/* Button area - positioned above the main link to be clickable */}
+                                                <div className="reveal-actions" style={{ position: 'relative', zIndex: 10 }}>
                                                     <Link 
-                                                        to={`/project/${project.id}`} 
+                                                        to={`/view-work/${project.id}`} 
                                                         className="reveal-view-btn"
-                                                        target="_blank"
+                                                        onClick={(e) => e.stopPropagation()}
                                                     >
                                                         View Project
                                                     </Link>
-                                                )}
+                                                    {project.pdf && (
+                                                        <a 
+                                                            href={project.pdf} 
+                                                            download 
+                                                            className="reveal-view-btn download-btn"
+                                                            style={{ background: 'var(--accent-primary)', color: '#fff', marginLeft: '10px' }}
+                                                            onClick={(e) => e.stopPropagation()}
+                                                        >
+                                                            Download Project
+                                                        </a>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
