@@ -1,13 +1,12 @@
 .hero-3d-grid-container {
     width: 100%;
-    max-width: 550px; /* Increased to fit 5 icons */
+    max-width: 400px; /* More compact for 5 icons at smaller size */
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    perspective: 1200px;
-    padding: 20px;
-    margin: 0;
-    margin-left: auto; /* Push to right */
+    gap: 15px;
+    perspective: 1000px;
+    padding: 10px;
+    margin: 0 auto; /* Centered under image */
     position: relative;
     z-index: 10;
 }
@@ -15,14 +14,14 @@
 .hero-3d-grid-content {
     display: flex;
     flex-direction: column;
-    gap: 12px; /* Tighter rows as per screenshot */
+    gap: 12px;
     width: 100%;
 }
 
 .hero-3d-grid-row {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 12px;
     transform-style: preserve-3d;
     width: 100%;
 }
@@ -45,15 +44,15 @@
 /* Card Styling */
 .tool-3d-card {
     position: relative;
-    width: 65px;
-    height: 65px;
-    background: var(--bg-secondary); /* Elevated background */
-    border: 2px solid rgba(255, 140, 66, 0.4); 
-    border-radius: 20px; 
+    width: 55px; /* Desktop size */
+    height: 55px; /* Desktop size */
+    background: var(--bg-secondary);
+    border: 1.5px solid rgba(244, 90, 11, 0.4); 
+    border-radius: 12px; 
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     transform-style: preserve-3d;
     animation: floatingVar 5s ease-in-out infinite;

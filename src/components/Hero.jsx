@@ -42,7 +42,7 @@ const Hero = () => {
                 animate="visible"
                 variants={containerVariants}
             >
-                {/* CONTENT */}
+                {/* CONTENT (LEFT) */}
                 <div className="hero-content">
                     <motion.h1 className="hero-title" variants={itemVariants}>
                         MUHAMMAD <br /> MUFLIH
@@ -60,16 +60,28 @@ const Hero = () => {
                     </motion.p>
                 </div>
 
-                {/* RIGHT SIDE / TOOL CLUSTER */}
-                <motion.div 
-                    className="hero-tools-cluster-3d"
-                    variants={{
-                        hidden: { opacity: 0, scale: 0.9, x: 20 },
-                        visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 0.8, delay: 0.5 } }
-                    }}
-                >
-                    <ToolGrid3D isHero={true} />
-                </motion.div>
+                {/* VISUAL SIDE (RIGHT) */}
+                <div className="hero-visual-side">
+                    <motion.div 
+                        className="hero-image-container"
+                        variants={{
+                            hidden: { opacity: 0, scale: 0.9 },
+                            visible: { opacity: 1, scale: 1, transition: { duration: 0.8, delay: 0.3 } }
+                        }}
+                    >
+                        <img src="/heroimage.png" alt="MUHAMMAD MUFLIH" className="hero-main-image" />
+                    </motion.div>
+
+                    <motion.div 
+                        className="hero-tools-cluster-3d"
+                        variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.6 } }
+                        }}
+                    >
+                        <ToolGrid3D isHero={true} />
+                    </motion.div>
+                </div>
             </motion.div>
         </section>
     );

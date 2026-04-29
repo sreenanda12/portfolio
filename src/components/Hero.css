@@ -26,11 +26,40 @@
     z-index: 10;
     position: relative;
     will-change: transform;
+    gap: 40px;
 }
 
 .hero-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.hero-visual-side {
     flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center icons under image */
+    justify-content: center;
+}
+
+.hero-image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-main-image {
+    width: 90%;
     max-width: 800px;
+    height: auto;
+    object-fit: contain;
+}
+
+.hero-tools-cluster-3d {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .hero-title {
@@ -96,21 +125,21 @@
     }
 }
 
-.hero-tools-cluster-3d {
-    position: relative;
-    flex: 1;
-    z-index: 100;
+.hero-section {
+    min-height: 100svh;
     display: flex;
     align-items: center;
-    justify-content: center; /* Balanced centering */
-    padding: 20px;
-    margin-top: 180px; 
-    align-self: center; 
-    overflow: hidden; 
-    will-change: transform, opacity;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-primary);
+    margin-bottom: 80px; /* Space to avoid WhatsApp button overlap */
 }
 
-/* Removed unused scroll-indicator per user request */
+/* Screen shift fix */
+body {
+    overflow-x: hidden;
+}
 
 @media screen and (max-width: 1023px) {
     .hero-section {
@@ -122,7 +151,7 @@
     .hero-container {
         flex-direction: column;
         text-align: center;
-        gap: 1.5rem;
+        gap: 2rem;
         justify-content: flex-start;
         padding-top: 1.5rem;
     }
@@ -130,6 +159,20 @@
     .hero-content {
         align-items: center;
         max-width: 100%;
+        order: 1;
+    }
+
+    .hero-visual-side {
+        width: 100%;
+        order: 2;
+    }
+
+    .hero-main-image {
+        width: 95%;
+    }
+
+    .hero-tools-cluster-3d {
+        margin-top: 20px;
     }
 
     .hero-title {
@@ -144,30 +187,16 @@
         margin: 0 auto 2rem;
         padding: 0 0.5rem;
     }
-
-    .hero-tools-cluster-3d {
-        width: 100%;
-        height: 400px;
-        margin: 0 auto;
-        transform: scale(0.85);
-        overflow: visible;
-    }
 }
 
 @media screen and (max-width: 767px) {
-    .hero-section {
-        padding-top: 70px;
+    .hero-main-image {
+        width: 100%;
     }
 
     .hero-title {
         font-size: clamp(2rem, 8vw, 2.75rem);
         line-height: 1.15;
-    }
-
-    .hero-tools-cluster-3d {
-        height: 350px;
-        transform: scale(0.7);
-        margin-top: -1rem;
     }
 
     .hero-description {
@@ -180,36 +209,10 @@
         font-size: 1rem;
         gap: 8px;
     }
-
-    /* Mobile Floating Organic Movement Enabled */
-    .grid-tool-wrapper {
-        animation: floatTool 6s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate !important;
-    }
 }
 
 @media screen and (max-width: 480px) {
     .hero-title {
         font-size: clamp(1.75rem, 7vw, 2.25rem);
-    }
-
-    .hero-tools-cluster-3d {
-        height: 300px;
-        transform: scale(0.6);
-        margin-top: -1.5rem;
-    }
-
-    .hero-description {
-        font-size: 0.9rem;
-    }
-}
-
-@media screen and (max-width: 360px) {
-    .hero-title {
-        font-size: 1.75rem;
-    }
-    .hero-tools-cluster-3d {
-        display: block !important; /* Force show tools on small screens as requested */
-        transform: scale(0.4);
-        margin-top: -4rem;
     }
 }
