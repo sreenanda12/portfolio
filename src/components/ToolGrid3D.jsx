@@ -1,18 +1,45 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 import './ToolGrid3D.css';
 
 const tools = [
     { name: 'Photoshop', icon: '/icons/ps%20roboto.png' },
-    { name: 'Figma', icon: '/icons/figma.png' },
+    { name: 'Figma', icon: '/icons/figma update .png' },
     { name: 'Illustrator', icon: '/icons/illustrator.png' },
     { name: 'Adobe XD', icon: '/icons/xd.png' },
     { name: 'Premiere Pro', icon: '/icons/premiere.png' },
     { name: 'HTML5', icon: '/icons/html.png' },
-    { name: 'Unity', icon: '/icons/unity.png' },
-    { name: 'WordPress', icon: '/icons/wordpress.png' },
-    { name: 'Microsoft Office', icon: '/icons/microsoft.png' },
-    { name: 'Unity Logo', icon: '/icons/unitylogo.png' }
+    { name: 'Blender', icon: '/icons/blender.png' },
+    { name: 'Claude', icon: '/icons/claude.png' },
+    { 
+        name: 'WordPress', 
+        icon: { 
+            light: '/icons/word press light.png', 
+            dark: '/icons/word press dark.png' 
+        } 
+    },
+    { 
+        name: 'Microsoft Office', 
+        icon: { 
+            light: '/icons/ms office light.png', 
+            dark: '/icons/ms office dark.png' 
+        } 
+    },
+    { 
+        name: 'Unreal Engine', 
+        icon: { 
+            light: '/icons/unity.png', 
+            dark: '/icons/unity logo white.png' 
+        } 
+    },
+    { 
+        name: 'Unity', 
+        icon: { 
+            light: '/icons/unitylogo.png', 
+            dark: '/icons/unity logo light.png' 
+        } 
+    }
 ];
 
 const ToolIcon = ({ name }) => {
@@ -32,7 +59,7 @@ const ToolIcon = ({ name }) => {
     }
 };
 
-const ToolCard = ({ tool, index, isFirstRow }) => {
+const ToolCard = ({ tool, index, isFirstRow, theme }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     const cardVariants = {
@@ -48,6 +75,10 @@ const ToolCard = ({ tool, index, isFirstRow }) => {
             }
         }
     };
+
+    const iconSrc = typeof tool.icon === 'object' 
+        ? (theme === 'dark' ? tool.icon.dark : tool.icon.light)
+        : tool.icon;
 
     return (
         <motion.div
@@ -65,7 +96,7 @@ const ToolCard = ({ tool, index, isFirstRow }) => {
                 {tool.isSVG ? (
                     <ToolIcon name={tool.name} />
                 ) : (
-                    <img src={tool.icon} alt={tool.name} className="tool-3d-icon" draggable="false" />
+                    <img src={iconSrc} alt={tool.name} className="tool-3d-icon" draggable="false" />
                 )}
                 <div className="tool-3d-glow"></div>
             </div>
@@ -88,6 +119,7 @@ const ToolCard = ({ tool, index, isFirstRow }) => {
 };
 
 const ToolGrid3D = ({ isHero = false }) => {
+    const { theme } = useTheme();
     const containerRef = useRef(null);
     const mousePos = useRef({ x: 0, y: 0 });
     const requestRef = useRef();
@@ -127,10 +159,10 @@ const ToolGrid3D = ({ isHero = false }) => {
         };
     }, [isHero]);
 
-    // Grouping into 5 columns strictly for 10 icons
+    // Grouping into 4 columns strictly for 12 icons
     const rows = [];
-    for (let i = 0; i < tools.length; i += 5) {
-        rows.push(tools.slice(i, i + 5));
+    for (let i = 0; i < tools.length; i += 4) {
+        rows.push(tools.slice(i, i + 4));
     }
 
     return (
@@ -143,8 +175,9 @@ const ToolGrid3D = ({ isHero = false }) => {
                             <ToolCard
                                 key={tool.name}
                                 tool={tool}
-                                index={rowIndex * 5 + i}
+                                index={rowIndex * 4 + i}
                                 isFirstRow={rowIndex === 0}
+                                theme={theme}
                             />
                         ))}
                     </div>

@@ -35,22 +35,55 @@
 }
 
 .hero-visual-side {
-    flex: 1.2;
+    flex: 1.4;
     display: flex;
     flex-direction: column;
     align-items: center; /* Center icons under image */
     justify-content: center;
 }
 
+.hero-image-wrapper-parallax {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+}
+
 .hero-image-container {
     width: 100%;
     display: flex;
     justify-content: center;
+    position: relative;
+}
+
+/* Light Mode: Soft shadow under image */
+[data-theme="light"] .hero-main-image {
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+}
+
+/* Dark Mode: Subtle orange glow behind image */
+[data-theme="dark"] .hero-image-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(244, 90, 11, 0.15) 0%, transparent 70%);
+    z-index: -1;
+    filter: blur(40px);
+    pointer-events: none;
+}
+
+[data-theme="dark"] .hero-main-image {
+    filter: drop-shadow(0 0 30px rgba(244, 90, 11, 0.05));
 }
 
 .hero-main-image {
-    width: 90%;
-    max-width: 800px;
+    width: 100%;
+    max-width: 950px;
     height: auto;
     object-fit: contain;
 }
@@ -168,7 +201,13 @@ body {
     }
 
     .hero-main-image {
-        width: 95%;
+        width: 100%; /* Increased size for mobile/tablet */
+        max-width: 550px;
+    }
+
+    .hero-image-wrapper-parallax {
+        order: 2;
+        margin-top: 1rem;
     }
 
     .hero-tools-cluster-3d {

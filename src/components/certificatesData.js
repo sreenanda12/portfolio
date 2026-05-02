@@ -8,5 +8,6 @@ export const allCertificates = [
     { id: 6, title: "Graphic Designing Masterclass", issuer: "G-TEC Computer Education", image: "/certificates/c6.png", skills: ["Adobe Photoshop", "Adobe Illustrator"] },
     { id: 7, title: "Social Media Expert", issuer: "G-TEC Education", image: "/certificates/c7.png", skills: ["Digital Marketing", "Platform Strategy"] },
     { id: 8, title: "Advanced Excel Certification", issuer: "Microsoft Learning", image: "/certificates/c8.png", skills: ["Data Analysis", "Automation"] },
-    { id: 9, title: "Digital Marketing Specialist", issuer: "Google Digital Garage", image: "/certificates/c9.png", skills: ["SEO", "SEM", "Marketing Strategy"] }
+    { id: 9, title: "Digital Marketing Specialist", issuer: "Google Digital Garage", image: "/certificates/c9.png", skills: ["SEO", "SEM", "Marketing Strategy"] },
+    { id: 10, title: "Unity Certification", issuer: "Unity Technologies", image: "/certificates/c10.png", skills: ["Game Design", "AR/VR"] }
 ];

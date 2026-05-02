@@ -1,6 +1,6 @@
 .hero-3d-grid-container {
     width: 100%;
-    max-width: 400px; /* More compact for 5 icons at smaller size */
+    max-width: 320px; /* Adjusted for 4 icons @ 55px + gaps */
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -74,6 +74,7 @@
    ═══════════════════════════════════════════════════════ */
 
 /* Remove white backgrounds and match theme colors */
+/* Remove redundant filters as we now use dedicated light/dark logos */
 .tool-3d-card img[alt*="WordPress"],
 .tool-3d-card img[alt*="Microsoft"],
 .tool-3d-card img[alt*="Figma"] {
@@ -81,20 +82,6 @@
     height: 65% !important;
     object-fit: contain;
     transition: all 0.4s ease;
-}
-
-/* Light Mode: Use multiply to remove white backgrounds from PNGs */
-[data-theme="light"] .tool-3d-card img[alt*="WordPress"],
-[data-theme="light"] .tool-3d-card img[alt*="Microsoft"] {
-    mix-blend-mode: multiply;
-    filter: contrast(1.1) brightness(1.05);
-}
-
-/* Dark Mode: Invert and screen to remove white backgrounds on dark matte */
-[data-theme="dark"] .tool-3d-card img[alt*="WordPress"],
-[data-theme="dark"] .tool-3d-card img[alt*="Microsoft"] {
-    filter: invert(1) brightness(1.2) contrast(1.1);
-    mix-blend-mode: screen;
 }
 
 /* Add a subtle orange glow tint to match the Obsidian & Orange theme */
@@ -126,15 +113,9 @@
     transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-/* Specific Enhancement for Unity Logo (Brand Improvement) */
-/* Using selectors that target the Unity logo specifically in various contexts */
-.tool-3d-card-wrapper[title*="Logo"] .tool-3d-icon,
-.tool-3d-card-wrapper[title*="Unity"] .tool-3d-icon,
-img[alt*="Unity Logo"],
-img[alt*="Unity"],
-img[src*="unitylogo.png"] {
-    filter: brightness(1.4) drop-shadow(0 0 15px rgba(0, 163, 255, 0.45)); /* Specific values from request */
-    transition: all 0.3s ease; /* Smooth transition */
+[data-theme="dark"] img[alt*="Unity"] {
+    filter: brightness(1.2) drop-shadow(0 0 15px rgba(0, 163, 255, 0.3));
+    transition: all 0.3s ease;
 }
 
 /* Hover Enhancement for the Logo */
@@ -153,23 +134,7 @@ img[src*="unitylogo.png"]:hover {
 }
 
 /* WORDPRESS: POP in Dark Mode */
-.wp-logo-adjust {
-    transition: filter 0.4s ease;
-}
-
-[data-theme="dark"] .wp-logo-adjust {
-    filter: brightness(1.2) drop-shadow(0 0 15px rgba(33, 117, 155, 0.4));
-}
-
-/* MICROSOFT: Handle Light Mode borders for legibility */
-[data-theme="light"] .microsoft-logo-adjust path {
-    stroke: rgba(0, 0, 0, 0.05); /* Subtle border for squares in Light Mode */
-    stroke-width: 0.5px; /* Slightly thicker for the new complex paths */
-}
-
-[data-theme="dark"] .microsoft-logo-adjust {
-    filter: brightness(1.1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.05));
-}
+/* Removed redundant adjustments */
 
 /* Reset SVG dimensions */
 .tool-3d-card .svg-logo {
@@ -259,7 +224,7 @@ img[src*="unitylogo.png"]:hover {
         border-radius: 16px;
     }
     .hero-3d-grid-row { gap: 14px; }
-    .hero-3d-grid-container { max-width: 450px; }
+    .hero-3d-grid-container { max-width: 350px; }
 }
 
 /* Tablet Sizing */
