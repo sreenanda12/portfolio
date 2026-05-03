@@ -255,39 +255,3 @@ body {
         font-size: clamp(1.75rem, 7vw, 2.25rem);
     }
 }
-
-/* MOBILE DARK MODE IMAGE BLENDING */
-@media (max-width: 768px) {
-    [data-theme="dark"] .hero-section {
-        background: #000000;
-    }
-
-    [data-theme="dark"] .hero-image-container {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        outline: none !important;
-    }
-
-    /* Remove existing dark mode effects that create a "box" or "glow" look on mobile */
-    [data-theme="dark"] .hero-image-container::before {
-        display: none;
-    }
-
-    [data-theme="dark"] .hero-image-container::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,1));
-        pointer-events: none;
-        z-index: 2;
-    }
-
-    [data-theme="dark"] .hero-main-image {
-        filter: brightness(0.9) contrast(1.05) !important;
-        mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-        position: relative;
-        z-index: 1;
-    }
-}
