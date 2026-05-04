@@ -35,16 +35,39 @@
     max-width: 600px;
 }
 
-.hero-image {
-    background: #0A0A0A;
+.hero-image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    background: transparent !important;
+    border: none !important;
     overflow: hidden;
+    border-radius: 20px;
 }
 
-.hero-image img {
-    mix-blend-mode: lighten;
-    mask-image: radial-gradient(circle at center,
-            rgba(0, 0, 0, 1) 65%,
-            rgba(0, 0, 0, 0) 100%);
+.hero-image-blend-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    /* Soft blend edges */
+    background: radial-gradient(
+        ellipse at center,
+        transparent 50%,
+        #0a0a0a 100%
+    );
+    /* Inset shadow for extra depth blending */
+    box-shadow: inset 0 0 80px 40px #0a0a0a;
+}
+
+[data-theme="light"] .hero-image-blend-overlay {
+    background: radial-gradient(
+        ellipse at center,
+        transparent 50%,
+        var(--bg-primary) 100%
+    );
+    box-shadow: inset 0 0 80px 40px var(--bg-primary);
 }
 
 .hero-visual-side {
@@ -64,12 +87,7 @@
     z-index: 10;
 }
 
-.hero-image-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    position: relative;
-}
+/* Base container styling handled above in .hero-image-container block */
 
 /* Light Mode: Soft shadow under image */
 [data-theme="light"] .hero-main-image {
@@ -96,6 +114,17 @@
     filter: none;
     /* Precise color mapping: converts anything darker than backdrop (#0a0a0a) to backdrop color */
     mix-blend-mode: lighten;
+    /* Mask for edge softening */
+    mask-image: radial-gradient(
+        ellipse at center,
+        black 60%,
+        transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+        ellipse at center,
+        black 60%,
+        transparent 100%
+    );
 }
 
 .hero-main-image {
@@ -105,6 +134,8 @@
     object-fit: contain;
     display: none;
     /* Hidden by default */
+    position: relative;
+    z-index: 1;
 }
 
 /* Theme-based visibility for pre-loaded images */
