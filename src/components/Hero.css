@@ -35,39 +35,34 @@
     max-width: 600px;
 }
 
+/* ── IMAGE BLENDING SYSTEM ── */
 .hero-image-container {
     width: 100%;
     display: flex;
     justify-content: center;
     position: relative;
-    background: transparent !important;
-    border: none !important;
-    overflow: hidden;
-    border-radius: 20px;
+    background: transparent;
+    overflow: visible; /* Allow glow to bleed out if needed */
 }
 
 .hero-image-blend-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    pointer-events: none;
-    /* Soft blend edges */
-    background: radial-gradient(
-        ellipse at center,
-        transparent 50%,
-        #0a0a0a 100%
-    );
-    /* Inset shadow for extra depth blending */
-    box-shadow: inset 0 0 80px 40px #0a0a0a;
+    display: none; /* Only show in dark mode */
 }
 
-[data-theme="light"] .hero-image-blend-overlay {
-    background: radial-gradient(
-        ellipse at center,
-        transparent 50%,
-        var(--bg-primary) 100%
+[data-theme="dark"] .hero-image-blend-overlay {
+    display: block;
+    position: absolute;
+    inset: -2px; /* Slight overflow to ensure edge coverage */
+    z-index: 5;
+    pointer-events: none;
+    /* Concentric fades to merge image perfectly with background #0a0a0a */
+    background: radial-gradient(circle at center, 
+        transparent 20%, 
+        rgba(10, 10, 10, 0.4) 60%, 
+        #0A0A0A 95%
     );
-    box-shadow: inset 0 0 80px 40px var(--bg-primary);
+    /* Inset shadow acts as a soft "eraser" for any sharp image edges */
+    box-shadow: inset 0 0 80px 30px #0A0A0A;
 }
 
 .hero-visual-side {
@@ -87,7 +82,7 @@
     z-index: 10;
 }
 
-/* Base container styling handled above in .hero-image-container block */
+/* Container already handled in blending system above */
 
 /* Light Mode: Soft shadow under image */
 [data-theme="light"] .hero-main-image {
@@ -110,21 +105,12 @@
 }
 
 [data-theme="dark"] .hero-main-image {
-    /* Shadows removed as per request */
-    filter: none;
     /* Precise color mapping: converts anything darker than backdrop (#0a0a0a) to backdrop color */
     mix-blend-mode: lighten;
-    /* Mask for edge softening */
-    mask-image: radial-gradient(
-        ellipse at center,
-        black 60%,
-        transparent 100%
-    );
-    -webkit-mask-image: radial-gradient(
-        ellipse at center,
-        black 60%,
-        transparent 100%
-    );
+    /* Soften the image boundaries directly */
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 95%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 95%);
+    filter: brightness(1.05) contrast(1.02); /* Slight pop to counteract the fade */
 }
 
 .hero-main-image {
@@ -134,8 +120,6 @@
     object-fit: contain;
     display: none;
     /* Hidden by default */
-    position: relative;
-    z-index: 1;
 }
 
 /* Theme-based visibility for pre-loaded images */
@@ -267,27 +251,39 @@ body {
     .hero-content {
         align-items: center;
         max-width: 100%;
-        order: 1;
+        order: 1; /* First: Text section */
+        display: flex;
+        flex-direction: column;
     }
 
     .hero-visual-side {
         width: 100%;
         order: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-image-wrapper-parallax {
+        order: 1; /* Second: Hero image */
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .hero-main-image {
         width: 100%;
-        /* Increased size for mobile/tablet */
         max-width: 550px;
     }
 
-    .hero-image-wrapper-parallax {
-        order: 2;
-        margin-top: 1rem;
-    }
-
     .hero-tools-cluster-3d {
+        order: 2; /* Third: Tool icons */
         margin-top: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        position: relative !important;
     }
 
     .hero-title {

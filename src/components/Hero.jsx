@@ -105,9 +105,7 @@ const Hero = () => {
                                 transition: { duration: 1, ease: "easeOut", delay: 0.3 } 
                             }}
                         >
-                            {/* BLEND OVERLAY */}
                             <div className="hero-image-blend-overlay"></div>
-                            
                             <motion.img 
                                 src="/hero-dark.png" 
                                 alt="MUHAMMAD MUFLIH" 
