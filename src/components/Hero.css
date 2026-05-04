@@ -1,6 +1,7 @@
 /* HERO SECTION OVERHAUL */
 .hero-section {
-    min-height: 100svh; /* Use svh to fix mobile browser chrome issue */
+    min-height: 100svh;
+    /* Use svh to fix mobile browser chrome issue */
     display: flex;
     align-items: center;
     padding-top: 80px;
@@ -14,7 +15,7 @@
     inset: 0;
     pointer-events: none;
     z-index: 5;
-    background: radial-gradient(ellipse at center, transparent 30%, #050505 100%);
+    background: radial-gradient(ellipse at center, transparent 30%, #0a0a0a 100%);
 }
 
 
@@ -34,11 +35,24 @@
     max-width: 600px;
 }
 
+.hero-image {
+    background: #0A0A0A;
+    overflow: hidden;
+}
+
+.hero-image img {
+    mix-blend-mode: lighten;
+    mask-image: radial-gradient(circle at center,
+            rgba(0, 0, 0, 1) 65%,
+            rgba(0, 0, 0, 0) 100%);
+}
+
 .hero-visual-side {
     flex: 1.4;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center icons under image */
+    align-items: center;
+    /* Center icons under image */
     justify-content: center;
 }
 
@@ -73,12 +87,15 @@
     height: 80%;
     background: radial-gradient(circle, rgba(244, 90, 11, 0.15) 0%, transparent 70%);
     z-index: -1;
-    filter: blur(40px);
     pointer-events: none;
+    /* Heavy blur filter removed for performance */
 }
 
 [data-theme="dark"] .hero-main-image {
-    filter: drop-shadow(0 0 30px rgba(244, 90, 11, 0.05));
+    /* Shadows removed as per request */
+    filter: none;
+    /* Precise color mapping: converts anything darker than backdrop (#0a0a0a) to backdrop color */
+    mix-blend-mode: lighten;
 }
 
 .hero-main-image {
@@ -86,6 +103,17 @@
     max-width: 950px;
     height: auto;
     object-fit: contain;
+    display: none;
+    /* Hidden by default */
+}
+
+/* Theme-based visibility for pre-loaded images */
+[data-theme="dark"] .dark-image-only {
+    display: block;
+}
+
+[data-theme="light"] .light-image-only {
+    display: block;
 }
 
 .hero-tools-cluster-3d {
@@ -128,8 +156,18 @@
 }
 
 @keyframes keywordFadeInOut {
-    0%, 100% { opacity: 0; transform: translateY(10px); }
-    20%, 80% { opacity: 1; transform: translateY(0); }
+
+    0%,
+    100% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    20%,
+    80% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero-description {
@@ -148,8 +186,13 @@
     will-change: transform, opacity;
 }
 
-.delay-1 { animation-delay: 0.15s; }
-.delay-2 { animation-delay: 0.3s; }
+.delay-1 {
+    animation-delay: 0.15s;
+}
+
+.delay-2 {
+    animation-delay: 0.3s;
+}
 
 @keyframes revealUp {
     to {
@@ -166,7 +209,8 @@
     position: relative;
     overflow: hidden;
     background: var(--bg-primary);
-    margin-bottom: 80px; /* Space to avoid WhatsApp button overlap */
+    margin-bottom: 80px;
+    /* Space to avoid WhatsApp button overlap */
 }
 
 /* Screen shift fix */
@@ -201,7 +245,8 @@ body {
     }
 
     .hero-main-image {
-        width: 100%; /* Increased size for mobile/tablet */
+        width: 100%;
+        /* Increased size for mobile/tablet */
         max-width: 550px;
     }
 

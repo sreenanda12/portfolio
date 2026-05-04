@@ -81,8 +81,8 @@
     z-index: 9995;
     transition: all 0.3s ease;
     border-bottom: 1px solid var(--border-light);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    /* backdrop-filter removed for performance */
+    background: var(--bg-secondary);
     width: 100%;
     max-width: 100%;
     margin: 0;
@@ -453,9 +453,7 @@
 /* LIGHT MODE ADAPTATION - VISIBILITY FIX */
 [data-theme="light"] .premium-reveal-overlay-hover,
 .light .premium-reveal-overlay-hover {
-    background: rgba(0, 0, 0, 0.75) !important; /* Darker overlay for better contrast */
-    backdrop-filter: blur(8px) !important;
-    -webkit-backdrop-filter: blur(8px) !important;
+    background: rgba(0, 0, 0, 0.85) !important; /* Slightly darker to compensate for no blur */
 }
 
 [data-theme="light"] .reveal-title,

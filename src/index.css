@@ -36,9 +36,9 @@
   --card-bg: rgba(255, 255, 255, 0.7);
 }
 
-body.dark,
+.dark,
 [data-theme="dark"] {
-  --bg-primary: #050505;
+  --bg-primary: #0a0a0a;
   /* Deep Obsidian */
   --bg-secondary: #0D0D0D;
   /* Rich Charcoal */
@@ -60,7 +60,18 @@ body.dark,
   --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.8);
   --shadow-glow: 0 0 20px rgba(244, 90, 11, 0.05);
 
-  --app-bg: #050505;
+  --app-bg: #0a0a0a;
+
+  /* Theme Switch Optimization */
+  --switch-speed: 0.2s;
+}
+
+/* Instant Theme Switch Utility */
+.no-transitions *,
+.no-transitions *::before,
+.no-transitions *::after {
+  transition: none !important;
+  animation-duration: 0s !important;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -109,7 +120,7 @@ body {
   font-family: var(--font-primary);
   background: var(--app-bg);
   color: var(--text-primary);
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background var(--switch-speed) ease, color var(--switch-speed) ease;
   overflow-x: hidden; /* Fix screen shift */
   width: 100%;
   margin: 0;
@@ -568,13 +579,26 @@ button,
   .card:hover {
     transform: translateY(-3px);
   }
+
+  /* Performance: Simplify shadows and disable heavy filters on mobile */
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .card, 
+  .premium-card, 
+  .we-card-inner, 
+  .exp-glass-card {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════
    LOGO COLOR CONSISTENCY (Global)
    ═══════════════════════════════════════════════════════ */
 /* 1. Remove all filters/mix-blend-modes from images globally to preserve brand colors */
-img, 
+img:not(.hero-main-image), 
 svg,
 .st-tool-card img,
 .st-tool-card svg,
@@ -590,9 +614,9 @@ svg,
 }
 
 /* 2. Explicitly override dark mode styles to prevent any color distortion */
-.dark img,
+.dark img:not(.hero-main-image),
 .dark svg,
-[data-theme="dark"] img,
+[data-theme="dark"] img:not(.hero-main-image),
 [data-theme="dark"] svg,
 [data-theme="dark"] .st-tool-card img,
 [data-theme="light"] .st-tool-card img,
@@ -613,5 +637,18 @@ svg,
   justify-content: center !important;
   border-radius: 12px !important;
   padding: 8px !important;
+}
+
+/* Accessibility Utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 

@@ -120,7 +120,7 @@
 .cert-viewer-body {
     flex: 1;
     overflow: hidden;
-    background: #050505; /* Deep Obsidian - Level 0 */
+    background: #0a0a0a; /* Deep Obsidian - Level 0 */
     display: flex;
     align-items: center;
     justify-content: center;

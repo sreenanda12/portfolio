@@ -8,31 +8,47 @@ export const ThemeProvider = ({ children }) => {
     useEffect(() => {
         const savedTheme = localStorage.getItem('theme') || 'light';
         setTheme(savedTheme);
+        const root = document.documentElement;
         if (savedTheme === 'dark') {
-            document.body.classList.add('dark');
-            document.body.classList.remove('light');
-            document.body.setAttribute('data-theme', 'dark');
+            root.classList.add('dark');
+            root.setAttribute('data-theme', 'dark');
         } else {
-            document.body.classList.remove('dark');
-            document.body.classList.add('light');
-            document.body.setAttribute('data-theme', 'light');
+            root.classList.remove('dark');
+            root.setAttribute('data-theme', 'light');
         }
     }, []);
 
     const toggleTheme = () => {
         const newTheme = theme === 'light' ? 'dark' : 'light';
+        
+        // 1. Disable transitions
+        const css = document.createElement('style');
+        css.type = 'text/css';
+        css.appendChild(document.createTextNode(`* {
+            -webkit-transition: none !important;
+            -moz-transition: none !important;
+            -o-transition: none !important;
+            -ms-transition: none !important;
+            transition: none !important;
+        }`));
+        document.head.appendChild(css);
+
+        // 2. Update state and DOM
         setTheme(newTheme);
         localStorage.setItem('theme', newTheme);
-        
+        const root = document.documentElement;
         if (newTheme === 'dark') {
-            document.body.classList.add('dark');
-            document.body.classList.remove('light');
-            document.body.setAttribute('data-theme', 'dark');
+            root.classList.add('dark');
+            root.setAttribute('data-theme', 'dark');
         } else {
-            document.body.classList.remove('dark');
-            document.body.classList.add('light');
-            document.body.setAttribute('data-theme', 'light');
+            root.classList.remove('dark');
+            root.setAttribute('data-theme', 'light');
         }
+
+        // 3. Re-enable transitions
+        // Force a reflow
+        const _ = window.getComputedStyle(css).opacity;
+        document.head.removeChild(css);
     };
 
     return (

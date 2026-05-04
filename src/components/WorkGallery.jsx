@@ -337,7 +337,7 @@ const WorkGallery = ({ fullView = false, title = "Portfolio" }) => {
                                                 textDecoration: 'none'
                                             }}
                                         >
-                                            <span className="sr-only">View {project.title}</span>
+                                            <span className="sr-only">View Project</span>
                                         </Link>
 
                                         <div className="premium-card-image">
@@ -360,7 +360,7 @@ const WorkGallery = ({ fullView = false, title = "Portfolio" }) => {
                                                         className="reveal-view-btn"
                                                         onClick={(e) => e.stopPropagation()}
                                                     >
-                                                        View Project
+                                                        View
                                                     </Link>
                                                     {project.pdf && (
                                                         <a 

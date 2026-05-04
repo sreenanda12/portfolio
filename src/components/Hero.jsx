@@ -106,9 +106,22 @@ const Hero = () => {
                             }}
                         >
                             <motion.img 
-                                src={theme === 'dark' ? '/hero-dark.png' : '/hero-light.png'} 
+                                src="/hero-dark.png" 
                                 alt="MUHAMMAD MUFLIH" 
-                                className="hero-main-image"
+                                className="hero-main-image dark-image-only"
+                                animate={{
+                                    y: [-10, 10, -10],
+                                }}
+                                transition={{
+                                    duration: 6,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }}
+                            />
+                            <motion.img 
+                                src="/hero-light.png" 
+                                alt="MUHAMMAD MUFLIH" 
+                                className="hero-main-image light-image-only"
                                 animate={{
                                     y: [-10, 10, -10],
                                 }}
